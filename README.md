@@ -1,0 +1,2 @@
+# branding
+THORChain Branding
