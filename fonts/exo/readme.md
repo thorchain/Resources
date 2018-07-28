@@ -1,3 +1,3 @@
 # Exo Font
 
-Licence: OFL [OFL](/licence.md)
+Licence: OFL [OFL](licence.md)
