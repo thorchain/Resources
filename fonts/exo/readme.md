@@ -1,3 +1,3 @@
 # Exo Font
 
-Licence: OFL [OFL](licence.md)
+Licence: Open Font Licence [OFL](licence.md)
