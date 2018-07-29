@@ -203,8 +203,11 @@ As with entering the bridge, users can choose from various bridges with differen
 *Figure: Exit Bridge User Interface, queried from the GenACC.*
 
 Token exits can also be performed, even tokens that have never been created on external chains. This can be done by allowing the Validator Set to be party to a token creating account, that simply deploys a token standard with variable supply. The owner of the contract is the multi-sig for the bridge. Each time a new token is sent, the multi-sig updates the supply in the token contract and forwards the tokens to the user address. 
-Users must specify which external chain they want to exit on, as it is their choice. As an extension of this, since the “original” asset is the THORChain asset which has a supply controlled by THORChain Validator Set, tokens can be exited onto multiple external chains, and still retain fungibility. A Rune could have `1:1` representative coin on Ethereum, as well as EOS and NEO. The THORChain MerkleChain DHT tracks assets and their linked chains. 
-Figure: A THORChain token is exited and created on a parent chain. 
+Users must specify which external chain they want to exit on, as it is their choice. As an extension of this, since the “original” asset is the THORChain asset which has a supply controlled by THORChain Validator Set, tokens can be exited onto multiple external chains, and still retain fungibility. A Rune could have `1:1` representative coin on Ethereum, as well as EOS and NEO. The THORChain MerkleChain DHT tracks assets and their linked chains.
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure7.png" width="400px" height="400px" />
+
+*Figure: A THORChain token is exited and created on a parent chain.* 
 
 Having cross-chain compatibility is imperative for THORChain to augment the entire ecosystem by bringing the benefits of decentralised trading and liquidity to all existing tokens. With the correct design, THORChain may be a far more favourable environment for digital assets to exist and be the ecosystem of choice for the creation of digital assets. 
 
@@ -234,13 +237,15 @@ There are a number of CLP transactions relevant to the Bifröst protocol, more t
 
 **Creating.** Using Validator Signalling a new bridge is nominated, synced and set up with the correct information. An altruistic party (the Foundation) or a self-interested forward-thinking party (Project Team), will then bootstrap the chain by sending in the first liquidity deposit to create the CLP liquidity. There will be two liquidity deposits required, the Rune, then the tCoin. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure8.png" width="400px" height="260px" />
+
 *Table: GenAcc for T1*
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure7.png" width="400px" height="400px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure9.png" width="400px" height="330px" />
 
 *Figure: Bootstrapping a new tokenChain*
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure8.png" width="400px" height="260px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure15.png" width="400px" height="290px" />
 
 *Figure: Creating liquidity in the CLP.*
 
@@ -257,7 +262,9 @@ The CLP will then:
 - Update the total supply in the tokenData field
 ```
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure9.png" width="400px" height="330px" />
+
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure10.png" width="400px" height="385px" />
 
 *Figure: Minting new tokens via CLP.*
 
@@ -273,9 +280,10 @@ The CLP will then:
 - Unlock tokens from the external multi-sig
 - Send to user address
 ```
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure10.png" width="400px" height="385px" />
 
-*Figure: Minting new tokens via CLP.*
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure11.png" width="400px" height="280px" />
+
+*Figure: Destroying tokens via CLP.*
 
 **External Deployment.** A user can deploy their THORChain tokens to an external chain:
 
@@ -289,7 +297,8 @@ The Validator Set will then:
 - Deploy an external token contract with the correct balance on the parent Chain.
 - Send to user address.
 ```
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure11.png" width="400px" height="280px" />
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure12.png" width="400px" height="240px" />
 
 *Figure: Deploying new tokens via CLP.*
 
@@ -305,7 +314,7 @@ The Validator will then:
 - Update the token contract.
 - Unlock tokens from the CLP to the user’s address.
 ```
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure12.png" width="400px" height="240px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure13.png" width="400px" height="215px" />
 
 *Figure: Recovering tokens via CLP.*
 
