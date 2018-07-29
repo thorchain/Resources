@@ -59,7 +59,7 @@ As such there are two levels of THORChain’s governance to cater for the needs 
 
 The two layers are known as Voting inside of Staking Pools, and Signalling for Validators. Delegators vote on a suggested change inside a pool, whilst a Validator sums their vote and signals the final result. Signalling involves an additional process which requires the Validator to perform to ready their node to accept the new software. Voting is set with a `51%` threshold, whilst Signalling requires `67%` consensus. 
 
-
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/AEsir-Protocol/Images/figure1.png" width="400px" height="400px" />
 
 *Figure: On-chain voting and signalling*
 
@@ -132,6 +132,8 @@ Once 67% of Validators have signalled in support of a TIP, then the supporting V
 ### TestNet
 When a Validator proposes a sweeping architectural change that requires formal verification, they participate in testing the change on the official TestNet. The proposed new software is first compiled and a new TestNet is run (as a fork or a new genesis). The SideNet is synced from the MainNet by the proposing Validator, who acts as a relayer. The Validator then submits a TIP containing a flagged blockhash from the SideNet. Validators who vote in favour of the update run the updated software and the SideNet, and submit votes also included flagged blockhashes. Whilst the SideNet is running it is formally verified as all new blocks are synced over. New features can be run If fatal errors occur
 Once `67%` of Validators are running the SideNet, the SideNet becomes the canonical net, and the old net is abandoned. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/AEsir-Protocol/Images/figure2.png" width="400px" height="290px" />
 
 *Figure: A sidefork to a SideNet.*
 
