@@ -168,7 +168,7 @@ Tendermint performance will be sufficient for THORChain initially, but modificat
 **Validator Set**
 Tendermint requires full-nodes as Validators or block producers, and each Validator must have a weight on the network. The weight is determined by their staking, so Tendermint can support Proof-of-Stake out of the box. The first implementation of THORChain has a single Validator Set drawn from all available Validators through an auction; the `100` highest staked Validators form the Validator Set. Validators propose blocks, agree and commit them. To join the Validator Set, a Validator must stake higher than the lowest Validator, and by this process ensures that the Validators with the greatest economic investment secure the network. Staking pools are possible to allow wider participation, and anyone can delegate their stake to a chosen Validator. Validators are paid from the block reward, and are paid evenly regardless of stake held. Proxy stakers are paid pro-rata to the total stake of a Validator; and so by design and self-interest; should choose the Validator with the lowest current stake, but in the top `100`. This encourages proxy stakers to distribute their stake where they have the most earning potential, and thus consequently will ensure a very flat and competitive group of 100, where the minority can easily influence Validator participation in the Validator Set. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure3.png" width="505px" height="440px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure3.png" width="500px" height="440px" />
 
 _Figure 3: Validator Set_
 
@@ -194,7 +194,7 @@ _Table: Order for splitting and merging_
 
 The Master VS, using the functions of the MerkleChain and processing subservient tokenChain MerkleRoots, will continue to ensure that the network is synced and interoperable. Subservient tokenChains will be less secure than the Master VS’s MerkleChain and RuneChain as the Validators who service their mempools will have less stake. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure4.png" width="650px" height="440px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure4.png" width="500px" height="430px" />
 
 _Figure 3: Segregated Validator Sets_
 
@@ -395,7 +395,7 @@ _Table: Example Liquidity Fees_
 
 **On-chain Arbitrage**. Any interaction with the GenAcc will emit the opposite pair at a slip-factored internal price. The slip that is caused by a large emission may move the GenAcc pricing away from fair market price. In this case, self-interested arbitrageurs will immediately correct the price by performing a reverse transaction. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure10.png" width="500px" height="450px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure10.png" width="500px" height="420px" />
 
 _Figure 10: On-chain Arbitrage_
 
@@ -466,7 +466,7 @@ _Figure 14: Alice paying Bob on a single chain._
 
 _Figure 15: Alice paying Bob across chains. Alice can pay to T0x(bob) or T1x(bob) or T2x(bob); but balance only updated at T1x(bob)._
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure16.png" width="520px" height="343px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure16.png" width="500px" height="323px" />
 
 _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 
@@ -474,7 +474,7 @@ _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 - Transfer Rune or TKN. 
 - If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="520px" height="376px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="500px" height="348px" />
 
 _Figure 17: Alice adding liquidity to CLP1._
 
