@@ -1,7 +1,13 @@
 # Resources
 
 ## Documents
-Whitepapers are found under each project. 
+Whitepapers for the project:
+
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
+- Bifrost Protocol
+- Flash Network
+- Yggdrasil Protocol
+- AEsir Protocol
 
 
 ## Branding
