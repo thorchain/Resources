@@ -2,6 +2,7 @@
 
 ## A lightning fast decentralised exchange protocol
 devs@thorchain.org
+
 V0.1 July 2018
 
 ### Abstract 
@@ -394,8 +395,9 @@ _Table: Example Liquidity Fees_
 
 **On-chain Arbitrage**. Any interaction with the GenAcc will emit the opposite pair at a slip-factored internal price. The slip that is caused by a large emission may move the GenAcc pricing away from fair market price. In this case, self-interested arbitrageurs will immediately correct the price by performing a reverse transaction. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure10.png" width="500px" height="450px" />
 
-_Figure: On-chain Arbitrage_
+_Figure 10: On-chain Arbitrage_
 
 **Price Oracle**. Token pricing in the GenAcc should always the fair market price, else self-interested arbitrageurs would have taken action. After large price movements there may be a delay, but large price movements cause large Liquidity Fees which self-corrects by attracting more liquidity. Thus the THORChain network can employ token pricing trustlessly throughout the ecosystem based on GenAcc pricing. 
 Trustless token pricing could be employed by future versions of the protocol in the following ways:
@@ -415,7 +417,9 @@ THORChain integrates on-chain trading at the protocol level, fulfilling all aspe
 - Store a balance that can only be transferred by the Account Owner.
 - Balances are updated with a unique nonce, and old balances are invalidated if a later nonce is published.  
 
-_Figure: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa....aaa]_
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure11.png" width="333px" height="135px" />
+
+_Figure 11: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa...aaa]_
 
 **Trading Account**. Trading Accounts have the following characteristic:
 - Store a balance that can only be transferred by:
@@ -431,7 +435,9 @@ _Figure: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa...
 - Store a Host Address to send Host Fees to. 
 - All data is updated with a unique nonce, and old data is invalidated if a later nonce is published. 
 
-_Figure: The THORChain Trading Account for Rune (T0). Alice’s public address for the pair (T1) [aaa....aaa] is automatically inserted, but can be specified._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure12.png" width="365px" height="225px" />
+
+_Figure 12: The THORChain Trading Account for Rune (T0). Alice’s public address for the pair (T1) [aaa....aaa] is automatically inserted, but can be specified._
 
 **CLP Account**. A CLP is a special account that resides on genesis account of each tokenChain:
 - Store an array of stakers (address and commitment amount) to collect fees for.
@@ -441,7 +447,9 @@ _Figure: The THORChain Trading Account for Rune (T0). Alice’s public address f
 - Store CLP Data. 
 - Store a nonce.
 
-_Figure: The THORChain CLP Account for TKN1 (T1)._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure13.png" width="380px" height="235px" />
+
+_Figure 13: The THORChain CLP Account for TKN1 (T1)._
 
 ### Transaction Types
 
@@ -450,31 +458,38 @@ Alongside Accounts, THORChain adds unique Transaction types that cover transacti
 - Transfer Rune or TKN. 
 - If the recipient does not have the required wallet, it is created using the same publicAddress. 
 
-_Figure: Alice paying Bob on a single chain._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure14.png" width="425px" height="240px" />
 
+_Figure 14: Alice paying Bob on a single chain._
 
-_Figure: Alice paying Bob across chains. Alice can pay to T0x(bob) or T1x(bob) or T2x(bob); but balance only updated at T1x(bob)._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure15.png" width="470px" height="343px" />
 
+_Figure 15: Alice paying Bob across chains. Alice can pay to T0x(bob) or T1x(bob) or T2x(bob); but balance only updated at T1x(bob)._
 
-_Figure: Alice interacting with TKN1 CLP with T0. She receives TKN1._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure16.png" width="520px" height="343px" />
+
+_Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 
 **LiqTX**. Send a balance to a CLP to add liquidity. Sender’s address is added to collect earned fees. 
 - Transfer Rune or TKN. 
 - If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="520px" height="376px" />
 
-_Figure: Alice adding liquidity to CLP1._
+_Figure 17: Alice adding liquidity to CLP1._
 
 **LiqWdTX**. Withdraw liquidity from a CLP. 
 - Call Withdraw on the Account. 
 - If signatures match with Stakers Array, all liquidity is emitted to sender’s address, including earned fees. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure18.png" width="500px" height="352px" />
 
-_Figure: Alice withdrawing her liquidity + fees._
+_Figure 18: Alice withdrawing her liquidity + fees._
 
 **FeeWdTX**. Withdraw fee from a CLP. 
 - Call WithdrawFees on the Account. 
 - If signatures match, all fees emitted to sender’s address. 
+
 
 _Figure: Alice withdrawing her fees._
 
