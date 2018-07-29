@@ -414,38 +414,45 @@ Trustless token pricing could be employed by future versions of the protocol in 
 THORChain integrates on-chain trading at the protocol level, fulfilling all aspects of the desired trade experience. THORChain makes use of account-based architecture which offers flexibility over the UTXO model. There are three account types in the ecosystem, created with the appropriate native on-chain command:
 
 **Wallet Account**. Wallet Accounts have the following characteristic:
+```
 - Store a balance that can only be transferred by the Account Owner.
 - Balances are updated with a unique nonce, and old balances are invalidated if a later nonce is published.  
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure11.png" width="350px" height="144px" />
 
 _Figure 11: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa...aaa]_
 
 **Trading Account**. Trading Accounts have the following characteristic:
+```
 - Store a balance that can only be transferred by:
   - The Account Owner
   - A valid incoming trade, and only after performing the Trade Execution.
 - Store a Price; that generates a Trade Execution, such that:
+```
 
 ![Trade=Balance*Price](https://latex.codecogs.com/gif.latex?Trade%3DBalance*Price)
 
-
+```
 - Store an Expiry time in blocks.
 - Store a Host Fee; such that user-facing clients can add an optional fee.
 - Store a Host Address to send Host Fees to. 
 - All data is updated with a unique nonce, and old data is invalidated if a later nonce is published. 
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure12.png" width="350px" height="215px" />
 
 _Figure 12: The THORChain Trading Account for Rune (T0). Alice’s public address for the pair (T1) [aaa....aaa] is automatically inserted, but can be specified._
 
 **CLP Account**. A CLP is a special account that resides on genesis account of each tokenChain:
+```
 - Store an array of stakers (address and commitment amount) to collect fees for.
 - Store balances of Rune and Token.
 - Store fees for Rune and Token.
 - Store Token Data.
 - Store CLP Data. 
 - Store a nonce.
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure13.png" width="350px" height="212px" />
 
@@ -453,10 +460,13 @@ _Figure 13: The THORChain CLP Account for TKN1 (T1)._
 
 ### Transaction Types
 
-Alongside Accounts, THORChain adds unique Transaction types that cover transactions and trades. These are executed as native on-chain commands that perform math on each trade and update account nonces to save state.  
+Alongside Accounts, THORChain adds unique Transaction types that cover transactions and trades. These are executed as native on-chain commands that perform math on each trade and update account nonces to save state.
+
 **TX**. Send a Balance to a recipient’s wallet. If sent to a CLP, corresponding tokens are emitted to back to the sender’s token wallet. 
+```
 - Transfer Rune or TKN. 
 - If the recipient does not have the required wallet, it is created using the same publicAddress. 
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure14.png" width="350px" height="160px" />
 
@@ -470,70 +480,85 @@ _Figure 15: Alice paying Bob across chains. Alice can pay to T0x(bob) or T1x(bob
 
 _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 
-**LiqTX**. Send a balance to a CLP to add liquidity. Sender’s address is added to collect earned fees. 
+**LiqTX**. Send a balance to a CLP to add liquidity. Sender’s address is added to collect earned fees.
+```
 - Transfer Rune or TKN. 
 - If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="350px" height="243px" />
 
 _Figure 17: Alice adding liquidity to CLP1._
 
 **LiqWdTX**. Withdraw liquidity from a CLP. 
+```
 - Call Withdraw on the Account. 
 - If signatures match with Stakers Array, all liquidity is emitted to sender’s address, including earned fees. 
+```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure18.png" width="350px" height="246px" />
 
 _Figure 18: Alice withdrawing her liquidity + fees._
 
 **FeeWdTX**. Withdraw fee from a CLP. 
+```
 - Call WithdrawFees on the Account. 
 - If signatures match, all fees emitted to sender’s address. 
-
+```
 
 _Figure: Alice withdrawing her fees._
 
 **GenTX**. The Genesis Transaction is used to create a new Token and TokenChain.
+```
 - Transfer RUNE.
 - Set Ticker and Name.
 - Set Supply. Leave 0 for variable supply.
 - Set Decimals (18 default)
 - Set Reserve Ratio.
 - Set Account Owner, default is Self. 
+```
 
 
 _Figure: Alice creating Token1 TokenChain._
 
 **TradeTx**. The Account Transaction is used to create a Trade Account. 
+```
 - Transfer Rune or TKN. 
 - Set Price. In Rune or TKN.
 - Set Expiry (in blocks). 
 - Set destination account (default is Alice’s token address).
 - Set Host Fee. Optional. 
 - Set Host Account. Optional. 
+```
 
 _Figure: Alice setting a T1 Sell Order for `T0`_
 
 **WalletTx**. The Account Transaction is used to return a Trade Account to a Wallet Account. 
+```
 - Transfer Rune or TKN. 
+```
 
 _Figure: Alice cancelling her trade._
 
-**TradeSolicitTx**. The Trade Transaction is used to solicit a Trade. 
+**TradeSolicitTx**. The Trade Transaction is used to solicit a Trade.
+```
 - Transfer Rune or TKN.
 - Set Price. Desired Price to fill at. 
 - Set Limit. Furthest deviation from Price allowed. Leave blank for Market Order. 
 - Set Expiry (in blocks). Used if the Order is not immediately filled, and becomes a `WalletTX`. 
 - Set Host Fee. Optional. 
 - Set Host Account. Optional.
+```
 
 _Figure: Bob buying Alice’s T1 Sell Order. The transaction is sent across chains from `TO` to `T1`_
 
-**TradeExecuteTx**. The successful outcome of TradeSolicitTx. 
+**TradeExecuteTx**. The successful outcome of TradeSolicitTx.
+```
 - Transfer TKN to Buying Party Destination Account.
 - Refund spare Rune back to Buying Party Account.
 - Transfer Rune to Selling Party. 
 - Update nonces
+```
 
 _Figure: Bob buys Alice’s T1 Sell Order, is refunded the extra. Alice gets the Rune._
 
