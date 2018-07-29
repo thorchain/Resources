@@ -70,16 +70,16 @@ A hard fork may also cause issues to the bridge in terms of what is considered t
 ## Existing Cross-chain Solutions
 
 ### Rootstock 2WP
-Rootstock is an ethereum-compatible smart contract side-chain solution for Bitcoin. Rootstock have built a bridge that allows users to send Bitcoin to a multi-sig and have tokenised Bitcoin minted on the secondary chain. Rootstock use a concept of merge-mining and a drive-chain/side-chain implementation that gives primary custody to miners, with notaries in lieu of miner participation. It is preferred to have full miner participation in the consensus; however this is unlikely so a federation of notaries is employed to make up the security. Miner signalling is affected by the addition of an OP code that they insert in the coinbase. The presence of a federation is the primary drawback of this solution; parties must still trust a group of people to be honest. 
+[Rootstock](https://uploads.strikinglycdn.com/files/ec5278f8-218c-407a-af3c-ab71a910246d/Drivechains_Sidechains_and_Hybrid_2-way_peg_Designs_R9.pdf) is an ethereum-compatible smart contract side-chain solution for Bitcoin. Rootstock have built a bridge that allows users to send Bitcoin to a multi-sig and have tokenised Bitcoin minted on the secondary chain. Rootstock use a concept of merge-mining and a drive-chain/side-chain implementation that gives primary custody to miners, with notaries in lieu of miner participation. It is preferred to have full miner participation in the consensus; however this is unlikely so a federation of notaries is employed to make up the security. Miner signalling is affected by the addition of an OP code that they insert in the coinbase. The presence of a federation is the primary drawback of this solution; parties must still trust a group of people to be honest. 
 
 ### Liquid Sidechain
-Liquid Sidechain is another Bitcoin sidechain solution that uses the concept of a Strong Federation to secure the bridge; essentially notaries in the same sense as Rootstock. It is not clear who can be a signatory, or if there is a limit to the number of notaries. This still does not escape the scourge of trusting a party. 
+[Liquid Sidechain](https://blockstream.com/strong-federations.pdf) is another Bitcoin sidechain solution that uses the concept of a Strong Federation to secure the bridge; essentially notaries in the same sense as Rootstock. It is not clear who can be a signatory, or if there is a limit to the number of notaries. This still does not escape the scourge of trusting a party. 
 
 ### POA Network Bridge
-POA Network is a sidechain to Ethereum with faster consensus; a Proof-of-Authority consensus algorithm where renowned members of the community put up their public reputation and identity to be block producers. The cross-chain bridge in this case is quite trivial as a multi-signature account tied to block producers is sufficient. Although efficient, the notion of having individuals control the bridge (and consensus) is a trustless tradeoff. 
+[POA Network](https://poa.network/) is a sidechain to Ethereum with faster consensus; a Proof-of-Authority consensus algorithm where renowned members of the community put up their public reputation and identity to be block producers. The cross-chain bridge in this case is quite trivial as a multi-signature account tied to block producers is sufficient. Although efficient, the notion of having individuals control the bridge (and consensus) is a trustless tradeoff. 
 
 ### COSMOS Peg Zone
-COSMOS bridge the Ethereum chain with a peg zone that overlays a finality layer to Ethereum’s probabilistic finality and convert the signature schemes between the two chains to make them compatible. The witness that signs the peg zone is a `2 / 3` consensus from the COSMOS Validator Set; so the bridge security matches the security of the entire COSMOS chain. This implementation does not make many compromises between trustlessness and efficiency. The only issue here is that it involves the full participation in the nodes that secure the COSMOS network, so performance characteristics are unknown.   
+[COSMOS](https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f) bridge the Ethereum chain with a peg zone that overlays a finality layer to Ethereum’s probabilistic finality and convert the signature schemes between the two chains to make them compatible. The witness that signs the peg zone is a `2 / 3` consensus from the COSMOS Validator Set; so the bridge security matches the security of the entire COSMOS chain. This implementation does not make many compromises between trustlessness and efficiency. The only issue here is that it involves the full participation in the nodes that secure the COSMOS network, so performance characteristics are unknown.   
 
 ### Full Network Security
 All pegs attempt to involve full network security in their bridges, however most concede defeat to trusted or semi-trusted bridges with less than full network security. The exception is Cosmos, which has full and trustless network security. Any less than full network security on a bridge means that a cartel always has the economic incentives to conduct a supermajority sybil attack and seize assets if they are valuable enough. 
@@ -108,9 +108,13 @@ There are a number of innovations proposed to solve the salient issues of bridge
 ### Randomised Reshuffling Sub-sets
 It is necessary to garner full protocol level security for bridges, but this comes at serious performance costs. The solution is ultimately a trade-off between security and performance as smaller signature requirements can be executed faster, but have higher risk. Using on-chain governance, `k` sub-sets of `n` signatures (such as `2` sub-sets with each `11` signatures) are voted to secure `k` Bridges. The Validator Set can use a VRF to nominate individual Validators to be signatories to each of the `k` sub-sets and `k * n` Validators are required to be sourced from the 100 staked validators. Every `x` blocks the multi-sig accounts are re-shuffled creating new multi-sig accounts. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure1.png" width="400px" height="280px" />
+
 *Figure: `k` subsets, secured by m of n signatures from n validators, party to `k` mult-sigs. Every `x` blocks, a validator is swapped out and assets moved.*
 
 Although there will be `k` multi-sig accounts on the external chain, the Validators mint tokens on the same internal tokenChain. Importantly, only one Validator from each sub-set is removed and replaced by a random external Validator, as this reduces the risk of locking out a multi-sig. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure2.png" width="400px" height="250px" />
 
 *Figure: Multiple bridges, one token. Sub-sets are re-shuffled regularly.*
 
@@ -155,6 +159,8 @@ On-chain governance, (known as the Æsir Protocol) is deeply integrated into THO
 
 When a Bridge is first established using Validator Signaling, the `tCoin` and tokenChain is created by the Validator Set using a Genesis transaction `GenTX` with 0 supply. Each time a new coin enters via the bridge, the supply of the GenAcc in the CLP is updated accordingly by  the Validator Set, and the `tCoin` is sent to the recipient. The `GenAcc` is filled with liquidity from either the project team, Foundation or self-interested liquidity stakers. `GenTX`, CLPs and Liquidity mechanisms are explained in the [THORChain whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md). 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure3.png" width="400px" height="343px" />
+
 *Figure: Sending coins to THORChain.*
 
 The tokenIndex is chosen as simply the next index available and the information is stored in the token `GenAcc`. In the case that Bitcoin is tokenised onto the T1 chain and Ethereum is tokenised onto T2, the GenAcc would store (simplified):
@@ -163,6 +169,7 @@ The tokenIndex is chosen as simply the next index available and the information 
 
 This allows the Validator Set to update the external multi-signatures if they ever need to change, such as if they were compromised. The user experience is simple and trustless, with an overview similar to the following:
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure4.png" width="400px" height="250px" />
 
 *Figure: Enter Bridge User Interface, queried from the GenAcc.* 
 
@@ -185,10 +192,13 @@ These characteristics are important to ensure that `tCoins >= Coins`. If this is
 ### Exiting a Bridge
 `tCoins` can be exited at any time by simply using the Bridge in reverse. The `tCoin` is sent to the CLP in a special transaction which destroys it and updates total supply by the Validator Sub-set. Once block finality is achieved ~1 second, then the Validators can sign the external multi-sig to release the assets to the user’s address. Signing the external multi-sig and the finality of the transaction is limited by external chain characteristics. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure5.png" width="400px" height="365px" />
+
 *Figure: Sending coins out of THORChain.*
 
 As with entering the bridge, users can choose from various bridges with different security and performance characteristics. On-chain or client side checks can ensure that a user does not exit a bridge with assets that will exceed the security of a bridge. Again, the value of the assets can be known on-chain by the CLP pricing. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure6.png" width="400px" height="260px" />
 
 *Figure: Exit Bridge User Interface, queried from the GenACC.*
 
@@ -226,7 +236,11 @@ There are a number of CLP transactions relevant to the Bifröst protocol, more t
 
 *Table: GenAcc for T1*
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure7.png" width="400px" height="400px" />
+
 *Figure: Bootstrapping a new tokenChain*
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure8.png" width="400px" height="260px" />
 
 *Figure: Creating liquidity in the CLP.*
 
@@ -243,6 +257,7 @@ The CLP will then:
 - Update the total supply in the tokenData field
 ```
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure9.png" width="400px" height="330px" />
 
 *Figure: Minting new tokens via CLP.*
 
@@ -258,6 +273,7 @@ The CLP will then:
 - Unlock tokens from the external multi-sig
 - Send to user address
 ```
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure10.png" width="400px" height="385px" />
 
 *Figure: Minting new tokens via CLP.*
 
@@ -273,6 +289,7 @@ The Validator Set will then:
 - Deploy an external token contract with the correct balance on the parent Chain.
 - Send to user address.
 ```
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure11.png" width="400px" height="280px" />
 
 *Figure: Deploying new tokens via CLP.*
 
@@ -288,6 +305,7 @@ The Validator will then:
 - Update the token contract.
 - Unlock tokens from the CLP to the user’s address.
 ```
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure12.png" width="400px" height="240px" />
 
 *Figure: Recovering tokens via CLP.*
 
@@ -324,7 +342,11 @@ As part of THORChain’s design all Validators hold stake in the network, the am
 
 If their act is discovered inside the unbonding period, then they are slashed. This is highly likely. Their economic gain is thus: 
 
-```(stolenAssets) - ((slashedRune) + (arbitrageCost * x blocks))```
+```
+(stolenAssets) - ((slashedRune) + (arbitrageCost * x blocks))
+```
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/figure14.png" width="400px" height="350px" />
 
 *Figure: The attack path to steal external assets*
 
