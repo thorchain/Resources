@@ -183,12 +183,12 @@ At any stage if a Validator Set’s GasLimit reduces below `10%` saturation for 
 
 |Seq|Event|Action
 |:---:|:---:|:---|
-|1|>90% Saturation|Validator Set (VS1) start signalling to split
-|2|100 Blocks
-|3|101st Block|A new Validator Set (VS2) commissioned
-|4|<10% Saturation on both Chains|VS1 and VS2 signal to merge
-|5|100 Blocks
-|6|101st Block|VS2 decommissioned and VS1 returns to process both chains. 
+|1|`>90% Saturation`|Validator Set (VS1) start signalling to split
+|2|`100 Blocks`
+|3|`101st Block`|A new Validator Set (VS2) commissioned
+|4|`<10% Saturation on both Chains`|VS1 and VS2 signal to merge
+|5|`100 Blocks`
+|6|`101st Block`|VS2 decommissioned and VS1 returns to process both chains. 
 
 _Table: Order for splitting and merging_
 
@@ -259,13 +259,13 @@ _Figure 5: The Genesis Account for Token1_
 
 The `GenAcc` stores the following information about the Token which can be publicly queried and displayed on order books, wallets and exchanges:
 
-|Ticker| TKN1 |Ticker to display|
+|Ticker| `TKN1` |Ticker to display|
 |:---|:---|:---|
-Name|Token1|Name to display
-Supply|100,000,000|Total Supply (100m)
-Decimals|18|Decimals
-Reserve|1.0|A parameter to specify the fractional reserve of the CLP (default is 1.0).
-Owner|Self|If self; the details above are immutable as there is no private key for the genesis account. 
+Name|`Token1`|Name to display
+Supply|`100,000,000`|Total Supply (100m)
+Decimals|`18`|Decimals
+Reserve|`1.0`|A parameter to specify the fractional reserve of the CLP (default is 1.0).
+Owner|`Self`|If self; the details above are immutable as there is no private key for the genesis account. 
 
 _Table: Fixed Supply Token_
 
@@ -273,12 +273,12 @@ If the Account Owner is SELF then the token details are immutable and cannot be 
 If there is an external Account Owner specified, then that Account Owner can change any characteristic of the token, including Supply by proxy. They cannot change the TokenIndex which is permanent and identifies the TokenChain. These tokens are known as variable supply tokens as the account owner is permitted to change the supply of the token. This is necessary for tokenised assets, security tokens and even pegged tokens, whereby the account owner can be a single owner or multi-sig owner that is permitted to change the token characteristics in line with external non-THORChain logic. 
 Account owners can even hand over control of the GenAcc to other accounts, including accounts without a private key; effectively turning the token into a fixed supply immutable token.  
 
-|Ticker| TKN1 |Ticker to display|
+|Ticker| `TKN1` |Ticker to display|
 |:---|:---|:---|
-Name|Token1|Name to display
-Supply|100,000,000|Total Supply (100m)
-Decimals|18|Decimals
-Reserve|1.0|A parameter to specify the fractional reserve of the CLP (default is 1.0).
+Name|`Token1`|Name to display
+Supply|`100,000,000`|Total Supply (100m)
+Decimals|`18`|Decimals
+Reserve|`1.0`|A parameter to specify the fractional reserve of the CLP (default is 1.0).
 Owner|`T1xa1b2c3d4e5f6`|Owner can be another address which will allow mutable token details, necessary for Asset/Security/Pegged Tokens.
 
 _Table: Variable Supply Token_
