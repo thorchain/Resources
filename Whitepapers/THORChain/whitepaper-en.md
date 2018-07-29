@@ -346,8 +346,9 @@ _Figure 6: The CLP is the genesis account._
 ### CLP Transactions
 
 The `GenAcc` is the CLP for each TokenChain, holding both Rune and the full supply of the created tokens as locked liquidity. The account owner can not move the tokens; they can only interact with the `GenAcc` on-chain command. There are six valid transaction types:
+
 **Rune In**. Anyone can send Rune to the `GenAcc`. The `GenAcc` will emit `TKN1` (minus a fee), sent to the sender’s `TKN1` address 
-**`TKN1` In**. Anyone can send the specific token to the `GenAcc`. The `GenAcc` will emit Rune (minus a fee), sent to the sender’s Rune address.
+**TKN1 In**. Anyone can send the specific token to the `GenAcc`. The `GenAcc` will emit Rune (minus a fee), sent to the sender’s Rune address.
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure7.png" width="350px" height="209px" />
 
@@ -355,7 +356,7 @@ _Figure 7: CLP Transactions_
 
 **Rune LiquidityTx**. Anyone can add Rune to the locked liquidity in the `GenAcc`, and no `TKN1` will be emitted. This is a special transaction that registers the sender’s address as well as the balance sent in order to track and pay them pro-rata liquidity fees. 
 
-**`TKN1` LiquidityTx**. Anyone can add TKN1 to the locked liquidity in the GenAcc, and no Rune will be emitted. Again, the sender’s address and balance will be registered for payment of  liquidity fees. 
+**TKN1 LiquidityTx**. Anyone can add TKN1 to the locked liquidity in the GenAcc, and no Rune will be emitted. Again, the sender’s address and balance will be registered for payment of  liquidity fees. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure8.png" width="350px" height="208px" />
 
@@ -369,7 +370,7 @@ _Figure 8: Adding liquidity to a CLP_
 
 _Figure 9: Rune FeeWithdrawTx. Anyone that added liquidity to the CLP is permitted to withdraw their earned fees._
 
-**`TKN1` FeeWithdrawTx**. Again, anyone can withdraw their earned fees. 
+**TKN1 FeeWithdrawTx**. Again, anyone can withdraw their earned fees. 
 
 Importantly, the Locked Liquidity will only emit tokens at the internal price; inferred by the locked `RUNE:TKN1` ratio. If `10 RUNE` is locked alongside `1000 TKN1`; then the price of `1 TKN1` is `0.01 RUNE`, and tokens will be emitted at this internal price. The emission rate factors in slip which is the price of the token after the emission occurs, governed by the following equation:
 
@@ -416,8 +417,9 @@ THORChain integrates on-chain trading at the protocol level, fulfilling all aspe
 **Wallet Account**. Wallet Accounts have the following characteristic:
 ```
 - Store a balance that can only be transferred by the Account Owner.
-- Balances are updated with a unique nonce, and old balances are invalidated if a later nonce is published.  
+- Store a nonce. 
 ```
+Balances are updated with a unique nonce, and old balances are invalidated if a later nonce is published. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure11.png" width="350px" height="144px" />
 
@@ -437,7 +439,7 @@ _Figure 11: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa
 - Store an Expiry time in blocks.
 - Store a Host Fee; such that user-facing clients can add an optional fee.
 - Store a Host Address to send Host Fees to. 
-- All data is updated with a unique nonce, and old data is invalidated if a later nonce is published. 
+- Store a nonce.
 ```
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure12.png" width="350px" height="215px" />
@@ -464,9 +466,9 @@ Alongside Accounts, THORChain adds unique Transaction types that cover transacti
 
 **TX**. Send a Balance to a recipient’s wallet. If sent to a CLP, corresponding tokens are emitted to back to the sender’s token wallet. 
 ```
-- Transfer Rune or TKN. 
-- If the recipient does not have the required wallet, it is created using the same publicAddress. 
+- Transfer Rune or TKN.  
 ```
+If the recipient does not have the required wallet, it is created using the same publicAddress.
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure14.png" width="350px" height="160px" />
 
@@ -483,8 +485,8 @@ _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 **LiqTX**. Send a balance to a CLP to add liquidity. Sender’s address is added to collect earned fees.
 ```
 - Transfer Rune or TKN. 
-- If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
 ```
+If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="350px" height="243px" />
 
@@ -492,9 +494,10 @@ _Figure 17: Alice adding liquidity to CLP1._
 
 **LiqWdTX**. Withdraw liquidity from a CLP. 
 ```
-- Call Withdraw on the Account. 
-- If signatures match with Stakers Array, all liquidity is emitted to sender’s address, including earned fees. 
+- Call Withdraw on the CLP. 
 ```
+If signatures match with Stakers Array, all liquidity is emitted to sender’s address, including earned fees. 
+
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure18.png" width="350px" height="246px" />
 
@@ -503,10 +506,12 @@ _Figure 18: Alice withdrawing her liquidity + fees._
 **FeeWdTX**. Withdraw fee from a CLP. 
 ```
 - Call WithdrawFees on the Account. 
-- If signatures match, all fees emitted to sender’s address. 
 ```
+If signatures match, all fees emitted to sender’s address. 
 
-_Figure: Alice withdrawing her fees._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure19.png" width="350px" height="247px" />
+
+_Figure 19: Alice withdrawing her fees._
 
 **GenTX**. The Genesis Transaction is used to create a new Token and TokenChain.
 ```
@@ -517,7 +522,7 @@ _Figure: Alice withdrawing her fees._
 - Set Reserve Ratio.
 - Set Account Owner, default is Self. 
 ```
-
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure20.png" width="350px" height="184px" />
 
 _Figure: Alice creating Token1 TokenChain._
 
@@ -531,12 +536,16 @@ _Figure: Alice creating Token1 TokenChain._
 - Set Host Account. Optional. 
 ```
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure21.png" width="350px" height="185px" />
+
 _Figure: Alice setting a T1 Sell Order for `T0`_
 
 **WalletTx**. The Account Transaction is used to return a Trade Account to a Wallet Account. 
 ```
 - Transfer Rune or TKN. 
 ```
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure22.png" width="350px" height="232px" />
 
 _Figure: Alice cancelling her trade._
 
@@ -545,10 +554,12 @@ _Figure: Alice cancelling her trade._
 - Transfer Rune or TKN.
 - Set Price. Desired Price to fill at. 
 - Set Limit. Furthest deviation from Price allowed. Leave blank for Market Order. 
-- Set Expiry (in blocks). Used if the Order is not immediately filled, and becomes a `WalletTX`. 
+- Set Expiry (in blocks). Used if the Order is not immediately filled, and becomes a WalletTX. 
 - Set Host Fee. Optional. 
 - Set Host Account. Optional.
 ```
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure23.png" width="350px" height="232px" />
 
 _Figure: Bob buying Alice’s T1 Sell Order. The transaction is sent across chains from `TO` to `T1`_
 
@@ -557,8 +568,10 @@ _Figure: Bob buying Alice’s T1 Sell Order. The transaction is sent across chai
 - Transfer TKN to Buying Party Destination Account.
 - Refund spare Rune back to Buying Party Account.
 - Transfer Rune to Selling Party. 
-- Update nonces
+- Update nonces.
 ```
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure24.png" width="350px" height="269px" />
 
 _Figure: Bob buys Alice’s T1 Sell Order, is refunded the extra. Alice gets the Rune._
 
@@ -569,9 +582,13 @@ Relaying Refunds from one order to another may be seen as inefficient as it gene
 
 **Limit Order**. A trader wishes to spend their entire balance on open orders within a price limit. They specify their starting price as well as a limit, and collect all open orders inside that range, before the order expires. The mechanism of this is to relay the Refund from one order to another until all is fulfilled (or not). 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure25.png" width="350px" height="341px" />
+
 _Figure: Bob issues a limit order._
 
 **Market Order**. A trader may just wish to clear their trade at any market price available. This is done by relaying the Refund from one order to another until all is fulfilled (or not). 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure26.png" width="350px" height="340px" />
 
 _Figure: Bob issues a market order._ 
 
@@ -605,6 +622,8 @@ Traders will have access to exchange interfaces that are familiar in experience 
 - Token Information
 - Bridge Accounts
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure27.png" width="350px" height="299px" />
+
 _Figure: Reading and displaying the trades._
 
 **Trading**. Traders can access all features of the protocol to perform trades on their assets and leave at any time. Private keys are held on client side and signatures may be queried from hardware wallets. 
@@ -613,6 +632,8 @@ _Figure: Reading and displaying the trades._
 
 Exchanges and Wallets have client-side access to insert a transparent Hosting Fee and Account to each AccountTX. As each trade is made (maker, taker, CLP trades) the fee is immediately paid to the host account.  
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure28.png" width="350px" height="241px" />
+
 _Figure: Exchange inserting their maker fee._
 
 This will support the development of excellent user-experiences in exchanges and wallets that use the THORChain protocol. The pricing mechanism only gathers fees from trades originating from each Wallet and Exchange, so it will naturally support apps that are great experiences. The fee mechanism is also price competitive and public, ensuring that users get the best fees. 
@@ -620,12 +641,13 @@ This will support the development of excellent user-experiences in exchanges and
 ### Cross-token Trading
 **For Users**. The Rune is the settlement currency of THORChain and is paired to all tokens in their CLPs, (no token can exist on THORChain without a CLP being created). Users who wish to trade from one token to another such as `T1` to `T2` do not have a CLP available that matches `T1:T2`. Instead they can perform two transactions that settle with Rune; `T1:Rune:T2`. Which uses the `T1:Rune` and `T2:Rune CLP`. In this case the emitted Rune is immediately re-routed to the next CLP. The user can be assured that both prices are trustless and represent fair market price. Fees can also be transparent and known ahead of time, and the entire trade will take `2` blocks to complete. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure29.png" width="350px" height="254px" />
+
 _Figure: Routing via two CLPs._ 
 
 **For Traders**. With the mechanism described above, all tokens now have liquidity with each other. This may be sufficient for the needs of traders, but advanced traders may prefer direct order-book markets from one token to another, such as for `tBTC:tETH`. This is up for users to create by simply specifying a pair that is not in Rune when creating orders. The THORChain order-book explorer will collect orders and pair them appropriately on any DEX built for THORChain. 
 
-
-
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure30.png" width="350px" height="208px" />
 
 *Figure: A T1:T2 sell order that is not paired to Rune `T0`*.
 
@@ -667,11 +689,15 @@ Owner|Self|Owned by the Protocol
 
 The first `100` Validators Auction their way into the Validator Set by staking into `T0`. The Top `100` are assigned to be Validators, assessed every block. Staking is simply a transaction to `T0`, where the incoming address is saved in the Staking Array, alongside balance. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure31.png" width="350px" height="233px" />
+
 *Figure: A prospective Validator stakes.*
 
 The Top `100` Validators in the Staking Array Stakers are Validators that secure the protocol, and this is tracked in the Validators array. If a new validator stakes more than the `100th` Validator, the old Validator is removed from the Validators array and the new one is added. This can be observed by anyone and is updated every block. A bondPeriod specifies the minimum amount of blocks before a Validator can withdraw stake (`14` days). Block Rewards accumulate in `T0`. When a block reward is issued, the tokenData field is updated to increase total Rune supply commensurately. Staked Validators can withdraw their split share of Block Rewards at anytime (`1/100th` of the accumulated rewards). Reward entitlements are tracked in the Validators field. 
 
 Delegating tokens to an existing Validator (or Staker who wishes to become a Validator) is performed by the Rune holder simply performing a transaction that specifies an address that is already in the Staking Array. Not specifying a Staking Address, or an address that is invalid will result in them contending to be a Validator instead of a Delegator:
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure32.png" width="350px" height="233px" />
 
 _Figure: A rune holder delegates to a Staker._
 
@@ -690,6 +716,8 @@ Users who wish to assign short human-readable names to their accounts to improve
 - A single name can be used for all of their asset accounts, but can be specified, such as `alice.rune`, `alice.btc`, `alice.0` by setting either the index or the ticker as a suffix. 
 - Sending RUNE to `alice.btc` will forward it to `alice.rune` regardless. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure33.png" width="350px" height="157px" />
+
 *Figure: Alice’s Rune Account is alice.rune*
 
 THORChain has the opportunity to rethink how a name service can be operated such that it achieves both effective allocative and investment efficiency. Names will end up being redistributed to parties who can derive the most value from it, and each name can become an investment to the owner. The principle behind the TNS is a hybrid between Harbinger taxes and staking auctions to prevent name-squatting. 
@@ -705,6 +733,8 @@ If a “squatter” owns a name that another user wishes to purchase, the buyer 
 |Total:|38 Rune|`0.1 Rune` every `m blocks`
  
 *Table: If out-staked, the Owner pays a Fee based on the difference between their stake and the highest bidder. They can sell the name any time and if they don’t pay the fees the name is open to be acquired.*
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure34.png" width="350px" height="212px" />
 
 *Figure: Name staking to acquire a desired name.*
 
@@ -723,12 +753,19 @@ A user specifies two other types of accounts on their primary account: Recovery 
 
 This mechanism is safe as it requires both their Guardian and Recovery accounts being compromised. Additionally, Recovery accounts are specified before the fact, so funds can only move to an address specified by the original owner. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure35.png" width="350px" height="178px" />
+
 *Figure: Guardian and Recovery addresses are stored on-chain.*
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure36.png" width="350px" height="205px" />
+
 *Figure: A Guardian activates a Recovery Address. The Recovery Address withdraws the balance.* 
 
 ### Multi-sig Accounts
 
 Multi-signature accounts are supported at the protocol level as a key part of managing assets. The account owner simply adds external accounts in special transactions. Once added all future transactions require all parties to sign. The signature is aggregated in the account and the last party performs the transaction. The signature is cleared once the transaction is performed. The default is n of n but this can easily be changed at any time by the parties. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure37.png" width="350px" height="155px" />
 
 *Figure: A THORChain multi-sig.*
 
@@ -759,6 +796,8 @@ THORChain has all the required features to create StableCoins with auditable sup
 - Self-interested arbitrageurs will then send in Rune to buy cheap `tUSD`, until `tUSD` returns to `1:1` backed in Assets.
 - Additionally, the liquidity fee will increase the staked collateral in the CLP to match volume and reduce slip. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure38.png" width="350px" height="622px" />
+
 *Figure: Collateralized on-chain StableCoins.* 
 
 This process can be repeated for any other fiat currency and is very simple. Once an external price of Rune is set (in the fiat currency), then the protocol deliberately creates arbitrage opportunities by influencing money supply to attract third parties to act in a self-interested manner to restore any price imbalance. By requiring full Validator Set participation in the price nomination the price of the StableCoin can be relied upon with the same assurance as the entire protocol itself.  The pricing/supply feedback loop can be modified to reduce damping and price sensitivity. 
@@ -767,13 +806,17 @@ This process can be repeated for any other fiat currency and is very simple. Onc
 A THORChain can go further than a single token being represented in a CLP. With a combination of CLP scripts and trustless price feeds, token baskets and indexes can be created and represented by a single asset. This allows users and traders to carry a single token and know that the token’s price trustlessly represents other assets.   
 A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `TKN3`, where the `TokenData` and `CLPData` for `TKNIndex` is linked to the CLPs of the indexed assets. The `TKNIndex` CLP is bonded to include liquidity in all other CLPs so the price of `TKNIndex` is thus representative of the linked assets. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure39.png" width="350px" height="298px" />
+
 *Figure: Token Baskets*
 
 ### Anonymity
 
 THORChain can implement ZK-proofs to allow re-spawning of accounts to prevent linkability. This is a similar implementation to Komodo and is made using known techniques. tokens are destroyed in one transaction and then trustlessly spawned in a new coinbase transaction. To prevent temporal analysis tracking  identity, Alice can specify a block height delay to the re-spawn of her account. To prevent temporal analysis identifying immediately appearing tokens with immediately disappearing tokens; a variable wait time can be set to increase noise.
 
-Figure: Anonymity.
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure40.png" width="350px" height="223px" />
+
+*Figure: Anonymity.*
 
 ### FIX 4.4 Protocol ABI
 
@@ -789,6 +832,8 @@ The following message types are commonly used in FIX 4.4:
 - Allocation Report
 - Trade Capture Report
 - Application Blockchain Interface (ABI) bridges the protocols and allows orders to be generated on Layer 1 or Layer 2 depending on liquidity needs and order types. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure41.png" width="350px" height="622px" />
 
 *Figure: FIX 4.4 implementation proposal.*
 
