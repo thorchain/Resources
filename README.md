@@ -4,10 +4,19 @@
 Whitepapers for the project:
 
 - [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
+A lightning fast decentralised exchange protocol.
+
 - [Bifrost Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol)
+Secure and fast cross-chain bridges for THORChain.
+
 - [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
+A layer 2 Network for instant asset exchange on THORChain.
+
 - [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+Dynamic multi-set sharding for THORChain.
+
 - [AEsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+A self-amending forkless consensus algorithm for THORChain. 
 
 
 ## Branding
