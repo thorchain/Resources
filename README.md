@@ -15,13 +15,13 @@ THORChain Branding is to be used across THORChain assets.
 
 Refer to the [THORChain Style Guide](https://github.com/thorchain/Branding/blob/master/THORCHAIN%20STYLEGUIDE%20june%202018.pdf)
 
-### Fonts
+### [Fonts](https://github.com/thorchain/Resources/tree/master/fonts)
 Primary: [EXO2](/fonts/exo)
 
 Secondary: [Open Sans](/fonts/opensans)
 
 
-### Logos
+### [Logos](https://github.com/thorchain/Resources/tree/master/logos)
 
 <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Thorchain_main_logo.png" width="196" height="50" />
 
