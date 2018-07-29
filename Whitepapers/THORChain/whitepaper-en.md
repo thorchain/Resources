@@ -598,7 +598,8 @@ _Figure: Bob issues a market order._
 The following is the user experience of interacting with THORChain-based wallets and exchanges.
 
 **Instantiating Wallets**. Users create a new wallet by generating some form of off-line entropy that is used to create the private/public key pairs. These key pairs can be represented and secured by seed-words (BIP39), key-stores or even memorable brain wallets. An innovation proposed by FairLayer is to use [email + password] as the source of entropy as it is both unique, memorable and portable. A single private key controls all of a user’s token addresses (one for each tokenChain). Wallets can support Hierarchical Deterministic key generation which allow users to generate n number of private/public key pairs from the same entropy. 
-**Maintaining Assets**. All of a user’s assets can be viewed inside a single wallet interface. Asset details (name, ticker) can be trustlessly queried from GenAccounts whilst prices for assets can be queried from CLPs. Bridge accounts can also be queried from GenAccounts for tokenised assets (tokenised Bitcoin), so users can easily send external assets across the ecosystem. 
+
+**Maintaining Assets**. All of a user’s assets can be viewed inside a single wallet interface. Asset details `(name, ticker)` can be trustlessly queried from the `GenAcc` whilst prices for assets can be queried from CLPs. Bridge accounts can also be queried from GenAccounts for tokenised assets (tokenised Bitcoin), so users can easily send external assets across the ecosystem. 
 
 ### Trading
 
@@ -614,7 +615,7 @@ The following is the user experience of interacting with THORChain-based wallets
 
 Traders will have access to exchange interfaces that are familiar in experience and features to current exchanges. All exchanges are accessing the same order book and assets, so they all share liquidity. The ASGARDEX exchange is one such exchange to be launched for mainnet but will be open-source and able to be forked easily. This will drive developers to continually innovate instead of building closed-source moats. 
 
-**Viewing Trades**. Once orders are served, a block explorer can index trading accounts and display on a public order book. Trade sides are always paired to RUNE; but TKN:TKN markets are also available if specified. In this case the pair is ordered respective of the underlying TokenIndex. The following would be displayed on a client-side exchange, and can be displayed on any client side interface:
+**Viewing Trades**. Once orders are served, a block explorer can index trading accounts and display on a public order book. Trade sides are always paired to `RUNE`; but `TKN:TKN` markets are also available if specified. In this case the pair is ordered respective of the underlying TokenIndex. The following would be displayed on a client-side exchange, and can be displayed on any client side interface:
 - Liquidity Depth.
 - Candlestick and Volume charts. 
 - Previous Closed Trades.
@@ -790,10 +791,10 @@ On-chain commands are built into the protocol as standardised methods; however o
 
 THORChain’s macro vision is to create a highly liquid payment network built on a completely trustless structure. An imperative feature for mainstream adoption are stablecoins that are pegged to existing fiat currencies such as USD, YEN, EURO and AUD. The first way to achieve this is to simply tokenise existing stablecoins, while the second is to support the development of stable coins on the platform. The first will naturally be easy if the bridges in `§ 8` are built. 
 THORChain has all the required features to create StableCoins with auditable supply and collateral using a Variable Supply token and its CLP and full Validator Set participation. The following would be the process:
-- A tokenChain tUSD is created by the Validator Set. A `Rune:tUSD` CLP is created that is variable supply, requiring `2 / 3` signatures from Validators. 
-- At each round, Validators propose a price $ that the Rune is valued at. They can infer this by any means possible, most likely by reading APIs off a conglomerate of external exchanges of Rune. Validators can also nominate Rune pricing by watching Bitcoin pricing off external exchanges, and converting to Rune price by the `Rune:tBTC` price feed. 
+- A tokenChain `tUSD` is created by the Validator Set. A `Rune:tUSD` CLP is created that is variable supply, requiring `2 / 3` signatures from Validators, or by a on-chain smart contract.  
+- At each round, Validators (on smart contract) propose a price `$` that the Rune is valued at. They can infer this by any means possible, most likely by reading APIs off a conglomerate of external exchanges of Rune. Validators can also nominate Rune pricing by watching Bitcoin pricing off external exchanges, and converting to Rune price by the `Rune:tBTC` price feed. 
 - At each round `n + 1` the median of nominated prices is stored in the block. Outliers may invoke slashing rules to penalise poor price nomination. 
-- As Rune price fluctuates, `tUSD` supply in the CLP is negatively changed by the Validators. As an example, Rune price decreases by `2%`, so tUSD Supply increases by `4%`. This causes `tUSD` to become inflated and cheap. 
+- As Rune price fluctuates, `tUSD` supply in the CLP is negatively changed by the Validators. As an example, Rune price decreases by `2%`, so `tUSD` Supply increases by `4%`. This causes `tUSD` to become inflated and cheap. 
 - Self-interested arbitrageurs will then send in Rune to buy cheap `tUSD`, until `tUSD` returns to `1:1` backed in Assets.
 - Additionally, the liquidity fee will increase the staked collateral in the CLP to match volume and reduce slip. 
 
@@ -807,7 +808,7 @@ This process can be repeated for any other fiat currency and is very simple. Onc
 A THORChain can go further than a single token being represented in a CLP. With a combination of CLP scripts and trustless price feeds, token baskets and indexes can be created and represented by a single asset. This allows users and traders to carry a single token and know that the token’s price trustlessly represents other assets.   
 A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `TKN3`, where the `TokenData` and `CLPData` for `TKNIndex` is linked to the CLPs of the indexed assets. The `TKNIndex` CLP is bonded to include liquidity in all other CLPs so the price of `TKNIndex` is thus representative of the linked assets. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure39.png" width="350px" height="298px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure40.png" width="350px" height="223px" />
 
 *Figure: Token Baskets*
 
@@ -815,7 +816,7 @@ A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `
 
 THORChain can implement ZK-proofs to allow re-spawning of accounts to prevent linkability. This is a similar implementation to Komodo and is made using known techniques. tokens are destroyed in one transaction and then trustlessly spawned in a new coinbase transaction. To prevent temporal analysis tracking  identity, Alice can specify a block height delay to the re-spawn of her account. To prevent temporal analysis identifying immediately appearing tokens with immediately disappearing tokens; a variable wait time can be set to increase noise.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure40.png" width="350px" height="223px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure39.png" width="350px" height="298px" />
 
 *Figure: Anonymity.*
 
