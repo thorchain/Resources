@@ -123,14 +123,14 @@ TokenChains have a genesis account that describe the characteristics of the toke
 The native token of the ecosystem is Rune and is created at the genesis of the protocol, with all Rune transactions tracked on the first side chain, `T0`. The Rune is unique as it is the settlement currency of the ecosystem and is stored in all on-chain liquidity pools. 
 The genesis block of every sidechain has a continuous liquidity pool (CLP) that defines a price ratio for Rune and that token. CLPs are explained in more detail later in this paper. For now, consider CLPs as providing a counterparty to anyone wishing to make a Rune-denominated trade. If two users trade between two non-Rune tokens, one of the tokens is automatically converted to Rune before the transaction is complete.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure1.png" width="380px" height="330px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure1.png" width="350px" height="280px" />
 
 _Figure 1: Each token is tracked on a discrete TokenChain. Genesis accounts track Token information and hold on-chain liquidity._
 
 ### TokenChains
 Each TokenChain has a discrete address space. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure2.png" width="365px" height="122px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure2.png" width="350px" height="158px" />
 
 _Figure 2: The THORChain Address Space; here for Rune (T0)._
 
@@ -168,7 +168,7 @@ Tendermint performance will be sufficient for THORChain initially, but modificat
 **Validator Set**
 Tendermint requires full-nodes as Validators or block producers, and each Validator must have a weight on the network. The weight is determined by their staking, so Tendermint can support Proof-of-Stake out of the box. The first implementation of THORChain has a single Validator Set drawn from all available Validators through an auction; the `100` highest staked Validators form the Validator Set. Validators propose blocks, agree and commit them. To join the Validator Set, a Validator must stake higher than the lowest Validator, and by this process ensures that the Validators with the greatest economic investment secure the network. Staking pools are possible to allow wider participation, and anyone can delegate their stake to a chosen Validator. Validators are paid from the block reward, and are paid evenly regardless of stake held. Proxy stakers are paid pro-rata to the total stake of a Validator; and so by design and self-interest; should choose the Validator with the lowest current stake, but in the top `100`. This encourages proxy stakers to distribute their stake where they have the most earning potential, and thus consequently will ensure a very flat and competitive group of 100, where the minority can easily influence Validator participation in the Validator Set. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure3.png" width="500px" height="440px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure3.png" width="350px" height="304px" />
 
 _Figure 3: Validator Set_
 
@@ -194,7 +194,7 @@ _Table: Order for splitting and merging_
 
 The Master VS, using the functions of the MerkleChain and processing subservient tokenChain MerkleRoots, will continue to ensure that the network is synced and interoperable. Subservient tokenChains will be less secure than the Master VS’s MerkleChain and RuneChain as the Validators who service their mempools will have less stake. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure4.png" width="500px" height="430px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure4.png" width="350px" height="231px" />
 
 _Figure 3: Segregated Validator Sets_
 
@@ -253,7 +253,7 @@ By paying trading fees and block rewards to Liquidity Hubs, nodes are incentivis
 ### TokenChain
 Each TokenChain is created in a special genesis transaction `GenTX` on the primary Rune chain `T0`. Once created, the TokenChain is initiated in the next block with a Genesis Account `GenAcc`. The `GenACC` is both the on-chain specification for the characteristics of the token, as well as the account that hosts the token’s Continuous Liquidity Pool (defined later). `GenTXs` require a fee to be paid in Rune; which is an effective anti-sybil measure to spamming the network with new tokens. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure5.png" width="275px" height="140px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure5.png" width="350px" height="179px" />
 
 _Figure 5: The Genesis Account for Token1_
 
@@ -339,7 +339,7 @@ The CLP is arguably one of the most important features of THORChain. By building
 - Allows users to trade tokens at trustless prices, without relying on centralised third-parties. 
 - Provides trustless price-anchors to the Layer 2 Flash Network, allowing instant trading at the layer 2 level. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure6.png" width="345px" height="250px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure6.png" width="350px" height="253px" />
 
 _Figure 6: The CLP is the genesis account._
 
@@ -349,7 +349,7 @@ The `GenAcc` is the CLP for each TokenChain, holding both Rune and the full supp
 **Rune In**. Anyone can send Rune to the `GenAcc`. The `GenAcc` will emit `TKN1` (minus a fee), sent to the sender’s `TKN1` address 
 **`TKN1` In**. Anyone can send the specific token to the `GenAcc`. The `GenAcc` will emit Rune (minus a fee), sent to the sender’s Rune address.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure7.png" width="480px" height="285px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure7.png" width="350px" height="209px" />
 
 _Figure 7: CLP Transactions_
 
@@ -357,7 +357,7 @@ _Figure 7: CLP Transactions_
 
 **`TKN1` LiquidityTx**. Anyone can add TKN1 to the locked liquidity in the GenAcc, and no Rune will be emitted. Again, the sender’s address and balance will be registered for payment of  liquidity fees. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure8.png" width="475px" height="285px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure8.png" width="350px" height="208px" />
 
 _Figure 8: Adding liquidity to a CLP_
 
@@ -365,7 +365,7 @@ _Figure 8: Adding liquidity to a CLP_
 
 **TKN1 LiquidityWithdrawTx**. Again, anyone can withdraw their staked Token1 liquidity up to the maximum. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure9.png" width="480px" height="285px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure9.png" width="350px" height="209px" />
 
 _Figure 9: Rune FeeWithdrawTx. Anyone that added liquidity to the CLP is permitted to withdraw their earned fees._
 
@@ -395,7 +395,7 @@ _Table: Example Liquidity Fees_
 
 **On-chain Arbitrage**. Any interaction with the GenAcc will emit the opposite pair at a slip-factored internal price. The slip that is caused by a large emission may move the GenAcc pricing away from fair market price. In this case, self-interested arbitrageurs will immediately correct the price by performing a reverse transaction. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure10.png" width="500px" height="420px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure10.png" width="350px" height="294px" />
 
 _Figure 10: On-chain Arbitrage_
 
@@ -417,7 +417,7 @@ THORChain integrates on-chain trading at the protocol level, fulfilling all aspe
 - Store a balance that can only be transferred by the Account Owner.
 - Balances are updated with a unique nonce, and old balances are invalidated if a later nonce is published.  
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure11.png" width="333px" height="135px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure11.png" width="350px" height="144px" />
 
 _Figure 11: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa...aaa]_
 
@@ -435,7 +435,7 @@ _Figure 11: The THORChain Wallet for Rune (T0). Alice’s public address is [aaa
 - Store a Host Address to send Host Fees to. 
 - All data is updated with a unique nonce, and old data is invalidated if a later nonce is published. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure12.png" width="365px" height="225px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure12.png" width="350px" height="215px" />
 
 _Figure 12: The THORChain Trading Account for Rune (T0). Alice’s public address for the pair (T1) [aaa....aaa] is automatically inserted, but can be specified._
 
@@ -447,7 +447,7 @@ _Figure 12: The THORChain Trading Account for Rune (T0). Alice’s public addres
 - Store CLP Data. 
 - Store a nonce.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure13.png" width="380px" height="235px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure13.png" width="350px" height="212px" />
 
 _Figure 13: The THORChain CLP Account for TKN1 (T1)._
 
@@ -458,15 +458,15 @@ Alongside Accounts, THORChain adds unique Transaction types that cover transacti
 - Transfer Rune or TKN. 
 - If the recipient does not have the required wallet, it is created using the same publicAddress. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure14.png" width="425px" height="240px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure14.png" width="350px" height="160px" />
 
 _Figure 14: Alice paying Bob on a single chain._
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure15.png" width="470px" height="343px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure15.png" width="350px" height="255px" />
 
 _Figure 15: Alice paying Bob across chains. Alice can pay to T0x(bob) or T1x(bob) or T2x(bob); but balance only updated at T1x(bob)._
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure16.png" width="500px" height="323px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure16.png" width="350px" height="226px" />
 
 _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 
@@ -474,7 +474,7 @@ _Figure 16: Alice interacting with TKN1 CLP with T0. She receives TKN1._
 - Transfer Rune or TKN. 
 - If the incorrect TKN is sent, it will instead be sent to the matching token CLP. This may not be desired, but easily recovered. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="500px" height="348px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure17.png" width="350px" height="243px" />
 
 _Figure 17: Alice adding liquidity to CLP1._
 
@@ -482,7 +482,7 @@ _Figure 17: Alice adding liquidity to CLP1._
 - Call Withdraw on the Account. 
 - If signatures match with Stakers Array, all liquidity is emitted to sender’s address, including earned fees. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure18.png" width="500px" height="352px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure18.png" width="350px" height="246px" />
 
 _Figure 18: Alice withdrawing her liquidity + fees._
 
