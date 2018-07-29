@@ -153,19 +153,21 @@ This allows the Validator Set to update the external multi-signatures if they ev
 Importantly the data can be verified at any time by reading the GenAcc, so the bridge interface can be displayed on any front-end. As infrastructure is subsidised by block rewards on THORChain the bridges can operate feelessly. 
 Contract-based cryptocurrencies such as ERC-20, NEP-5 and QRC-20 can also be sent on to THORChain using the same parent multi-signature address. The GenACC stores the token’s root contract address alongside the sequential tokenIndex. In this way, anyone can create TokenChains for contract-based cryptocurrencies and achieve deconfliction. The following would be the contract-based implementation:
 
-```{T7:(Parent tokenChain (T2), contractAddr);
+```
+{T7:(Parent tokenChain (T2), contractAddr);
 T8:(Parent tokenChain (T2), contractAddr);
-T9: etc}```
+T9: etc}
+```
 
-This allows anyone to send any token via its parent bridge to THORChain. If already created, it is simply added to the existing chain. If it hasn’t been created a new tokenchain is added. 
+This allows anyone to send any token via its parent bridge to THORChain. If already created, it is simply added to the existing chain. If it hasn’t been created a new tokenchain is added. 
 
 ### Trading tCoin
-Once inside the ecosystem tCoins can be transacted freely and fungibly. These include all trades and transactions types. If traders can observe that their tCoins have 1:1 asset backing and that original assets can be claimed at any time, then tCoins will be 1:1 to Coins. A running total of locked assets as well as minted assets would be publicly available and verifiable, allowing anyone to see full backing.  If traders can observe the security of a bridge in economic value and know that at any stage a loss of locked assets would be under-written by slashed validator stakes, then they are further reassured of full fungibility of assets. 
+Once inside the ecosystem tCoins can be transacted freely and fungibly. These include all trades and transactions types. If traders can observe that their tCoins have 1:1 asset backing and that original assets can be claimed at any time, then tCoins will be `1:1` to Coins. A running total of locked assets as well as minted assets would be publicly available and verifiable, allowing anyone to see full backing.  If traders can observe the security of a bridge in economic value and know that at any stage a loss of locked assets would be under-written by slashed validator stakes, then they are further reassured of full fungibility of assets. 
 Since bridges don’t have to charge bridge fees, and transaction fees on THORChain will be substantially lower than the original chains, the tCoins *may* have a higher perceived value than original assets. Take for example December 2017, where Bitcoin fees were greater than $50 for a sustained period of time. Transacting on Bitcoin would erode value, whilst transacting a tBitcoin on THORChain would save a considerable amount in fees. Further, assets on THORChain can be staked in CLPs to earn on liquidity fees, with no inflation risk. 
-These characteristics are important to ensure that tCoins >= Coins. If this is achieved then CLPs will attract self-interested arbitrageurs to correct market slips and maintain tCoin >= Coin prices. THORChain can also offer a more attractive trading environment by using Foundation assets to purchase Bitcoin off the market, establish bridges and lock tBitcoin in the CLPs. This will effectively bootstrap the on-chain liquidity for the tCoin. Once bootstrapped self-interested stakers can add further liquidity to earn on liquidity fees, growing on-chain liquidity. These mechanisms are described in the THORChain Whitepaper.  
+These characteristics are important to ensure that `tCoins >= Coins`. If this is achieved then CLPs will attract self-interested arbitrageurs to correct market slips and maintain `tCoin >= Coin` prices. THORChain can also offer a more attractive trading environment by using Foundation assets to purchase Bitcoin off the market, establish bridges and lock tBitcoin in the CLPs. This will effectively bootstrap the on-chain liquidity for the tCoin. Once bootstrapped self-interested stakers can add further liquidity to earn on liquidity fees, growing on-chain liquidity. These mechanisms are described in the THORChain Whitepaper.  
 
 ### Exiting a Bridge
-tCoins can be exited at any time by simply using the Bridge in reverse. The tCoin is sent to the CLP in a special transaction which destroys it and updates total supply by the Validator Sub-set. Once block finality is achieved ~1 second, then the Validators can sign the external multi-sig to release the assets to the user’s address. Signing the external multi-sig and the finality of the transaction is limited by external chain characteristics. 
+`tCoins` can be exited at any time by simply using the Bridge in reverse. The `tCoin` is sent to the CLP in a special transaction which destroys it and updates total supply by the Validator Sub-set. Once block finality is achieved ~1 second, then the Validators can sign the external multi-sig to release the assets to the user’s address. Signing the external multi-sig and the finality of the transaction is limited by external chain characteristics. 
 
 *Figure: Sending coins out of THORChain.*
 
@@ -221,12 +223,16 @@ There are a number of CLP transactions relevant to the Bifröst protocol, more t
 *Figure: Creating liquidity in the CLP.*
 
 **Minting.** Every time a new coin enters the bridge the Validator Sub-set then performs the following transaction on the linked CLP:
+
+```
 mint(balance, address)
+```
 
 The CLP will then:
 ```Create an additional amount of coins
 Immediately send them to the address
-Update the total supply in the tokenData field```
+Update the total supply in the tokenData field
+```
 
 
 *Figure: Minting new tokens via CLP.*
@@ -238,7 +244,8 @@ The CLP will then:
 ```Destroy the amount of coins from user address
 Update the total supply in the tokenData field
 Unlock tokens from the external multi-sig
-Send to user address```
+Send to user address
+```
 
 *Figure: Minting new tokens via CLP.*
 
@@ -248,7 +255,8 @@ Send to user address```
 The Validator Set will then:
 Destroy the amount of coins from user address.
 Deploy an external token contract with the correct balance on the parent Chain.
-Send to user address.```
+Send to user address.
+```
 
 *Figure: Deploying new tokens via CLP.*
 
@@ -258,46 +266,50 @@ Send to user address.```
 The Validator will then:
 Destroy the amount of coins from external wallet.
 Update the token contract.
-Unlock tokens from the CLP to the user’s address.```
+Unlock tokens from the CLP to the user’s address.
+```
 
 *Figure: Recovering tokens via CLP.*
 
 ## Security
 ### Overview
 The Bifröst Protocol is designed with specific regard to attack vectors, and makes effort to mitigate risk with protocol security, cryptoeconomics and game theoretical approaches. Attack vectors can come from external chains, inside THORChain, inside the sub-sets and the most significant; a supermajority sybil attack on the protocol itself. 
-In this analysis the specific example to highlight and frame the discussion is when $100m in external assets are locked in multi-sigs, and the protocol’s Validator Sets have less than $150m in Rune staked; such that 67% = $100m. 
+In this analysis the specific example to highlight and frame the discussion is when $100m in external assets are locked in multi-sigs, and the protocol’s Validator Sets have less than $150m in Rune staked; such that `67% = $100m`. 
   
 ### External Lone-ranger Attacks
-External Assets. Any assets locked in an external multi-sig account become a honeypot for attackers and incentivise attacks, let alone anonymous multi-sigs which is the proposition of the Bifröst Protocol. The private keys to secure the multi-sigs are held by specialised validators that hold stake in the THORChain ecosystem, not the external chain. Thus for an external attacker to double-spend or attack a multi-sig; the security threshold is unequivocally the same as the security of the entire chain linked. Chains with small hash power have historically been attacked, and indeed the attack cost is known ahead of time with services such as Crypto51; a tool to calculate the cost of 51% attacks on various chains. In this case an attacker would attempt to gain 51% network power for as long as they could re-write the chain for more than the number of confirmations that exchanges permit in the disposal of assets; typically 6 confirmations. This is around an hour of control for Bitcoin. By requiring internal stake, external attack vectors are subservient to the characteristics of external chains and this is a sufficient mitigation of risk. 
-Internal Assets. Assets held in THORChain are only vulnerable to internal attacks as the permissioned validators that control internal assets are always internal to THORChain. There is no attack vector here.
+**External Assets.** Any assets locked in an external multi-sig account become a honeypot for attackers and incentivise attacks, let alone anonymous multi-sigs which is the proposition of the Bifröst Protocol. The private keys to secure the multi-sigs are held by specialised validators that hold stake in the THORChain ecosystem, not the external chain. Thus for an external attacker to double-spend or attack a multi-sig; the security threshold is unequivocally the same as the security of the entire chain linked. Chains with small hash power have historically been attacked, and indeed the attack cost is known ahead of time with services such as [Crypto51](https://www.crypto51.app); a tool to calculate the cost of `51%` attacks on various chains. In this case an attacker would attempt to gain `51%` network power for as long as they could re-write the chain for more than the number of confirmations that exchanges permit in the disposal of assets; typically 6 confirmations. This is around an hour of control for Bitcoin. By requiring internal stake, external attack vectors are subservient to the characteristics of external chains and this is a sufficient mitigation of risk. 
+
+**Internal Assets.** Assets held in THORChain are only vulnerable to internal attacks as the permissioned validators that control internal assets are always internal to THORChain. There is no attack vector here.
 
 ### Internal Lone-ranger Attacks
-External Assets. Any assets locked in an external multi-sig account are controlled by permissioned validators. An agent would need to become permissioned before they could attack.
-Internal Assets. Assets locked in internal accounts, such as CLPs, are secured by the protocol. An attacker would need to exploit a vulnerability in the protocol to siphon assets from CLPs and this would be patently obvious once the first attack occurred. An attacker would need to become permissioned as a validator to exploit other attack vectors. 
+**External Assets.** Any assets locked in an external multi-sig account are controlled by permissioned validators. An agent would need to become permissioned before they could attack.
+**Internal Assets.** Assets locked in internal accounts, such as CLPs, are secured by the protocol. An attacker would need to exploit a vulnerability in the protocol to siphon assets from CLPs and this would be patently obvious once the first attack occurred. An attacker would need to become permissioned as a validator to exploit other attack vectors. 
 
 ### Validator Attacks
 As part of THORChain’s design all Validators hold stake in the network, the amount set by the lowest bidder. An annual proposed inflation of 5% motivates holders to become Validators, or delegate tokens to Validators. Validators are incentivised to watch each other for rogue activity in order to slash an attacker’s stake and earn it for themselves. Thus an attacking validator must always consider full loss of stake as the economic cost for an attack. 
 Single Validator. Assuming the protocol works as designed with byzantine resistance, a single rogue validator is effectively risking their entire stake for an attack that will never be effective. They may attempt a double spend, but it is assumed a single honest validator (from a pool of 100) would notice and publish the proof of attack to slash the attacker. With correct protocol design the attack vector here is limited to the validator making an attack and getting away with it for as long as it not noticed. This can be mitigated by enforcing an unbonding period before a validator can reclaim their stake from resigning or being evicted as a validator. THORChain’s proposal of 14 days unbonding period is a sufficient period of time to allow retrospective auditing of blocks by the community and validators and impose slashing rules.  
 
-**Validator Sub-set.** Validator sub-sets are nominated to control the keys to external chains, as well as aggregating signatures for signature thresholds for internal signing of CLP transactions. The value proposition of the Bifröst Protocol is that offers bridges with performance, whilst still retaining the security of the entire protocol. A key mechanism is that the protocol can observe the risk of a bridge by using prices from CLPs, and take action to reduce risk, or increase security. The inherent risks are a supermajority sybil attack in a sub-set. The protocol attempts to mitigate this risk by randomly appointing who can be part of a sub-set, as well as recycling validators every x blocks. The following are considerations for an attacker who can achieve supermajority in a subset, but not supermajority of the protocol:
-A cartel need to first become permissioned into the Validator Set, which involves buying into the network and becoming fully-synced and compliant full nodes. Block rewards whilst being compliant would compensate the infrastructure cost.  
-The cartel would need to then manipulate the CLP pricing of the chosen asset down in order to prevent the protocol from taking corrective action. Depending on the volume of the asset, this would incur a high arbitrage cost to them. The cartel would need to perform this for at least x  blocks. 
-The cartel require the value of the locked asset (whilst they manipulate it) to increase in value to be higher than their combined stake; as their stake will ultimately be staked. Since they are manipulating the price of the asset down in (2), it would incentive traders to buy the cheap asset and send it off the network to sell at higher prices elsewhere. This would actually reduce the amount of locked asset in the external accounts, removing the honeypot. 
-If (3) does not work in time, the cartel would then need to rely on probability to be nominated such that they control a supermajority in any sub-set. 
-A cartel, who by chance, gains the supermajority in a subset has a limited amount of time to attack, x blocks, before they are likely to lose the edge.  
-Assuming (4), the cartel would then need to spend the external assets prior to (5) and hide the act for the duration of the the unbonding period. 
+**Validator Sub-set.** Validator sub-sets are nominated to control the keys to external chains, as well as aggregating signatures for signature thresholds for internal signing of CLP transactions. The value proposition of the Bifröst Protocol is that offers bridges with performance, whilst still retaining the security of the entire protocol. A key mechanism is that the protocol can observe the risk of a bridge by using prices from CLPs, and take action to reduce risk, or increase security. The inherent risks are a supermajority sybil attack in a sub-set. The protocol attempts to mitigate this risk by randomly appointing who can be part of a sub-set, as well as recycling validators every `x blocks`. The following are considerations for an attacker who can achieve supermajority in a subset, but not supermajority of the protocol:
+1. A cartel need to first become permissioned into the Validator Set, which involves buying into the network and becoming fully-synced and compliant full nodes. Block rewards whilst being compliant would compensate the infrastructure cost.  
+2. The cartel would need to then manipulate the CLP pricing of the chosen asset down in order to prevent the protocol from taking corrective action. Depending on the volume of the asset, this would incur a high arbitrage cost to them. The cartel would need to perform this for at least `x blocks`. 
+3. The cartel require the value of the locked asset (whilst they manipulate it) to increase in value to be higher than their combined stake; as their stake will ultimately be staked. Since they are manipulating the price of the asset down in (2), it would incentive traders to buy the cheap asset and send it off the network to sell at higher prices elsewhere. This would actually reduce the amount of locked asset in the external accounts, removing the honeypot. 
+4. If (3) does not work in time, the cartel would then need to rely on probability to be nominated such that they control a supermajority in any sub-set. 
+5. A cartel, who by chance, gains the supermajority in a subset has a limited amount of time to attack, x blocks, before they are likely to lose the edge.  
+6. Assuming (4), the cartel would then need to spend the external assets prior to (5) and hide the act for the duration of the the unbonding period. 
+
 If their act is discovered inside the unbonding period, then they are slashed. This is highly likely. Their economic gain is thus: 
 
 ```(stolenAssets) - ((slashedRune) + (arbitrageCost * x blocks))```
 
 *Figure: The attack path to steal external assets*
 
-Manipulating CLP pricing in order reduce the perceived cost of an asset in order to allow an attack to occur is covered in the THORChain Whitepaper. 
+The mechanics of manipulating CLP pricing in order reduce the perceived cost of an asset in order to allow an attack to occur is covered in the [THORChain Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md#trustless-on-chain-price-feeds). 
 
 ### Network Attacks
-**Supermajority Attacks.** The largest risk to THORChain is a protocol level supermajority sybil attack with an attacker gaining 67% control of all validators. At 67% control everything can become compromised, including external assets, internal assets, protocol rules and the validators themselves. 
-Arguably the cost of attaining 67% of the Validators would be high and likely to cause a runaway price action on the Rune as 67% of all bonded Runes would be bought by a single attacker. An attacker may instead try to attain the support of 67% of the nodes to form a cartel, but again this is unlikely since the nodes are self-interested and have an ongoing infrastructure cost that needs to be compensated. Attacked THORChain would likely result in a devaluation of the network. 
-Protocol Attacks. An attacker may instead try to create an asymmetric attack vector by bringing in changes to the protocol via on-chain governance and Validator Signalling. The counter to this is creating a well-designed governance system with empowered minority mechanisms who can meaningfully influence voting; as minorities may have more awareness of long-range protocol attacks through crowd-intelligence. Validator Signalling is discussed at length in the On-chain Governance Whitepaper. 
+**Supermajority Attacks.** The largest risk to THORChain is a protocol level supermajority sybil attack with an attacker gaining `67%` control of all validators. At `67%` control everything can become compromised, including external assets, internal assets, protocol rules and the validators themselves. 
+Arguably the cost of attaining `67%` of the Validators would be high and likely to cause a runaway price action on the Rune as `67%` of all bonded Runes would be bought by a single attacker. An attacker may instead try to attain the support of `67%` of the nodes to form a cartel, but again this is unlikely since the nodes are self-interested and have an ongoing infrastructure cost that needs to be compensated. Attacked THORChain would likely result in a devaluation of the network. 
+
+**Protocol Attacks.** An attacker may instead try to create an asymmetric attack vector by bringing in changes to the protocol via on-chain governance and Validator Signalling. The counter to this is creating a well-designed governance system with empowered minority mechanisms who can meaningfully influence voting; as minorities may have more awareness of long-range protocol attacks through crowd-intelligence. Validator Signalling is discussed at length in the [Æsir Protocol Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/AEsir-Protocol/whitepaper-en.md). 
 
 ## Conclusion
 
