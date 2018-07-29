@@ -797,7 +797,7 @@ THORChain has all the required features to create StableCoins with auditable sup
 - Self-interested arbitrageurs will then send in Rune to buy cheap `tUSD`, until `tUSD` returns to `1:1` backed in Assets.
 - Additionally, the liquidity fee will increase the staked collateral in the CLP to match volume and reduce slip. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure38.png" width="350px" height="622px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure38.png" width="900px" height="246px" />
 
 *Figure: Collateralized on-chain StableCoins.* 
 
