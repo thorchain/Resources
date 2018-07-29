@@ -1,6 +1,6 @@
 # Whitepapers
 
-Use the [Template](/whitepaper-template.md)
+Use the [Template](https://github.com/thorchain/Resources/blob/master/Whitepapers/whitepaper-template.md)
 
 Useful links:
 
