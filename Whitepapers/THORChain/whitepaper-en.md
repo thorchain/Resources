@@ -122,10 +122,14 @@ TokenChains have a genesis account that describe the characteristics of the toke
 The native token of the ecosystem is Rune and is created at the genesis of the protocol, with all Rune transactions tracked on the first side chain, `T0`. The Rune is unique as it is the settlement currency of the ecosystem and is stored in all on-chain liquidity pools. 
 The genesis block of every sidechain has a continuous liquidity pool (CLP) that defines a price ratio for Rune and that token. CLPs are explained in more detail later in this paper. For now, consider CLPs as providing a counterparty to anyone wishing to make a Rune-denominated trade. If two users trade between two non-Rune tokens, one of the tokens is automatically converted to Rune before the transaction is complete.
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure1.png" width="380px" height="330px" />
+
 _Figure 1: Each token is tracked on a discrete TokenChain. Genesis accounts track Token information and hold on-chain liquidity._
 
 ### TokenChains
 Each TokenChain has a discrete address space. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure2.png" width="365px" height="122px" />
 
 _Figure 2: The THORChain Address Space; here for Rune (T0)._
 
@@ -163,7 +167,10 @@ Tendermint performance will be sufficient for THORChain initially, but modificat
 **Validator Set**
 Tendermint requires full-nodes as Validators or block producers, and each Validator must have a weight on the network. The weight is determined by their staking, so Tendermint can support Proof-of-Stake out of the box. The first implementation of THORChain has a single Validator Set drawn from all available Validators through an auction; the `100` highest staked Validators form the Validator Set. Validators propose blocks, agree and commit them. To join the Validator Set, a Validator must stake higher than the lowest Validator, and by this process ensures that the Validators with the greatest economic investment secure the network. Staking pools are possible to allow wider participation, and anyone can delegate their stake to a chosen Validator. Validators are paid from the block reward, and are paid evenly regardless of stake held. Proxy stakers are paid pro-rata to the total stake of a Validator; and so by design and self-interest; should choose the Validator with the lowest current stake, but in the top `100`. This encourages proxy stakers to distribute their stake where they have the most earning potential, and thus consequently will ensure a very flat and competitive group of 100, where the minority can easily influence Validator participation in the Validator Set. 
 
-_Figure: Validator Set_
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure3.png" width="505px" height="440px" />
+
+_Figure 3: Validator Set_
+
 An in-protocol penalty is required to discourage validators from misbehaving on the network. This is heavily researched in both Casper and Cosmos.  Misbehaviour may be double-signing blocks, being off-line or lack of participation in on-chain voting. The amount that a validator is slashed depends on the severity of the incident and will likely be finalised with on-chain voting prior to mainnet.  If a Validator is slashed to a level below the highest waiting Validator, the dishonest Validator is evicted and the waiting Validator automatically joins the Validator Set. As a result of the flat group, the heavy level of competition and the likelihood that dishonest participation will cause both economic loss to stakes and eviction from the Validator Set, an attacking Validator is heavily discouraged.
 Network security is a consideration for THORChain. Historically on-chain voting as extremely low turn-out, as shown by EOS, CarbonVote and Steemit voting events. Cosmos is attempting to solve this by increasing the rate of inflation of the staked token to increase the incentives to bond tokens to validator stakes (directly or via pools). Inflation pivots between a floor of `7%` and a ceiling of `20%` to drive holders to bond tokens at a desired bond state of `2/3` of the entire circulating supply. With ⅔ bonded, the network is optimally secure and resistant to cartels and plutocracy. A downside to this that the staked token loses ideal currency properties, and as such Cosmos have introduced a dual-token system, with a secondary token being used to pay for transaction fees. It is not known if Casper V2 will implement such a mechanism and if staking for collators will cause Ether to lose ideal currency properties. 
 THORChain will adopt a single token for simplicity but research the real-world economics of other Proof-of-Stake chains until mainnet. If a secondary token is implemented, it can be done using THORChain on-chain governance. 
@@ -186,7 +193,10 @@ _Table: Order for splitting and merging_
 
 The Master VS, using the functions of the MerkleChain and processing subservient tokenChain MerkleRoots, will continue to ensure that the network is synced and interoperable. Subservient tokenChains will be less secure than the Master VS’s MerkleChain and RuneChain as the Validators who service their mempools will have less stake. 
 
-_Figure: Segregated Validator Sets_
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure4.png" width="650px" height="440px" />
+
+_Figure 3: Segregated Validator Sets_
+
 There are a number of unanswered questions around network security, performance and the characteristics of having multiple Validator Sets that will require further research and development, however the fundamentals of how it could be achieved are outlined here.  Additional research to our plan for implementing multiple validator sets via sharding is in a separate paper.
 
 ## On-chain Governance 
@@ -241,7 +251,11 @@ By paying trading fees and block rewards to Liquidity Hubs, nodes are incentivis
 
 ### TokenChain
 Each TokenChain is created in a special genesis transaction `GenTX` on the primary Rune chain `T0`. Once created, the TokenChain is initiated in the next block with a Genesis Account `GenAcc`. The `GenACC` is both the on-chain specification for the characteristics of the token, as well as the account that hosts the token’s Continuous Liquidity Pool (defined later). `GenTXs` require a fee to be paid in Rune; which is an effective anti-sybil measure to spamming the network with new tokens. 
-Figure: The Genesis Account for Token1
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure5.png" width="275px" height="140px" />
+
+_Figure 5: The Genesis Account for Token1_
+
 The `GenAcc` stores the following information about the Token which can be publicly queried and displayed on order books, wallets and exchanges:
 
 |Ticker| TKN1 |Ticker to display|
@@ -324,7 +338,9 @@ The CLP is arguably one of the most important features of THORChain. By building
 - Allows users to trade tokens at trustless prices, without relying on centralised third-parties. 
 - Provides trustless price-anchors to the Layer 2 Flash Network, allowing instant trading at the layer 2 level. 
 
-_Figure: The CLP is the genesis account._
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure6.png" width="345px" height="250px" />
+
+_Figure 6: The CLP is the genesis account._
 
 ### CLP Transactions
 
@@ -332,18 +348,25 @@ The `GenAcc` is the CLP for each TokenChain, holding both Rune and the full supp
 **Rune In**. Anyone can send Rune to the `GenAcc`. The `GenAcc` will emit `TKN1` (minus a fee), sent to the sender’s `TKN1` address 
 **`TKN1` In**. Anyone can send the specific token to the `GenAcc`. The `GenAcc` will emit Rune (minus a fee), sent to the sender’s Rune address.
 
-_Figure: CLP Transactions_
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure7.png" width="480px" height="285px" />
+
+_Figure 7: CLP Transactions_
 
 **Rune LiquidityTx**. Anyone can add Rune to the locked liquidity in the `GenAcc`, and no `TKN1` will be emitted. This is a special transaction that registers the sender’s address as well as the balance sent in order to track and pay them pro-rata liquidity fees. 
 
 **`TKN1` LiquidityTx**. Anyone can add TKN1 to the locked liquidity in the GenAcc, and no Rune will be emitted. Again, the sender’s address and balance will be registered for payment of  liquidity fees. 
 
-_Figure: Adding liquidity to a CLP_
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure8.png" width="475px" height="285px" />
+
+_Figure 8: Adding liquidity to a CLP_
 
 **Rune LiquidityWithdrawTx**. Anyone that added liquidity to the CLP is permitted to withdraw up to the maximum of their initial liquidity and earned fees. 
 
 **TKN1 LiquidityWithdrawTx**. Again, anyone can withdraw their staked Token1 liquidity up to the maximum. 
-Rune FeeWithdrawTx. Anyone that added liquidity to the CLP is permitted to withdraw their earned fees. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure9.png" width="480px" height="285px" />
+
+_Figure 9: Rune FeeWithdrawTx. Anyone that added liquidity to the CLP is permitted to withdraw their earned fees._
 
 **`TKN1` FeeWithdrawTx**. Again, anyone can withdraw their earned fees. 
 
