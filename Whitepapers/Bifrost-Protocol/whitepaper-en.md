@@ -263,7 +263,8 @@ The CLP will then:
 
 **External Deployment.** A user can deploy their THORChain tokens to an external chain:
 
-```deploy(balance, address, parent)
+```
+deploy(balance, address, parent)
 ```
 
 The Validator Set will then:
@@ -277,7 +278,8 @@ The Validator Set will then:
 
 **External Recovery.** A user can recover their THORChain tokens from an external chain:
 
-```recover(balance, address, parent)
+```
+recover(balance, address, parent)
 ```
 
 The Validator will then:
@@ -344,5 +346,7 @@ The Bifröst Protocol will be built for THORChain to augment the entire cryptocu
 ## References
 
 [1]Anon, n.d. POA Network. [online] POA Network: public Ethereum sidechain with Proof of Authority consensus by independent validators. Available at: <https://poa.network/>
+
 [2]Anon, n.d. Total Transaction Fees in USD. [online] Blockchain. Available at: <https://www.blockchain.com/charts/transaction-fees-usd>
+
 [3]Unchained, C., 2018. The Technicals of Interoperability-Introducing the Ethereum Peg Zone. [online] Cosmos Blog. Available at: <https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f>
