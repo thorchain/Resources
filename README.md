@@ -6,7 +6,7 @@ Whitepapers for the project:
 - [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
 - Bifrost Protocol
 - Flash Network
-- Yggdrasil Protocol
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
 - AEsir Protocol
 
 
