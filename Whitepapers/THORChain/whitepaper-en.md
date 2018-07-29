@@ -107,13 +107,13 @@ Finally, exchanges allow traders to profit from predicting the future behavior o
 
 **Decentralized Exchanges**. Of course, the above is only true to the extent that other sources of power are also decentralized.  One clear target for decentralization is the exchange itself.  Centralized exchanges can hold undue power over users.  This allow them to engage in many of the regressive practices that cryptocurrency enthusiasts dislike in the fiat world.  
 Some hold users’ funds without explanation or recourse.  A decentralized alternative will allow users to maintain self-sovereign rights to their assets at all times.  Some centralized exchanges bar users, currencies, or transactions because of local law in their domicile.  A decentralized alternative has no central operator upon which a nation state can impose restrictions.  A decentralized alternative with public code can benefit from perpetual public security audits and publicly driven code changes.  All things being equal, decentralized exchanges (DEXes) more adequately capture the ethos of cryptocurrencies than centralized ones.
-All things are not yet equal, however.  Decentralized exchanges need feature and performance parity with centralized exchanges to successfully compete.  Binance, one of the most popular centralized exchanges, processes over 1 million transactions per second.  Forkdelta, a popular decentralized exchange, routinely has transactions that take minutes.  Bittrex, another popular centralized exchange, has a well-designed UI honed by design specialists and a simple-to-use UX.  Barterdex, a DEX, has an obtuse UI and requires several cumbersome steps in its UX.  Centralized cryptocurrency exchanges pride themselves on listing a myriad of different token types.  Most modern DEXes operate within a single cryptocurrency’s ecosystem (for example, stellar for Stellardex and ether for Etherdelta) allowing users to trade only tokens in one protocol.  
+All things are not yet equal, however.  Decentralized exchanges need feature and performance parity with centralized exchanges to successfully compete.  [Binance](https://www.binance.com), one of the most popular centralized exchanges, processes over 1 million transactions per second.  [Forkdelta](https://forkdelta.github.io), a popular decentralized exchange, routinely has transactions that take minutes.  [Bittrex](https://www.bittrex.com), a popular centralized exchange, has a well-designed UI honed by design specialists and a simple-to-use UX.  [Barterdex](https://komodoplatform.com/decentralized-exchange/), a DEX, has an obtuse UI and requires several cumbersome steps in its UX.  Centralized cryptocurrency exchanges pride themselves on listing a myriad of different token types.  Most modern DEXes operate within a single cryptocurrency’s ecosystem (for example, stellar for [Stellardex](https://stellarterm.com) and ether for [Etherdelta](https://etherdelta.com)) allowing users to trade only tokens in one protocol.  
 To avoid some of these constraints, some DEXes take partial steps to toward decentralization but centralize key aspects of the system (like order books and matching engines).  This is a nice attempt but these services do not provide censorship resistance and so do not fulfill the promise of decentralization.  The market needs a decentralized exchange that adheres to the core tenets of decentralization and still provides a world-class exchange experience that meets the feature and performance standards set by centralized exchanges.  
 
 ### THORChain and ASGARDEX
 
-**THORChain**. Thorchain addresses these issues.  With over 1 million transactions per second, Thorchain can power the same traffic as a centralized exchange.  Thorchain decentralizes all aspects of a trade, including order matching and order book population, ensuring censorship resistance.  Most DEXes have less than $10M in daily trading volume but Thorchain will be seeded with several times that amount in liquidity directly from the Thorchain Foundation.  Moreover, Thorchain’s continuous liquidity pool mechanism (borrowed from Bancor) provides fees to users who provide further liquidity, incentivizing even more capacity.  Thorchain’s use of cryptocurrency bridges (under development based on research from Aion, Truebit, PoA, Rootstock, and others) enable it to natively support transactions across cryptocurrency ecosystems.  Users can exchange Bitcoin for Ether or an ERC-20 token for an NEP-5 token directly on a Thorchain DEX.  Bridges are addressed in more detail separately.
-Asgardex (the name for the DEX that will be built on top of THORChain) will have deep liquidity, a publicly available order book, omni-token support for cryptocurrencies compatible with bridges, one million transactions per second, a world-class UI, and refined UX.  ASGARDEX solves the major problems with decentralized exchanges, allowing users to experience the full promise of a secure, transparent, censorship-resistant and fault-tolerant cryptocurrency exchange.
+**THORChain**. Thorchain addresses these issues.  With an out-of-box performance of 10k TPS and a goal of 1m TPS, Thorchain can power the same traffic as a centralized exchange.  Thorchain decentralizes all aspects of a trade, including order matching and order book population, ensuring censorship resistance.  Most DEXes have less than $10M in daily trading volume but Thorchain will be seeded with several times that amount in liquidity directly from the Thorchain Foundation.  Moreover, Thorchain’s continuous liquidity pool mechanism (borrowed from Bancor) provides fees to users who provide further liquidity, incentivizing even more capacity.  Thorchain’s use of cryptocurrency bridges enable it to natively support transactions across cryptocurrency ecosystems.  Users can exchange Bitcoin for Ether or an ERC-20 token for an NEP-5 token directly on a Thorchain DEX.  Bridges are addressed in more detail separately.
+ASGARDEX (the first DEX that will be built on top of THORChain) will have deep liquidity, a publicly available order book, omni-token support for cryptocurrencies compatible with bridges, a world-class UI, and refined UX.  ASGARDEX solves the major problems with decentralized exchanges, allowing users to experience the full promise of a secure, transparent, censorship-resistant and fault-tolerant cryptocurrency exchange.
  
 ## THORChain Architecture
 
@@ -742,16 +742,17 @@ A benefit to this approach is that squatters are always eventually coerced out o
 
 ### Account Recovery
 
-Account Permissioning was first described in EOS’s whitepaper. While more granular controls over an account can be helpful, the key aspect is account recovery. Account recovery processes is important for mainstream adoption.
-A user specifies two other types of accounts on their primary account: Recovery and Guardian. Recovery accounts are accounts that can move all funds and TNS name to their account, but are always deactivated. A Guardian account activates Recovery accounts. The recovery process is as follows, relying on primarily out-of-band communication and existing social or trust networks: 
-- A user creates an account.
-- The user nominates a “Guardian” account (or multiple). The Guardian is notified and signs the request. 
-- The user nominates a Recovery account (or multiple). Recovery accounts are notified and sign the request. They are deactivated. 
-- The user loses access to their private key. 
-- The user contacts their Guardian to activate one of their Recovery accounts.
-- The user can then move their funds from their lost account to their activated recovery account, signed from their Recovery address. 
+Account Permissioning was first described in the [EOS whitepaper](https://github.com/EOSIO/Documentation/blob/images/TechnicalWhitePaper.md). While more granular controls over an account can be helpful, the key aspect is account recovery. Account recovery processes are important for mainstream adoption.
 
-This mechanism is safe as it requires both their Guardian and Recovery accounts being compromised. Additionally, Recovery accounts are specified before the fact, so funds can only move to an address specified by the original owner. 
+A user specifies two other types of accounts on their primary account: `Recovery` and `Guardian`. `Recovery` accounts are accounts that can move all funds and TNS name to their account, but are always deactivated. A `Guardian` account activates `Recovery` accounts. The recovery process is as follows, relying on primarily out-of-band communication and existing social or trust networks: 
+- A user creates an account.
+- The user nominates a `Guardian` account (or multiple). The `Guardian` is notified and signs the request. 
+- The user nominates a `Recovery` account (or multiple). `Recovery` accounts are notified and sign the request. They are deactivated. 
+- The user loses access to their private key. 
+- The user contacts their `Guardian` to activate one of their `Recovery` accounts.
+- The user can then move their funds from their lost account to their activated recovery account, signed from their `Recovery` address. 
+
+This mechanism is safe as it requires both their `Guardian` and `Recovery` accounts being compromised. `Guardian` accounts can do nothing but activate pre-selected `Recovery` accounts. Additionally, `Recovery` accounts are specified before the fact, so funds can only move to an address specified by the original owner. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure35.png" width="350px" height="178px" />
 
@@ -833,7 +834,7 @@ The following message types are commonly used in FIX 4.4:
 - Trade Capture Report
 - Application Blockchain Interface (ABI) bridges the protocols and allows orders to be generated on Layer 1 or Layer 2 depending on liquidity needs and order types. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure41.png" width="350px" height="622px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure41.png" width="350px" height="400px" />
 
 *Figure: FIX 4.4 implementation proposal.*
 
