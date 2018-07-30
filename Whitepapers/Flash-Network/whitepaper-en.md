@@ -10,6 +10,24 @@ V1.1 July 2018
 ### Abstract 
 >The Flash Network is a Layer 2 payment channel network on THORChain, allowing instant trades across all tokens and liquidity pools. Liquidity hubs anchor to price feeds and an economic model ensures always-on liquidity and high reliability of payment channels. Bridges with other Layer 2 networks such as Lightning, Raiden and Celer allow for instant exchange of any connected asset. Support for off chain trading mechanisms allow for fully featured decentralized exchanges.
 
+### Document Set
+The following whitepapers should be read in conjunction:
+
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) 
+A lightning fast decentralised exchange protocol.
+
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol) 
+Secure and fast cross-chain bridges for THORChain.
+
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network) *(this paper)*
+A layer 2 Network for instant asset exchange on THORChain.
+
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+Dynamic multi-set sharding for THORChain.
+
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+A self-amending forkless consensus algorithm for THORChain. 
+
 ## Overview
 
 [Introduction](#introduction)	
