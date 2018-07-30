@@ -8,6 +8,24 @@ V0.1 July 2018
 ### Abstract 
 >THORChain is a highly optimised multi-chain using pBFT consensus to achieve sub-second block finality. Tokens are traded on single chains, known as tokenChains with discrete address spaces. Multi-set sharding is proposed to allow byzantine resistant scaling. The native protocol facilitates on-chain trading and order matching at the protocol level, supporting both limit and market orders. Continuous liquidity pools ensure liquidity is always available for any token pair, and double as the source of trustless on-chain price feeds, a cornerstone of the protocol. Fee incentives are designed to continually attract on-chain liquidity. On-chain token generation is built-in for both fixed and variable supply tokens, with the potential for auditable collateralized stablecoins. Two-way pegs with UTXO, account and contract-based cryptocurrencies allow most existing cryptocurrencies to seamlessly move on and off THORChain. Transparent developer incentivisation strategies allow wallet and exchange developers to be funded at the protocol level which will encourage a vibrant developer community. On-chain governance and smart updates with enforced voting and quadratic polling ensures THORChain is an adaptive and iterative platform that grows with its needs without contentious hard forks. THORChain is built to be compatible with the Flash Network; a layer 2 payment channel network. 
 
+### Document Set
+The following whitepapers should be read in conjunction:
+
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
+A lightning fast decentralised exchange protocol.
+
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol)
+Secure and fast cross-chain bridges for THORChain.
+
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
+A layer 2 Network for instant asset exchange on THORChain.
+
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+Dynamic multi-set sharding for THORChain.
+
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+A self-amending forkless consensus algorithm for THORChain. 
+
 ## Overview
 
 [Introduction](#introduction)	
@@ -770,6 +788,24 @@ Multi-signature accounts are supported at the protocol level as a key part of ma
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure37.png" width="350px" height="155px" />
 
 *Figure: A THORChain multi-sig.*
+
+### Transaction Receipts
+
+Sending payments on a public blockchain is problematic for the point of privacy; but invaluable for recording an immutable history of transactions. For public adoption, transactions need to be tracked and reconciled and these are often done through third party software. THORChain has an opportunity to re-think how transactions can be tracked and reconciled for users on-chain with no third party software, but still done in the private fashion using the assymetric key cryptography. 
+
+Each transaction is sent with a hash of a transaction description:
+
+```
+type Tx struct {
+  balance         int64         //  Balance to transfer from Sender
+  to_address      string        //  Address of the Receiver
+  data_hash       string        //  hash.SenderPrivKey(description) or hash.ReceiverPubKey(hash.SenderPrivKey(description))
+}
+```
+
+The description is hashed and stored on-chain. There are two options:
+1. Only the Sender's private keys are used to hash the description. In this case only the Sender can decrypt.
+2. Both the Sender's private keys as well as the Receiver's public keys are used to hash. In this case both (and only) the Sender and Receiver can decrypt and read the message, yet the hash is stored publicly on-chain. 
 
 ### Smart contracts
 
