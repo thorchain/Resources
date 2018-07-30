@@ -16,7 +16,23 @@ V0.1.4 - July 2018
 >Shard consensus requires s validator sets to cross-validate in a validating group, with ⅔ s being byzantine resistant consensus. A validator set is composed of a number of validators. Validators are selected from a pool of online staked nodes. As a shard approaches saturation, it is split into several shards. Each validator set collects pending transactions from mem-pools they observe and proposes blocks to all canonical chains in their shards. 
 >The protocol exhibits safety with two levels of Byzantine resistance; supermajority consensus in both the validator Sets and the validating Group but is vulnerable to plutocracy. This can be countered by minority-enabling economic incentives that prevent stake centralization and encourage a flat distribution of stake across all validators in each validator set. A solution to this is proposed in this paper and will be integrated into the economic model of THORChain to allow it to support multi-set sharding.
 
+### Document Set
+The following whitepapers should be read in conjunction:
 
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) 
+A lightning fast decentralised exchange protocol.
+
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol) 
+Secure and fast cross-chain bridges for THORChain.
+
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
+A layer 2 Network for instant asset exchange on THORChain.
+
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol) *(this paper)*
+Dynamic multi-set sharding for THORChain.
+
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+A self-amending forkless consensus algorithm for THORChain. 
 
 
 ## Overview
