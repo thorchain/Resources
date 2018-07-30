@@ -5,7 +5,7 @@
 
 devs@thorchain.org
 
-V1.1 July 2018
+V0.1 July 2018
 
 ### Abstract 
 >The Flash Network is a Layer 2 payment channel network on THORChain, allowing instant trades across all tokens and liquidity pools. Liquidity hubs anchor to price feeds and an economic model ensures always-on liquidity and high reliability of payment channels. Bridges with other Layer 2 networks such as Lightning, Raiden and Celer allow for instant exchange of any connected asset. Support for off chain trading mechanisms allow for fully featured decentralized exchanges.
