@@ -26,6 +26,9 @@ Dynamic multi-set sharding for THORChain.
 - [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
 A self-amending forkless consensus algorithm for THORChain. 
 
+- [Orð Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Ord-Protocol)
+A decentralised, secure messaging protocol for THORChain.
+
 ## Overview
 
 [Introduction](#introduction)	
