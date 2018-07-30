@@ -73,7 +73,7 @@ A self-amending forkless consensus algorithm for THORChain.
 - On-chain Initial Exchange Offerings	
 - Validator Staking	
 
-[Other Features](#advanced-transaction-features)
+[Advanced Transaction Features](#advanced-transaction-features)
 - THORChain Name Service (TNS)	
 - Account Recovery	
 - Multi-sig Accounts	
