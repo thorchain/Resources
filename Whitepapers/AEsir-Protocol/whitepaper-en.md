@@ -8,6 +8,24 @@ V0.1 - July 2018
 ### Abstract 
 >We propose an effective on-chain governance mechanism to be implemented in THORChain. Validators in THORChain stake Rune and auction their way into the Validator Set of `100`. Each Validator proposes blocks for the network, committed once `67%` supermajority is attained. As part of proposing a block, each Validator can suggest core changes to the protocol, which includes consensus rules, architecture changes, state changes, token structure changes, on-chain commands or governance changes. Consensus on the change is decoupled from consensus of the block. The proposing Validator begins running the software on a separate SideNet, whilst still securing the MainNet. The SideNet is a side-fork of MainNet and the proposing validator continues to sync all MainNet blocks to SideNet. All other Validators start signalling support of the change in the affirmative or negative. Signalling the affirmative requires integrating the diff patch and joining SideNet; allowing the opportunity to perform live tests of the new code. Validators are penalised if no signal is committed inside a set period of blocks (time). Once a change attains `67%` consensus the SideNet immediately becomes the canonical chain with no disruption to users and the old chain is abandoned. Anyone can delegate Runes to a Staker (prospective Validator) or a Validator itself and vote on a signal. Quadratic signalling is used to prevent plutocracy influence, where a single vote has a large comparative weight than bundled votes. The signalling threshold in a Staking Pool is `51%`, allowing individual voters the opportunity to swing a signal. Stakers can switch pools to vote, but are bound by the enforced bonding period. 
 
+### Document Set
+The following whitepapers should be read in conjunction:
+
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) 
+A lightning fast decentralised exchange protocol.
+
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol) 
+Secure and fast cross-chain bridges for THORChain.
+
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
+A layer 2 Network for instant asset exchange on THORChain.
+
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+Dynamic multi-set sharding for THORChain.
+
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol) *(this paper)*
+A self-amending forkless consensus algorithm for THORChain. 
+
 ## Overview
 
 [Introduction](#introduction)	
