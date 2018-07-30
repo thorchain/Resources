@@ -11,7 +11,7 @@ V0.1 July 2018
 ### Document Set
 The following whitepapers should be read in conjunction:
 
-- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) (this paper)
 A lightning fast decentralised exchange protocol.
 
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol)
@@ -77,6 +77,7 @@ A self-amending forkless consensus algorithm for THORChain.
 - THORChain Name Service (TNS)	
 - Account Recovery	
 - Multi-sig Accounts	
+- Transaction Receipts
 - Smart contracts	
 - Additional On-Chain Commands	
 - StableCoins	
@@ -795,7 +796,7 @@ Sending payments on a public blockchain is problematic for the point of privacy;
 
 Each transaction is sent with a hash of a transaction description:
 
-```
+```Go
 type Tx struct {
   balance         int64         //  Balance to transfer from Sender
   to_address      string        //  Address of the Receiver
