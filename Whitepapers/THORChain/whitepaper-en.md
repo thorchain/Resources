@@ -799,14 +799,41 @@ Each transaction is sent with a hash of a transaction description:
 ```Go
 type Tx struct {
   balance         int64         //  Balance to transfer from Sender
+  token           int64         //  TokenIdentifier
   to_address      string        //  Address of the Receiver
-  data_hash       string        //  hash.SenderPrivKey(description) or hash.ReceiverPubKey(hash.SenderPrivKey(description))
+  data_hash       string        //  Optional. hash.SenderPrivKey(description) or
+                                //  hash.ReceiverPubKey(hash.SenderPrivKey(description))
 }
 ```
 
 The description is hashed and stored on-chain. There are two options:
 1. Only the Sender's private keys are used to hash the description. In this case only the Sender can decrypt.
 2. Both the Sender's private keys as well as the Receiver's public keys are used to hash. In this case both (and only) the Sender and Receiver can decrypt and read the message, yet the hash is stored publicly on-chain. 
+
+**Considerations**. There are a number of considerations that need to be factored into this functionality and its implementation:
+
+1. Transaction descriptions will add an extra 256 bits to each transaction; which can add up and increase block sizes. As transaction descriptions are not *critical* information and present no risk to assets if a collision is detected, smaller SHA digests or other hashing functions can be considered such as SHA-224 (224 bits) SHA-1 (160 bits) or MD5 (142 bits). A user who wants full privacy will not use on-chain descriptions anyway.  
+2. For full two-way decryption, the Sender must know the Receiver's Public Key. As THORChain addresses are trimmed hashes of the Public Key, it is not possible to extract the PubKey from the address, so the PubKey must be shared using off-chain channels, or by using the THORChain Messaging Protocol. Exposing a PubKey *may* increase the probability of an address being compromised in future by advanced key breaking algorithms. Users should be communicated the risks so they do not expose the PubKeys on high-value addresses. 
+
+With this lightweight functionality built on-chain any wallet for THORChain can decrypt and show transaction information universally. Third-party services can use the `data_hash` field to insert payment references allowing automated reconciliation and payment tagging. With the correct cryptography, THORChain transactions are private yet useable.
+
+### Messaging Protocol
+
+```
+Under Research
+```
+
+Sending transaction receipts using assymetric key cryptography across THORChain allows private and end-end encrypted data transfer. This functionality allows THORChain to experiment with fully private and peer-peer on-chain messaging. Senders can send messages to the Receiver's address. 
+
+
+```Go
+type msg struct {
+  from_address    string        //  Address of the Sender, such as @alice or T0xaaa...aaa                   
+  to_address      string        //  Address of the Receiver, such as @bob or T0xbbb...bbb
+  msg_hash        string        //  hash.ReceiverPubKey(hash.SenderPrivKey(description))
+}
+```
+
 
 ### Smart contracts
 
