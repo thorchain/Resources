@@ -8,6 +8,23 @@ V0.1 July 2018
 ### Abstract 
 >We propose an effective chain-agnostic bridge protocol that uses multi-signature accounts, cryptoeconomics and continuous liquidity pools (CLPs) to ensure security of assets traded across bridges on THORChain. This can be adapted for almost all major UTXO, account and contract-based assets including Bitcoin, Ethereum, their code-forks as well as their tokens. Validators are staked fully synced nodes that are part of the Validator Set for THORChain and secure the protocol.  The Validator Set nominates a sub-set of Validators to form `k` bridges by being party to `m of n`, `n-1 of n` or `n of n` multi-signature accounts on the external chain. Each bridge offers different but observable security and performance characteristics to be selected by users to match their needs. The security of the bridge is `m * stake`, where stake is the stake held by each Validator in the sub-set. Incoming coins are locked in the multi-sig and minted as `tCoins` via CLPs on THORChain. Once minted, the `tCoins` are secured by the entire protocol on a single tokenChain and each tCoin exhibits verifiable fungibility despite being minted by different sub-sets on different bridges. THORChain tokens can also be safely deployed and recovered on any supported external chain via CLPs and the existing bridges. The CLP transmits a price for the `tCoin` which can be used by the protocol to measure the risk of each bridge; a risky bridge is one where the bridge security is less than the value of locked assets. The Validator Set will then re-shuffle a risky bridge, or move assets away to a more secure bridge; thus the bridges inherit the entire protocol’s security. If a bridge is attacked, the Validators will slash the attackers and use slashed assets to restore the stolen coins, via on-chain governance and Foundation intervention.
 
+### Document Set
+The following whitepapers should be read in conjunction:
+
+- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) 
+A lightning fast decentralised exchange protocol.
+
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol) *(this paper)*
+Secure and fast cross-chain bridges for THORChain.
+
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
+A layer 2 Network for instant asset exchange on THORChain.
+
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+Dynamic multi-set sharding for THORChain.
+
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+A self-amending forkless consensus algorithm for THORChain. 
 
 ## Overview
 
