@@ -1,4 +1,4 @@
-# Ord Protocol Whitepaper
+# Orð Protocol Whitepaper
 
 ## Whitepapers
 
