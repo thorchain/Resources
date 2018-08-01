@@ -64,7 +64,7 @@ Payment Networks. The Visa Network is one of the incumbent global payment proces
 ### Flash Network 
 **Flash Network.** The Flash Network adds an instant exchange layer on top of THORChain allowing users to instantly trade any supported asset. Economic incentives reward liquidity and reliability, creating a highly useable payment channel network. Bridges with external Layer 2 Networks such as Lightning[1] and Raiden[2] allow trades across networks. The Flash Network is built to allow seamless and instant trades between any asset on any network for the THORPayments ecosystem.  
 
-![figure8](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure8.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure8.png" width="500px" height="180px" />
 
 ## Flash Network
 
@@ -75,7 +75,8 @@ The Flash Network is a Payment Channel Network and DEX protocol that sits on top
 Payments can be made instantly and across TokenChains and facilitate high frequency trading.  
 Users open channels with Mjölnir and perform flash transactions. When a flash is made, the continuous liquidity node is used to instantly trade tokens at internal pool pricing; which represents fair market pricing. Instead of performing 1:1 channel movements (such as lightning network) the Mjölnir perform channel movements at the underlying token price ratio.
 
-![figure9](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure9.png)
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure9.png" width="400px" height="285px" />
 
 In this example Alice pays Bob 1 Rune, but Bob wishes to receive in TKN1, which is half the price of 1 Rune. The Mjölnir performs the swap instantly and pays out to Bob 2 TKN1. 
 
@@ -93,11 +94,11 @@ Nodes can exit the hubs at any time; and retract their collateral and any collec
 
 Traders wishing to perform instant Layer 2 trades across a pair open buy or sell channels with the hub. A sell channel is a channel filled with the TKN of the Hub; a buy channel is filled with tokens. 
 
-![figure4](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure4.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure4.png" width="285px" height="400px" />
 
 When a channel is opened and an order created the Hub immediately adds outgoing liquidity to the channel. If the channel is a sell, tokens are added through a single on-chain transaction. If the channel is a buy, liquidity is added by a single on-chain transaction through the CLP to the channel. If the channel is closed, the liquidity is returned to the Hub in the reverse. To prevent denial of service and sybil attacks, opening a channel with the Hub requires a small joining fee, the amount set by the Hub.
 
-![figure5](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure5.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure5.png" width="390px" height="400px" />
 
 Once two orders are matched, trades can performed instantly by moving the tokens in the correct sense. Trades can be partially or fully filled. 
 
@@ -123,18 +124,18 @@ Unlike incumbent networks which suffer from the majority of their users holding 
 Once two Liquidity Hubs have been formed, TKN1 and TKN2, they can be connected with fully-collateralized channels. Now, the two tokens can be traded directly with each other with the Rune acting as a settlement currency. This achieves a TKN1:TKN2 trade pair. 
 Connected with the Bifrösts, this means that any supported currency can be instantly traded with each other, even across networks. 
 
-![figure7](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure7.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure7.png" width="500px" height="170px" />
 
 ### Cross-Network Compatibility
 The Flash Network can be connected with other Layer 2 Networks, such as the Lightning Network and Raiden Network, known as “Bifrösts”. Channels opened from Flash nodes to Lightning nodes are filled with Bitcoin, whilst channels opened on the Flash side are filled with tBitcoin. This requires that the Layer 1 Bridge has already been used to emit tBitcoin on-chain. With this in place, all Bitcoin and tBitcoin are fully accounted for on both Networks and the Mjölnir can move value across the Bifröst instantly. 
 
-![figure](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure1.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure1.png" width="400px" height="175px" />
 
 Once tBitcoin is emitted into the Flash Network from the Bifröst, it can be used to trade across other tokens instantly. 
 Further, the Flash Network can have a Bifröst with the Raiden Network. In this case, Bitcoin can be move in as tBitcoin across the Lightning Bifröst, traded into tEther across a Mjölnir liquidity node, and then emitted back across the Raiden Bifröst as Ether. 
 With this in place; transactions can be made across all compatible chains - instantly. 
 
-![figure2](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure2.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure2.png" width="400px" height="175px" />
 
 ### Settlement
 The security of the Flash Network’s mechanisms are not relevant unless we can ensure that Layer 2 mechanisms do eventually become settled on the root THORChain.
@@ -211,7 +212,7 @@ DEX users will range from high end traders doing high frequency trading, arbitra
 ### Liquidity Bonds
 Adding matched liquidity to channels each time slows down trading by adding unnecessary on-chain transactions. Once a Hub is sufficiently collateralized, bonds can issued instead of real channel liquidity. This allows instant trading after channel formation. When the trader exits the channel the bond is redeemed from the existing hub liquidity. 
 
-![figure6](https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure6.png)
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure6.png" width="350px" height="400px" />
 
 ### Advanced Trade Types
 
