@@ -94,7 +94,7 @@ Nodes can exit the hubs at any time; and retract their collateral and any collec
 
 Traders wishing to perform instant Layer 2 trades across a pair open buy or sell channels with the hub. A sell channel is a channel filled with the TKN of the Hub; a buy channel is filled with tokens. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure4.png" width="285px" height="400px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Flash-Network/images/figure4.png" width="385px" height="400px" />
 
 When a channel is opened and an order created the Hub immediately adds outgoing liquidity to the channel. If the channel is a sell, tokens are added through a single on-chain transaction. If the channel is a buy, liquidity is added by a single on-chain transaction through the CLP to the channel. If the channel is closed, the liquidity is returned to the Hub in the reverse. To prevent denial of service and sybil attacks, opening a channel with the Hub requires a small joining fee, the amount set by the Hub.
 
