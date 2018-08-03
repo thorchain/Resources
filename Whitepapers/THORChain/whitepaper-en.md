@@ -232,18 +232,20 @@ There are a number of unanswered questions around network security, performance 
 ## On-chain Governance 
 
 ### Overview
-On-chain governance on THORChain is known as “Validator Signalling” by virtue of the fact that it is a continual process performed by validators, and that votes are more aptly referred to as signals. Validator Signalling is covered extensively in the Validator Signalling Whitepaper. An overview is provided here.
+On-chain governance on THORChain is known as “Validator Signalling” as it is a continual process performed by validators, and that votes are more aptly referred to as signals. Validator Signalling is covered extensively in the [AEsir-Protocol Whitepaper](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol). An overview is provided here.
+
+
 Any block producer can propose a change in the core software and consensus rules structured as a data packet:
 
 `{description, newCode, diffPatch}`
 
 All other validators vote to accept the change and if it reaches supermajority consensus the updated code can be immediately brought in to operation. The proposing and agreeing validators run the compiled core software on standby, so that once approved, the core software is live to produce the very next block. 
 The types of updates that can be rolled out are essentially unlimited and could be:
-Consensus rules such as supermajority thresholds, or voting rules (relating to on-chain governance itself)
-Protocol architecture such as a change to consensus algorithms, integration of sharding, change to the blockchain structure or signature schemes. 
-Native on-chain commands as discussed, whereby additional trading rules can be integrated at the protocol level.
-Changes to the token structure such as supply or inflation.
-Changes to state, such as amending exploited or unused accounts.  
+1. Consensus rules such as supermajority thresholds, or voting rules (relating to on-chain governance itself)
+2. Protocol architecture such as a change to consensus algorithms, integration of sharding, change to the blockchain structure or signature schemes. 
+3. Native on-chain commands as discussed, whereby additional trading rules can be integrated at the protocol level.
+4. Changes to the token structure such as supply or inflation.
+5. Changes to state, such as amending exploited or unused accounts.  
  
 ### Key Aspects
 **Economically Enforced Participation**. Voter participation is enforced by in-protocol slashing rules. Not voting on a proposed update or poll will result in a Validator’s stake being slashed and redistributed to other Validators who do vote. There is a grace period of n blocks allowing Validators time to poll the community (or their staking pool) and take up a position before casting a vote. 
