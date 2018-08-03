@@ -266,12 +266,14 @@ The Rune is the token of the ecosystem and resides on Address Space `T0`. Initia
 5. Block rewards for Layer 1 Validator Sets and Layer 2 Liquidity Nodes are paid in Rune. 
 
 ### Block Rewards and Emission
-THORChain is a predictable inflationary currency that aims to create a price-competitive ecosystem, driving transaction fees to zero.  Inflation is the hidden tax designed to reward those that stake to either secure the network, provide bridge support or add either Layer 1 or Layer 2 liquidity. Noting the current inflation rates of Ethereum, Bitcoin, EOS and Cosmos, an acceptable starting inflation of `5%` is proposed. As the Rune is designed to be a settlement currency, instead of a store of value, holding Rune without staking it in the ecosystem is economically discouraged. In all other cases, the Rune is held for as long as it is necessary to settle the payment. 
+Rune ticker `RUNE` is a predictable inflationary currency that aims to create a price-competitive ecosystem, driving transaction fees to zero.  Inflation is designed to reward those that stake to either secure the network or add either Layer 1 or Layer 2 liquidity. Noting the current inflation rates of Ethereum, Bitcoin, EOS and Cosmos, an acceptable starting inflation of `2-5%` is proposed.
+
 Block Rewards are issued with `50%` to Validator Sets and `50%` to the Layer 2 Liquidity Nodes. Each Validator in the Validator Set will receive:
 
 ![rewards=rewardsTotal/(100*Sets)](https://latex.codecogs.com/gif.latex?rewards/%28100*Sets%29)
 
 Liquidity Nodes will receive rewards in accordance with the Layer 2 Incentivisation Plan which rewards for liquidity and reliability. 
+
 If Layer 2 is not launched alongside the mainnet, then Layer 2 rewards may be hard-coded to pay back to the Foundation to prevent a stalemate whereby validators refuse to launch the Layer 2 Incentivisation Plan for the incorrect perception that they are being diluted or penalised. 
 
 ### Fees
