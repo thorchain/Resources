@@ -164,13 +164,15 @@ _Figure 2: The THORChain Address Space; here for Rune (T0)._
 The prefix deconflicts the address space with all other protocols. The TokenIndex deconflicts the token from other on-chain tokens, where Rune is `T0`, the first on-chain token is `T1` etc.  The Separator separates the TokenIndex (which may be variable length) and the public address, derived from a SHA256 hash of a private key. 
 Alice, who has a public address for her Rune, `T0xAlice`, will also have a matched address on every other TokenChain that she has tokens for. Her single private key unlocks all addresses. If Alice is sent a new token; her new address is automatically created.  
 
-`T0xAlice -> Rune address for Alice`
+```
+T0xAlice -> Rune address for Alice
 
-`T1xAlice -> T1 address for Alice`
+T1xAlice -> T1 address for Alice
 
-`T5xAlice -> T5 address for Alice`
+T5xAlice -> T5 address for Alice
 
-`TnxAlice -> Tn address for Alice`
+TnxAlice -> Tn address for Alice
+```
 
 Deconflicting address spaces in multiple chains have the following advantages:
 - Discrete transactions for each token, with discrete mem-pools. 
@@ -245,7 +247,9 @@ Changes to state, such as amending exploited or unused accounts.
  
 ### Key Aspects
 **Economically Enforced Participation**. Voter participation is enforced by in-protocol slashing rules. Not voting on a proposed update or poll will result in a Validator’s stake being slashed and redistributed to other Validators who do vote. There is a grace period of n blocks allowing Validators time to poll the community (or their staking pool) and take up a position before casting a vote. 
+
 **Empowered Minorities**. Quadratic polling is implemented inside a validator’s staking pool. Each member that stakes with a Validator can cast votes proportional to their stake, where each vote is a single whole unit, and increases with the number of subsequent votes. `1 vote` costs `1 token`, `2 votes` cost `3 tokens (1 + 2)`, `3 votes` cost `5 tokens (1 + 2 + 3)` etc. This appropriately removes the biases that large holders can have on voting, preventing a plutocracy. It also enables and empowers the minority to know their vote is meaningful and represented.A Validator can submit votes on behalf of non-voting stakers in their pool but the vote is quadratically weighted as above. Thus non-voting stakers are empowered to easily swing their Validator’s final vote as their individual vote has more comparative weight than the Validator who representatively voted for them using their tokens. 
+
 **Flexibility**. Any staker can change their vote at any time to signal differently. Delegators who switch staking pools to swing vote a different Validator are bound by bonding periods and can effectively only switch once.  
 A carefully designed on-chain governance solution (which itself can update) will see THORChain become a forkless self-amending ledger and increase the likelihood of persistence well into the future. 
 
