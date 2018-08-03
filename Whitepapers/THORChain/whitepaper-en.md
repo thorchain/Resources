@@ -259,11 +259,11 @@ A carefully designed on-chain governance solution (which itself can update) will
 
 ### Rune Characteristics
 The Rune is the token of the ecosystem and resides on Address Space `T0`. Initial supply will be an arbitrary but finite number. The following are the uses of Rune:
-Validators are required to stake Rune to be part of the Validator Sets. Once staked the Rune are bonded for a period of time to prevent nothing-at-stake attacks.   
-All network transaction fees (gas) are paid in Rune. Fees may be transaction fees, trading fees, bridge fees and liquidity fees, imposed by the different elements of the ecosystem.
-Liquidity is always backed by Rune in the Continuous Liquidity Pools; so the Rune functions as ecosystem settlement currency. 
-The Flash Network requires Rune as liquidity to join Liquidity Hubs and fees are paid in Rune. 
-Block rewards for Layer 1 Validator Sets and Layer 2 Liquidity Nodes are paid in Rune. 
+1. Validators are required to stake Rune to be part of the Validator Sets. Once staked the Rune are bonded for a period of time to prevent nothing-at-stake attacks.   
+2. All network transaction fees (gas) are paid in Rune. Fees may be transaction fees, trading fees, bridge fees and liquidity fees, imposed by the different elements of the ecosystem.
+3. Liquidity is always backed by Rune in the Continuous Liquidity Pools; so the Rune functions as ecosystem settlement currency. 
+4. The Flash Network requires Rune as liquidity to join Liquidity Hubs and fees are paid in Rune. 
+5. Block rewards for Layer 1 Validator Sets and Layer 2 Liquidity Nodes are paid in Rune. 
 
 ### Block Rewards and Emission
 THORChain is a predictable inflationary currency that aims to create a price-competitive ecosystem, driving transaction fees to zero.  Inflation is the hidden tax designed to reward those that stake to either secure the network, provide bridge support or add either Layer 1 or Layer 2 liquidity. Noting the current inflation rates of Ethereum, Bitcoin, EOS and Cosmos, an acceptable starting inflation of `5%` is proposed. As the Rune is designed to be a settlement currency, instead of a store of value, holding Rune without staking it in the ecosystem is economically discouraged. In all other cases, the Rune is held for as long as it is necessary to settle the payment. 
