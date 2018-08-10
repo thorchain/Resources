@@ -800,7 +800,7 @@ This mechanism is safe as it requires both their `Guardian` and `Recovery` accou
 
 ### Multi-sig Accounts
 
-Multi-signature accounts are supported at the protocol level as a key part of managing assets. The account owner simply adds external accounts in special transactions. Once added all future transactions require all parties to sign. The signature is aggregated in the account and the last party performs the transaction. The signature is cleared once the transaction is performed. The default is n of n but this can easily be changed at any time by the parties. 
+Multi-signature accounts are supported at the protocol level as a key part of managing assets. The account owner simply adds external accounts in special transactions. Once added all future transactions require all parties to sign. The signature is aggregated in the account and the last party performs the transaction. The signature is cleared once the transaction is performed. The default is `n of n` but this can easily be changed at any time by the parties. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure37.png" width="350px" height="155px" />
 
@@ -869,6 +869,43 @@ type TxRequest struct {
 ```
 
 Once the `TxRequest` is processed on-chain the `Sender` is notified by an Events Service from supported wallets, or simply shows up in their wallet. The `Sender` simply authorises the payments one-by-one, but they can't be executed by the `Requester` until the window of time between `start_blocks` and `expiry_blocks`. This functionality has the same considerations as Transaction Receipts. The Sender can remove their `auth_hash` to cancel the payment. 
+
+### Escrow Accounts
+
+Escrows are a vital part of a payment protocol. Alice pays into an escrow, and nominates Bob to receive, and Charlie to escrow. Alice can only `release` the payment to Bob. Bob can only `refund` the payment to Alice. Charlie can `refund` or `release`, or do a partial `refund`. All transactions can be done in range `0% : 100%` allowing partial refunds or releases.
+
+The implementation is trivial. Alice makes an `EscrowCreate` transaction and observes the newly created escrow address. She can include an optional transaction message. 
+
+```Go
+type txEscrowCreate struct {
+  balance         int64         //  Balance to transfer from Sender
+  token           int64         //  TokenIdentifier
+  to_address      string        //  Address of the Receiver
+  agent_address   string        //  Address of the Escrow Agent
+  data_hash       string        //  Optional. hash.SenderPrivKey(description) or
+                                //  hash.ReceiverPubKey(hash.SenderPrivKey(description))
+}
+```
+
+To release, Alice makes an `EscrowRelease` transaction, which checks her address signature and releases the balance (fully or partially) to Bob. 
+
+```Go
+type EscrowRelease struct {
+  escrow_address  string        //  Address of the Escrow
+  amount          int64         //  Amount to release
+}
+```
+
+To refund, Bob makes an `EscrowRefund` transaction, which checks his address signature and refunds the balance (fully or partially) to Alice. 
+
+```Go
+type EscrowRelease struct {
+  escrow_address  string        //  Address of the Escrow
+  amount          int64         //  Amount to refund
+}
+```
+
+To refund or release, Charle makes an `EscrowRelease` or `EscrowRefund` transaction.
 
 ## Other Features
 
