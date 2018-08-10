@@ -167,7 +167,7 @@ _Table: Order for splitting and merging_
 
 With this mechanism the Protocol can scale up and down depending on saturation. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="400" height="215" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="500" height="412" />
 
 _Figure: Overview of the YGGDrasil Protocol_
 
