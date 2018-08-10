@@ -142,7 +142,9 @@ As soon as the network reaches 90% saturation for more than 100 blocks, the shar
 
 Once again, as saturation in one shard climbs to 90%, the shard's validator cap increases from `21` to `21 * 2 + 15 = 58`, and then splits in the same manner. If the saturation reduces then validators are demoted back outside of the Validator Set. There are now three shards of each `29` Validators. Each Validator Set can flex between 21 and 58 Validators depending on saturation. 
 
-Note: Flexxing the cap on validators does not change performance; it simply prevents a mass nomination or mass denomination of validators in and outside the Validator Sets, allowing it to be a more gradual process. 
+*Note 1: A shard can only be reduced to a minimum of a single chain to prevent splitting the state of a chain; which is very complex. 
+
+*Note 2: Flexxing the cap on validators does not change performance; it simply prevents a mass nomination or mass denomination of validators in and outside the Validator Sets, allowing it to be a more gradual process.*
 
 Likewise, the shards can merge. If a shard drops below 10% saturation it will be maintained by 21 validators (due to the existing flex rule above). If two shards `s1` and `s2` with `c1` and `c2` chains respectively are at 10% saturation then the 42 Validators who maintain both shards start syncing each other's chains (but do not propose blocks yet). Once 29 Validators have reported a full synce of both shard's chains, then the shards are merged with `c1 + c2` chains. 
 
@@ -162,6 +164,8 @@ The following is the sequence:
 |10|`101st Block`| 29 of the highest staked Validators become the only VS for the merged shard. 
 
 _Table: Order for splitting and merging_
+
+With this mechanism the Protocol can scale up and down depending on saturation. 
 
 ### Cross-Shard Communication
 The purpose of multiple shard assignments in THORChain is to prevent fraudulent cross-shard communication. As explained above, transferring assets across shards is akin to atomic debiting and crediting in the involved shards. For simplicity, let's consider `S_a` and `S_b` two be two arbitrary shards. 
