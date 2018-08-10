@@ -121,6 +121,8 @@ Waiting Validators (who do not have sufficient stake to be in the Validator Set)
 ### Overview
 There are various types of changes that can be submitted via the THORChain Improvement Proposals, TIPs and merged in by Validator Signalling. Simple changes can be integrated quickly, more complex changes go through a formal verification process.
 
+**Community Proposals.** The community may use the the Protocol to simply broadcast and poll for opinion on decisions that do not involve software changes. A proposing validator makes a proposal (such as Foundation asset funding allocations for development or liquidity grants) and the community or Foundation take action once the minimum vote is achieved. 
+
 **Account Changes.** Account changes, such as changing `TokenData` or `CLPData` retrospectively can also be effected by Validator Signalling. It is likely that the community would canvas the change and the Validators simply integrate it on request. These changes may not have far-reaching effects. An example of this is `EIP-999` which is the Ethereum Improvement Proposal to change the contract data to recover locked funds from the Parity Multi-sig breach. The proposal itself would actually benefit the community as it is releasing funds to the people who owned them, but the hard fork to do so would damage the community. This can be avoided by using Validator Signalling.
 
 **Protocol Configuration Changes.** Changes to protocol configuration such as that to do with the token supply, inflation, TNS fees, CLP liquidity fee thresholds can have wide-reaching changes, but can be integrated relatively easily. Proposing Validators simply propose the changed config which can be merged in without much overhead. It is likely that Protocol Config changes would automatically be vetoed by the Validators until the community can assess the reasons and motivations for the change. 
@@ -133,10 +135,10 @@ There are various types of changes that can be submitted via the THORChain Impro
 Proposals can come from the community, but it requires at least one Validator to sponsor it, so more than likely they will come from Validators themselves. `TIPs` are instructions to other Validators on how to integrate the proposed change, the code to change and a diff patch. `TIPs` are indexed and stored in the MerkleChain. 
 
 ```
-[TIP#: {description, newCode, diffPatch}]
+[TIP#: {description, newCode, diffPatch, softwareHash, expiryBlock}]
 ```
 
-In each block a Validator produces they include a signal in the block header to demonstrate signalling. Signalling is as simple as specifying a `YES/1` or `NO/0` alongside the `TIP#`. 
+In each block a Validator produces they include a signal in the block header to demonstrate signalling. Signalling is as simple as specifying a `YES/1` or `NO/0` alongside the `TIP#`, but software hashes must match to ensure the correct software is being run. Different software hashes will bifurcate `TIP` signalling and prevent `67%` being attained. The expiryBlock is nominated to give an end date to the vote. If the `TIP` is not implemented prior to the expiry time it is decommissioned. The TIP may be resurrected by any Validator who simply needs to nominate it again. 
 
 ```
 {TIP#, NO} 
@@ -146,18 +148,33 @@ In each block a Validator produces they include a signal in the block header to 
 Once 67% of Validators have signalled in support of a TIP, then the supporting Validators can now start generating blocks with the latest software compiled and the blocks will be approved. 
 
 
-### TestNet
+## TestNet
 When a Validator proposes a sweeping architectural change that requires formal verification, they participate in testing the change on the official TestNet. The proposed new software is first compiled and a new TestNet is run as a fork. The TestNet is synced from the MainNet by the proposing Validator, which acts as a relayer. The Validator then submits a `TIP` containing a flagged blockhash from the TestNet. Validators who vote in favour of the update run the updated software and the TestNet, and submit votes also including flagged blockhashes. Whilst the TestNet is running it is formally verified as all new blocks are synced over. New features can be run safely. If a fatal error occurs then the TestNet can be reset as a new fork.
 
-Once `67%` of Validators are provably running the TestNet and no further issues have been raised, the Validators begin producing blocks with new protocol changes and decommission the TestNet. 
+Once `67%` of Validators are provably running the TestNet and no further issues have been raised, the Validators begin producing blocks with new protocol changes and decommission the TestNet once they see new blocks being produced with the updated software on the MainNet.  
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/AEsir-Protocol/images/figure2.png" width="400px" height="290px" />
 
 *Figure: The TestNet is formally verified in a live setting.*
 
-
 The sponsoring Validator incurs an infrastructure cost in maintaining the TestNet, so they are unlikely to sponsor a `TIP` that won’t get support from other Validators, or continue maintaining a TestNet that hasn’t attracted much support. 
 
-### Conclusion
+## TIP Bounties
+
+When a `TIP` is suggested by a community member through a Validator, the protocol automatically creates and associates an escrow wallet to the `TIP`. Before a `TIP` has a suitable software implementation Validators can signalling support for it and start paying into the escrow. The wider community can also add to the bounty escrow openly. The bounty escrow will accumulate in rewards, incentivising the community to begin the implementation for the `TIP`. 
+Community members can start working on implementations and submit them to Validators to accept as a solution for that `TIP`, adding their wallet address. Multiple implementations can be submitted for a TIP, and are tracked using software signature hashes.  
+
+Validators who accept the `TIP` begin running the updated software immediately. Once the `TIP` reaches consensus (requiring the identical software implementation to be run) the bounty escrow is released by the protocol. 
+
+There are only three outcomes for the bounty:
+
+1. The `TIP` is implemented automatically through Validator Signalling. The bounty hunter who submitted the implemented `TIP` is automatically paid. 
+
+2. The `TIP` hangs in limbo. Validators withdraw support for the `TIP` by flipping their votes to `NO`. They are refunded their deposit automatically by the protocol.  
+
+3. The `TIP` expires. The bounty is fully refunded to anyone who contributed. 
+
+
+## Conclusion
 This represents our current research on on-chain governance but additional revisions may be needed.  A carefully designed on-chain governance solution (which itself can update) will see THORChain become a self-amending ledger and increase the likelihood of persistence well into the future. 
 
