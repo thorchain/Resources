@@ -85,6 +85,7 @@ A decentralised, secure messaging protocol for THORChain.
 - Recurring Transactions
 - Escrow Accounts
 - Automatic Disbursements
+- Combined Payment Features
 
 [Other Features](#other-features)
 - Messaging Protocol
