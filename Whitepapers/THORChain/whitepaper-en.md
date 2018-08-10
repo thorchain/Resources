@@ -83,6 +83,8 @@ A decentralised, secure messaging protocol for THORChain.
 - Transaction Receipts
 - Transaction Requests
 - Recurring Transactions
+- Escrow Accounts
+- Automatic Disbursements
 
 [Other Features](#other-features)
 - Messaging Protocol
@@ -881,7 +883,7 @@ type txEscrowCreate struct {
   balance         int64         //  Balance to transfer from Sender
   token           int64         //  TokenIdentifier
   to_address      string        //  Address of the Receiver
-  agent_address   string        //  Address of the Escrow Agent
+  agent_address   string        //  Address of the Escrow Agent. Set Null for Protocol-level escrow
   data_hash       string        //  Optional. hash.SenderPrivKey(description) or
                                 //  hash.ReceiverPubKey(hash.SenderPrivKey(description))
 }
@@ -900,12 +902,44 @@ To refund, Bob makes an `EscrowRefund` transaction, which checks his address sig
 
 ```Go
 type EscrowRelease struct {
-  escrow_address  string        //  Address of the Escrow
+  escrow_address  string        //  Address of the Escrow. 
   amount          int64         //  Amount to refund
 }
 ```
 
 To refund or release, Charle makes an `EscrowRelease` or `EscrowRefund` transaction.
+
+### Automatic Disbursements
+
+Trustlessly disseminating to a number of accounts can be easily done through THORChain's Automatic Disbursement feature. Alice creates a Disbursement Account and adds third-party addresses to the account. Any tokens she sends to this account will now disburse to the addresses listed, in specified proportions. Alice can also specify how to treat different tokens on disbersement. 
+
+```Go
+type txCreateDisbursement struct {
+  DisburseRecipient       array         // Array of [addr, rate]
+}
+```
+
+```Go
+type DisburseRecipient array {
+  to_address      string        //  Address of the Receiver
+  rate            int64         //  Rate to send to Receiver
+  token           int64         //  Token type to disburse. Null to send all
+}
+```
+
+
+### Combined Payment Features
+
+Any one of THORChain's Payment features can be combined to create powerful payment facilities, such as:
+
+- A bounty escrow being created, with the protocol being the escrow agent. The recipient address is a list of community contributors who are paid from the bounty.
+- Payroll being disbursed to staff from a recurring payment from an escrow account. 
+- A transaction request to an escrow account that is signed by a multi-signature account. 
+- Account recovery being affected by a multi-signature account. 
+- A THORChain name being bought and owned by a multi-signature account.
+
+Through the [Æsir Protocol](https://github.com/thorchain/Resources/blob/master/Whitepapers/AEsir-Protocol/whitepaper-en.md) more payment features can be easily added as uses for them arise. 
+
 
 ## Other Features
 
