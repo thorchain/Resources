@@ -167,6 +167,10 @@ _Table: Order for splitting and merging_
 
 With this mechanism the Protocol can scale up and down depending on saturation. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="400" height="215" />
+
+_Figure: Overview of the YGGDrasil Protocol_
+
 ### Cross-Shard Communication
 The purpose of multiple shard assignments in THORChain is to prevent fraudulent cross-shard communication. As explained above, transferring assets across shards is akin to atomic debiting and crediting in the involved shards. For simplicity, let's consider `S_a` and `S_b` two be two arbitrary shards. 
 Consider the number of distinct validator sets responsible for these two shards across all shards `S`. As each validator set covers three shards, all validator sets involved cover shard `S_a`, `S_b` and some third shard, which is neither `S_a` nor `S_b`. Since we earlier said that we would have one validator for each unique set of three shards, it must be the case that there is a validator set that covers `{S_a, S_b, S_k} for k = 0, ..., N where k != a and k != b`. It is clear here that `k` can take on `N-2` different values. That is, there are `N-2` distinct validator sets that cover any arbitrary two shards `S_a` and `S_b`. In the event any single validator set tried to produce a fraudulent transaction by faking a credit or debit, this action would be immediately noticed by the other `N-3` validator sets.
