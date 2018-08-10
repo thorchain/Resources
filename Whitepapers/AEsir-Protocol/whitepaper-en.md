@@ -161,8 +161,11 @@ The sponsoring Validator incurs an infrastructure cost in maintaining the TestNe
 
 ## TIP Bounties
 
-When a `TIP` is suggested by a community member through a Validator, the protocol automatically creates and associates an escrow wallet to the `TIP`. Before a `TIP` has a suitable software implementation Validators can signalling support for it and start paying into the escrow. The wider community can also add to the bounty escrow openly. The bounty escrow will accumulate in rewards, incentivising the community to begin the implementation for the `TIP`. 
-Community members can start working on implementations and submit them to Validators to accept as a solution for that `TIP`, adding their wallet address. Multiple implementations can be submitted for a TIP, and are tracked using software signature hashes.  
+When a `TIP` is suggested by a community member through a Validator, the protocol automatically creates and associates an escrow wallet to the `TIP`. Protocol Escrows are covered in the [THORChain Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md#escrow-accounts)
+
+Before a `TIP` has a suitable software implementation Validators can signalling support for it and start paying into the escrow. The wider community can also add to the bounty escrow openly. The bounty escrow will accumulate in rewards, incentivising the community to begin the implementation for the `TIP`. 
+
+Community members can start working on implementations and submit them to Validators to accept as a solution for that `TIP`, adding their wallet address (which may be a [Disbursement Address](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md#automatic-disbursements). Multiple implementations can be submitted for a TIP, and are tracked using software signature hashes.  
 
 Validators who accept the `TIP` begin running the updated software immediately. Once the `TIP` reaches consensus (requiring the identical software implementation to be run) the bounty escrow is released by the protocol. 
 
