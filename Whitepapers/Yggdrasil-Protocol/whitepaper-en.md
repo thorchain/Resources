@@ -10,10 +10,12 @@ V0.1.4 - July 2018
 
 ### Abstract 
 
->Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. 
->THORChain is highly-optimized blockchain with a focus on scalability. An efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) is combined with a multi-chain approach, in order to provide higher transaction throughput. The THORChain multi-chain has `n` number of canonical chains with `n` discrete mem-pools, which are synced on a master chain.
->Yggdrasil introduces an entirely new sharding mechanism for multi-chains with discrete mem-pools suitable for proof-of-stake based protocols. The network is broken into `s` shards, where each shard is comprised of `c` chains which are randomly assigned. Each shard is cross-validated by `3` Validator Sets, the Validating Group, requiring supermajority consensus for new blocks to be committed to canonical chains in the shard. Each Validator Set itself is byzantine resistant, composed of a number of validators (absolute minimum of 4, but likely to be set 21). Thus the network can be sharded to an upper bound limited only by a number of Validator Sets.
-As each shard of `c` chains approaches saturation, it is split into two shards, each shard containing `c/2` chains, with the abosolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards absorbing low-activity chains to reduce network overheads. The protocol exhibits two levels of safety; byzantine resistance for each Validator Set and supermajority consensus in the Validating Group. A random beacon nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The random beacon is an implementation of the Boneh–Lynn–Shacham (BLS) signature threshold scheme and is a verifiably random function for the network. Most importantly this implementation successfully solves cross-chain atomic transactions (such as cross-chain trading) for THORChain due to the probabilistic distribution of chains across and in each shard. 
+>Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. Yggdrasil introduces an entirely new sharding mechanism that scales as network saturation increases and validator count grows. Validators are known as Nornes in THORChain. 
+>THORChain is highly-optimized multi-chain with an efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) in order to provide higher transaction throughput.  
+The THORChain multi-chain has `k` number of canonical chains with `k` discrete mem-pools. The network is broken into `s` shards, where each shard is comprised of `c` chains which are deterministically assigned to each shard. On average `c = k / s`. 
+THORChain's Nornes, `n`, are split into Norne Sets of at least `21` Nornes, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Norne Sets is `NS`, where `NS = n / 21`. Each Norne Set covers `3` randomly assigned shards, known as the Scope. Requiring that `s < NS`, probablisitic determination will ensure each shard will be overlapped by a number of Norne Sets. If `s = NS`, the overlap will equal `~3` for a Scope of `3`. The overlapping Norne Sets is known as the Validating Group, VG, which require supermajority consensus for new blocks to be committed to canonical chains in the shard. 
+Each Norne Set itself is byzantine resistant, composed of a number of Nornes dynamically set from 21 to 58 by the protocol depending on saturation. As each shard of `c` chains approaches saturation, it is split into two shards, each shard containing `c/2` chains, with the absolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards merging low-activity chains to reduce network overheads. Thus the network can scale as required by demand and can potentially be sharded to an upper bound only limited by the number of available Nornes.
+The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and supermajority consensus in the Validating Group. A random beacon nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The random beacon is an implementation of the Boneh–Lynn–Shacham (BLS) signature threshold scheme and is a verifiably random function for the network. Most importantly this implementation successfully solves cross-chain atomic transactions (such as cross-chain trading) for THORChain due to the probabilistic distribution of chains across and in each shard. 
 
 
 ### Document Set
@@ -48,6 +50,7 @@ Overview
   
 [THORChain Sharding](#thorchain-sharding)
   - Algorithm	
+  - Splitting and Merging
   - Cross-Shard Communication	
   - Performance Estimation	
   - Trade-offs	
@@ -142,7 +145,7 @@ As soon as the network reaches 90% saturation for more than 100 blocks, the shar
 
 Once again, as saturation in one shard climbs to 90%, the shard's validator cap increases from `21` to `21 * 2 + 15 = 58`, and then splits in the same manner. If the saturation reduces then validators are demoted back outside of the Validator Set. There are now three shards of each `29` Validators. Each Validator Set can flex between 21 and 58 Validators depending on saturation. 
 
-*Note 1: A shard can only be reduced to a minimum of a single chain to prevent splitting the state of a chain; which is very complex. 
+*Note 1: A shard can only be reduced to a minimum of a single chain to prevent splitting the state of a chain; which is very complex.*
 
 *Note 2: Flexxing the cap on validators does not change performance; it simply prevents a mass nomination or mass denomination of validators in and outside the Validator Sets, allowing it to be a more gradual process.*
 
@@ -165,7 +168,7 @@ The following is the sequence:
 
 _Table: Order for splitting and merging_
 
-With this mechanism the Protocol can scale up and down depending on saturation. 
+With this mechanism the Protocol can scale up and down depending on saturation, with the correct amount of Validators and Validator Sets at all times. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="500" height="412" />
 
@@ -173,15 +176,21 @@ _Figure: Overview of the YGGDrasil Protocol_
 
 ### Cross-Shard Communication
 The purpose of multiple shard assignments in THORChain is to prevent fraudulent cross-shard communication. As explained above, transferring assets across shards is akin to atomic debiting and crediting in the involved shards. For simplicity, let's consider `S_a` and `S_b` two be two arbitrary shards. 
-Consider the number of distinct validator sets responsible for these two shards across all shards `S`. As each validator set covers three shards, all validator sets involved cover shard `S_a`, `S_b` and some third shard, which is neither `S_a` nor `S_b`. Since we earlier said that we would have one validator for each unique set of three shards, it must be the case that there is a validator set that covers `{S_a, S_b, S_k} for k = 0, ..., N where k != a and k != b`. It is clear here that `k` can take on `N-2` different values. That is, there are `N-2` distinct validator sets that cover any arbitrary two shards `S_a` and `S_b`. In the event any single validator set tried to produce a fraudulent transaction by faking a credit or debit, this action would be immediately noticed by the other `N-3` validator sets.
+Consider the number of distinct validator sets responsible for these two shards across all shards `S`. As each validator set covers three shards, all validator sets involved cover shard `S_a`, `S_b` and some third shard, which is neither `S_a` nor `S_b`. Since we earlier said that we would have one Validator Set for each unique set of three shards, it must be the case that there is a validator set that covers `{S_a, S_b, S_k} for k = 0, ..., N where k != a and k != b`. It is clear here that `k` can take on `N-2` different values. That is, there are `N-2` distinct Validator Sets that cover any arbitrary two shards `S_a` and `S_b`. In the event any single validator set tried to produce a fraudulent transaction by faking a credit or debit, this action would be immediately noticed by the other `N-3` validator sets.
 For same-shard transactions, each validator overlooking that respective shard participates `((N-1) choose 2)`. For each cross-shard transaction, each shard that also overlooks those two shards participates in the transfer process `(N-2)`.
-For a cross-shard transfer to happen, a two-thirds majority of sending shards validators is needed for the transaction to be submitted. The shared validators between the two shards vote on whether to approve or deny the transfer. After the second vote, there is a waiting period, in which two thirds of the receiving shard’s validators can override an approval and burn the bonds of the shared validators. 
+
+For a cross-shard transfer to happen, a user broadcasts a transaction involving a trade between shard `S_a AND S_b`. Validator Sets that monitor the mempools for shards `S_a OR S_b` but not shards `S_a AND S_b` cannot finalise the transaction so skip it. Validator Sets that monitor mempools for shards `S_a AND S_b` can process the the transaction, so when nominated will propose and commit the block. Observing Validators that are `NOT S_a AND S_b` will see the committed block and it will be entirely valid according to their known validation rules; they will simply see an atomic `S_a OR S_b` transaction. 
+
+two-thirds majority of sending shards validators is needed for the transaction to be submitted. The shared validators between the two shards vote on whether to approve or deny the transfer. After the second vote, there is a waiting period, in which two thirds of the receiving shard’s validators can override an approval and burn the bonds of the shared validators. 
+
 In either case, a two-third majority of validators of the receiving shard send a message to the sending shard confirming the transaction acceptance or denial. 
 Note that the small number of shared validators across two arbitrary shards does not pose a large amount of risk. In the event two thirds of the shared validators were compromised, they cannot initiate transfers themselves. Compromised validators can only block transfers.  However, as there are `N-2` other shared validator sets through which a cross-shard transfer can arrive at the receiving shard, this does not amount to censorship.  
 The biggest risk in our sharding approach is a compromise of two thirds of the validators overlooking a single shard. In this case, the compromised validators could mint money on their own chain by breaking consensus rules. However, since these blockchains are public, it would be impossible to hide this, and other shards can deny incoming transfers from the defective shard. Since all validators know the public keys of all other validators and which shards they maintain, it is possible for validators to vote to replace malicious validators.
 One important property of the THORChain sharding approach is that as the number of shards grows, the number of validators required becomes relatively large. Because of this and the multi-shard overlap, the validator sets themselves can actually be quite small.  In fact, we can consider this algorithm as having validator sets with as few as one node each. However, it is important to note that the protocol limits the minimum number of validators per single shard to 21 for security reasons. If this number cannot be guaranteed the protocol will not permit splitting the chain into further shards.
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure4.png" width="500" height="412" />
 
+_Figure: Overlapping Validator Set Scopes ensure security across shards_
 
 ### Performance Estimation
 THORChain requires a large number of validators, which are selected by bonding a minimum amount. The first cryptocurrency known to use masternodes was Dash [6]. Let’s use Dash to consider a preliminary performance estimation for the THORChain sharding approach. 
