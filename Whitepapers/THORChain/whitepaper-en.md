@@ -88,6 +88,7 @@ A decentralised, secure messaging protocol for THORChain.
 - Combined Payment Features
 
 [Other Features](#other-features)
+- Collectibles
 - Messaging Protocol
 - Smart contracts	
 - Additional On-Chain Commands	
@@ -944,7 +945,45 @@ Through the [Æsir Protocol](https://github.com/thorchain/Resources/blob/master/
 
 ## Other Features
 
-```***These features require more research and is not in the primary development pathway***```
+### Collectibles
+
+The ERC-721 standard of collectibles for Ethereum was the dawn of a new era of digital assets that can be collected and traded in marketplaces. A collectible, also known as a non-fungible token token, is a token that (typically) is not divided below 1 and each token has meta-data that can uniquely add value to the individual token. Each token is give an index and owners move individual tokens around. Some of the metadata that can be attached are names, descriptions and even resource links. 
+
+```JSON
+{
+  "name": "ODIN",
+  "description": "Odin, ruler of the Æsir, father of Thor.", 
+  "image": "https://ipfs.infura.io/ipfs/QmPS7SbxcQoKAcFmTBxqm1c43sWztnFaPrCfgGDy3FhskN",
+}
+```
+
+Collectibles are different to tokens in that collectible trades happen much more sparsely and they normally have far few owners. Additionally, collectibles do not require continuous liquidity as individual items cannot be divided. As such it would be prudent to track all collectibles on a single discrete chain with address space `TCx<address>`. This will reduce blockchain bloat and allow the `collectibleChain` to maintain separate features to `tokenChain`.
+
+On the creation of a collectible; the collectible is indexed inside the `TCx0` account and the initial details are set:
+
+```Go
+type collectible struct {
+  name       string         // String of the Collectible Collection "Æsir Gods"
+  symbol     string         // Symbol of the Collectible "ÆGODS"
+  supply     int64         //  Number of different Collectibles in the Collection 
+  tokenURI   uint256       //  A distinct Uniform Resource Identifier (URI) for a given Collectible
+  owner      T0xBob        //  Allows the owner (Bob) to details in future, such as name or URIs. 
+}
+```
+
+Once created all collectibles are emitted to the creator's address, allowing them to transfer further. The simple transfer of a collectible is:
+
+```Go
+Transfer(address _from, address _to, uint256 indexed _tokenId); 
+```
+  
+All collectible and collection details can be read from `TCx0` account at any time. Further features such as minting, burning, pausing or blacklisting can be included in further interations of the standard. 
+
+Collectibles can also be bundled together and transfered in very large quantities. The modified transfer function includes an array to detail a batch transfer:
+
+```Go
+batchTransferFrom(address _from, address _to, uint256[] _ids, uint256[] _values);
+```
 
 ### Messaging Protocol
 
