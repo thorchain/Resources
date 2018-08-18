@@ -212,15 +212,9 @@ Observing Nornes can deterministically identify fraud and have the incentives to
 
 The protocol starts off with a single chain in a single shard, covered by a cap of `21` Nornes in a single Set. It is assumed there is a queue of valid and waiting Nornes that are keen to enter the Set. 
 
-
-
 As tokens are created, discrete chains of number `c` are added to the shard. To prepare for a possible split the cap of Nornes increase from `21` to `21 * 2 = 42` as network saturation climbs from 10% to 90%. Queued Nornes enter the Set automatically. 
 
-
-
 As soon as the network reaches 90% saturation for more than 100 blocks, the shard of `c` chains split into two shards; one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, administered by two Sets of 21 Nornes, with 42 common Nornes (complete overlap). The exact split is random; but may be biased towards chains that transact with each other frequently, ensuring the cross-chain transfers are minimised. As all 42 Nornes were split from a Set which had been syncing all chains in the shard the split will be seamless.
-
-
 
 | Set | Shard Relationship
 |---|---|
@@ -230,8 +224,6 @@ As soon as the network reaches 90% saturation for more than 100 blocks, the shar
 Importantly, the Sets are now syncing across two shards with chains; but propose and commit blocks to both shards. From their observation and action; nothing has changed. The MerkleChain keeps track of Set allocations. 
 
 Once again, as saturation in one shard (ShardA) climbs to 90%, ShardA's Norne cap increases from `21` to `21 * 2 = 42`, and then splits in the same manner. The new ShardC has half of ShardA’s pre-split chains. Set1 prunes all of ShardC’s chains, Set 2 prunes ShardA, and Set 3 retains ShardA and ShardC chains. Once again, nothing fundamentally changes to the protocol, apart from the MerkleChain notarising the allocations, and two sets (1&2) pruning chains. 
-
-
 
 | Set | Shard
 |---|---|
@@ -248,16 +240,7 @@ As saturation in one shard (ShardA) again climbs to 90%, Set 1 increases its Nor
 | 3 | Prunes ShardD, Spawns Set 6.
 | 4 | Prunes ShardB, Watches ShardA, Maintains ShardD.
 
-
-
 Once the ShardD is established, two more Sets of 21 Nornes open up for Watch capacity on ShardB, ShardC and ShardD. 42 more Nornes sync the Shards and auction their way into Set 5 and Set 6. This can happen sequentially or concurrently to the organization above. 
-
-
-
-
-
-
-
 
 | Set | Shard
 |---|---|
@@ -266,122 +249,37 @@ Once the ShardD is established, two more Sets of 21 Nornes open up for Watch cap
 
 This process continues in sequence for more splitting of shards. The following is indicative of the first 10 Shards. The mechanics for the split is that the splitting shard spawns the new Set; and once split, `nC2 - ( ( n-1 )C2 ) * 21` more Norne positions open up to watch the new shards. 
 
-Shards
-Pairs (nC2)
-Nornes per Shard
-New Nornes
-Watching Nodes
-Total Nornes (21 per pair)
-1
-1
-21
--
-0
-21
-2
-1
-21
-21
-21
-42
-3
-3
-42
-21
-21
-63
-4
-6
-63
-63
-42
-126
-5
-10
-84
-84
-63
-210
-6
-15
-105
-105
-84
-315
-7
-21
-126
-126
-105
-441
-8
-28
-147
-147
-126
-588
-9
-36
-168
-168
-147
-756
-10
-45
-189
-189
-168
-945
-15
-105
-294
-294
-189
-2205
+|Shards|Pairs (nC2)|Nornes per Shard|New Nornes|Watching Nodes|Total Nornes (21 per pair)|
+|---|---|---|---|---|---|
+|1|1|21|-|0|21|
+|2|1|21|21|21|42|
+|3|3|42|21|21|63|
+|4|6|63|63|42|126|
+|5|10|84|84|63|210|
+|6|15|105|105|84|315|
+|7|21|126|126|105|441|
+|8|28|147|147|126|588|
+|9|36|168|168|147|756|
+|10|45|189|189|168|945|
  
-
 *Note 1: A shard can only be reduced to a minimum of a single chain to prevent splitting the state of a single chain; which is very complex.*
 *Note 2: Flexxing the cap on Nornes does not change performance; it simply prevents a shard being split but without the minimum number of Nornes available to maintain.*
 
-
-
-
-
-
 ## Alternative; Round-Robin
 The main issue with the dynamically-scaled approach above is that the number of Nornes grow exponentially with each shard; so that at 31 Shards there is 630 Nornes across 30 Sets that are monitoring each possible Shard Pair. This would require `0.67 * 630` = 422 Nornes to agree on each block; which will substantially reduce time-to-finality and increase block sizes with large signature aggregations; ~24kb for current signature schemes. Indeed, incorporating BLS signature aggregations would reduce it down to around 360 bytes; however it does not improve network finality times; an important consideration for a high-throughput chain. 
 A solution could be to cap block production on each shard pair to a single Norne Set (of 21 Nornes) and incorporate a round-robin approach. The benefit to this is that finality would be close to optimal (indeed 500ms is achievable) and signatures would be almost negligible. The main downside from a performance perspective is that cross-shard trade (even if prioritised through higher fees) would be probabilistically produced in the round-robin, increasing the time that they are confirmed in. 
 As an example, in a round-robin of 31 shards; a cross-shard trade involving a shard pair may take up to 30 blocks before it would be produced; so the time to confirmation and finality is of range: `L * 2  :  L * 2 + 30 * L * 2`, where `L` is block latency. With 0.5 second blocks this could be 0.5 seconds to 16 seconds. Since the round-robin is deterministic, the approximate time to finality for any given trade could be indicated ahead of time to the user. 
 Of note; this only affects cross-shard trades; not intra-shard cross-chain trades; which would be produced on time every 0.5 seconds by a Norne Set in the network. The probability of a trade being intra-shard and not cross-shard is `c-1 * n / (c*n Choose 2)`, where `c` is the average number of chains per shard and `n` is the total number of shards. Thus at 31 the likelihood of cross-shard over 98%. In reality this means that a cross-shard trades will be produced with 98% likelihood, and they are 100% likely to be produced inside of 16 seconds and 3% `1 / 31` likely of being produced in less than 1 second. In summary, for our benchmark of 31 shards, 10,000 Nornes and 155k TPS; there is a maximum of 16 seconds for a cross-shard transaction, with the typical trade being processed in 8 seconds. 
 
-
-
-
-
-
 The network then deterministically begins its round-robin block production, with alternatively one Set Proposing whilst the other Set Watching. Each Set produces blocks for all chains in both shards, so to the Set proposing the two shards are completely homogenous and it does not distinguish or prefer one Shard over the other. 
-
-
-
-
-
-
-
-
-
 
 ### Merging Shards
 Shards can also merge if shard saturation becomes low. Once the shard is less than 10% saturation then the Primary Set (Set2) that maintains it will propose to merge it (ShardB) with its Sibling (ShardC). The exception to this if the Sibling Shard is above 90%; then the merge will not go ahead. Once Set2 starts signalling it will merge its two shards into the Merging Shard, then the Secondary Set watching the Merging Shard (Set1) will learn of the proposal and start syncing the Sibling Shard that is to be merged, ShardC. 
 At the same time, the Primary Set will start syncing the Shard that is watched by the Merging Shard’s other Secondary Set (Set5), which is ShardD. 
 
-
-
 Once the merge is complete, the Merged Shard will contain all chains from the former Merging Shard (ShardB) and the Sibling Shard (ShardC). This will be seamless as the Primary Set already had both synced. The Secondary Set (Set1) will have been synced and can safely watch the new Shard. 
 
-
 At this point there are 3 unnecessary Sets that share commonality. They are Set3 (the Primary from the old Sibling Shard that was merged) sharing commonality with Set1, Set5 (the Secondary from the old Merging Shard) sharing commonality with Set2 and Set6, (also not a Primary) sharing commonality with Set2. They are not paid any block rewards, but continue to sync and be available on standby. 
-
-
 
 Once demoted, there are 3 Sets, 3 Shards and 63 total Nornes actively producing blocks. The 63 demoted Nornes have various Shards and Chains synced, so can be made available to immediately cater for a possible new split back to 4 shards again. This is an effective way to re-org two shards that have large differences in activity levels, such as one being less than 10% and the other being close to 90%, in such a way that after 200 blocks the two shards will have 50% distributed each. The Split should immediately happen after the Merge so there is no cost to Nornes as the re-org will happen seamlessly.  
 
@@ -403,23 +301,12 @@ _Table: Order for splitting and merging_
 
 With this mechanism the Protocol can scale up and down depending on saturation, with the correct amount of Nornes and Norne Sets at all times. 
 
-
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="500" height="412" />
 
 _Figure: Overview of the YGGDrasil Protocol_
 
+## Analysis
 
-
-
-
-
-
-### Security
-
-
-
-
-In a cross-shard trade, there will always be a Set of 21 Nornes observing the transaction and available to make the atomic transaction. The trade is safe as it requires a minimum of `15 of 21` Nornes to collect, propose and commit the blocks containing the trade. Given that only a Norne inside the overlapping Sets can propose the transaction, and there will be `*(n-1)C2 * 21) * 2 - 21` Nornes who will be watching either one of the Shards and able to make a fraud-proof.
 ### Performance Estimation
 THORChain scales with the number of Nornes, but this is dependent on actual and sustained network demand to prevent overheads being added to the network. To conduct an analysis on the protocol, the scenario of hosting 1800 tokens and their chains are explored (current tradable tokens on [CoinMarketCap](coinmarketcap.com)) with a maximum of 10,000 Nornes available. Bitcoin has over 100k nodes, whilst Ethereum has 25,000 nodes, so this is seen as conservative. 
 
@@ -449,14 +336,16 @@ To achieve 1m TPS, there would need to be either 79,600 Nornes in total with 200
 The first cryptocurrency known to use masternodes was Dash [6] of which there are currently `4000` nodes. With this many bonded Nornes, the Yggdrasil protocol algorithm could maintain `20` shards with byzantine resistance achieved. Since each Norne need only validate two shards, this means bandwidth, space, and computational requirements are reduced by up to 95%.
 
 ### Security
+In a cross-shard trade, there will always be a Set of 21 Nornes observing the transaction and available to make the atomic transaction. The trade is safe as it requires a minimum of `15 of 21` Nornes to collect, propose and commit the blocks containing the trade. Given that only a Norne inside the overlapping Sets can propose the transaction, and there will be `*(n-1)C2 * 21) * 2 - 21` Nornes who will be watching either one of the Shards and able to make a fraud-proof.
+
 The main challenge with the Yggdrasil sharding approach is that the number of Nornes that maintain each shard reduce proportionally to the total as the number of shards increase. As the number of shards grows, a much smaller number than two thirds of all Nornes need to be compromised or form a cartel to perform an attack on the shard. Indeed the most valuable chains need far more security than chains that maintain low-value tokens, and once such chain is the RuneChain `T0`.
 The following are unique aspects of the duties for any Norne that maintains the RuneChain in one of the 2 Sets of the RuneChain Validating Group:
-Maintain the MerkleChain, which syncs the network, holds the verifiably random function and the DHT for the THORChain Name Service. 
-Maintain the RuneChain and process all CLP transactions across all tokenChains. 
-Maintain the staked deposits for each Norne, Staker and Delegator. 
-Maintain and coordinate the Æsir protocol on-chain governance. 
-Maintain the Bifröst Protocol. 
-Coordinate the Flash Network. 
+- Maintain the MerkleChain, which syncs the network, holds the verifiably random function and the DHT for the THORChain Name Service. 
+- Maintain the RuneChain and process all CLP transactions across all tokenChains. 
+- Maintain the staked deposits for each Norne, Staker and Delegator. 
+- Maintain and coordinate the Æsir protocol on-chain governance. 
+- Maintain the Bifröst Protocol. 
+- Coordinate the Flash Network. 
 
  The following are strategies to counter this vulnerability:
 
@@ -467,11 +356,6 @@ Coordinate the Flash Network.
 The advantage of the Yggdrasil protocol lies in its simplicity. The protocol is easy to understand and analyze, whilst providing increased cross-shard security. Furthermore, in contrast to many existing sharding protocol, our protocol shards both transactions and state. 
 Our scheme provides a balance between decentralization, security, and trust-minimization, optimizing the above-mentioned scalability trilemma. Decentralization comes with constant storage, bandwidth, and computational requirements regardless, of the number of shards. As the number of shards grows, so must the number of Nornes. Security here is clearly less than that of a single blockchain but there are mitigation strategies if a shard becomes defective. 
 Finally, this scheme far less trust-full than systems, such as EOS, as the number of Nornes contributing to consensus is much higher.
-
-
-
-
-
 
 ## Conclusion
 We have presented the THORChain sharding solution, a novel multi-sharding solution suitable for high transaction throughout blockchains. Out approach optimizes the tradeoffs involved in sharding by covering each shard with multiple Norne sets. Security of cross-shard transfers is increased through majority voting. 
@@ -490,8 +374,10 @@ executes multiprocess programs. IEEE Trans. Computers, 28(9):690- 691.
 
 **[5]** Loi Luu, Viswesh Narayanan, Chaodong Zheng, Kunal Baweja, Seth Gilbert, and Prateek Saxena. 2016. A Secure Sharding Protocol For Open Blockchains. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS '16). ACM, New York, NY, USA, 17-30. DOI: https://doi.org/10.1145/2976749.2978389
 
-**[6]** Evan Duffield, Daniel Diaz. Dash: A Privacy-Centric Crypto-Currency. https://github.com/dashpay/dash/wiki/Whitepaper 
+**[6]** Evan Duffield, Daniel Diaz. Dash: A Privacy-Centric Crypto-Currency. https://github.com/dashpay/dash/wiki/Whitepaper
+
 **[7]** Boneh, D., Lynn, B. & Shacham, H. J Cryptology (2004) 17: 297. https://doi.org/10.1007/s00145-004-0314-9
+
 **[8]** D. Boneh, M. Drijvers, and G. Neven. Cryptology ePrint Archive: Report 2018/483. https://eprint.iacr.org/2018/483.pdf 
 
 
