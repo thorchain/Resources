@@ -144,11 +144,8 @@ The following are the specific use cases:
 
 |**Use Case**|**Description**|**Mechanics**|
 |:---|:---|:---|
-|Swapping Token 1 (T1) with Rune via the T1 CLP (or vice versa). |Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to Alice’s Rune account on the T0 chain. |`T1xAlice bal(T1) -> T1x0000 T1x0000 bal(T0) -> T0xAlice`|
-
-|Swapping Token 1 (T1) with Token 2 (T2) via the T1 and T2 CLP (or vice versa).| Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to T2 CLP on the T2 chain. Token 2 is emitted to Alice’s T2 account on the T2 chain.| `T1xAlice bal(T1) -> T1x0000 T1x0000 bal(T0) -> T2x0000 T2x0000 bal(T2) -> T2xAlice`|
-
-
+|Swapping Token 1 (T1) with Rune via the T1 CLP (or vice versa).|Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to Alice’s Rune account on the T0 chain.|`T1xAlice bal(T1) -> T1x0000` `T1x0000 bal(T0) -> T0xAlice`|
+|Swapping Token 1 (T1) with Token 2 (T2) via the T1 and T2 CLP (or vice versa).|Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to T2 CLP on the T2 chain. Token 2 is emitted to Alice’s T2 account on the T2 chain.|`T1xAlice bal(T1) -> T1x0000` `T1x0000 bal(T0) -> T2x0000` `T2x0000 bal(T2) -> T2xAlice`|
 |Trading Token 1 (T1) for Rune (T0) on the order book (or vice versa).| Bob creates a T0:T1 market sell order.| Alice broadcasts a T0:T1 buy order into the mem-pool for T0 and T1. Bob’s T0 is traded for Alice’s T1. Bob receives T1 and Alice receives T0.| `T0xBob bal(T0) -> T0xBobSell T1xAlice bal(T1) -> T0T1 memPool T0xBobSell bal(T0) -> T0xAlice T1xAlice bal(T1) -> T1xBob`|
 |Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa).| Bob creates a T1:T2 market sell order. Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1. | `T1xBob bal(T1) -> T1xBobSell T2xAlice bal(T2) -> T1T2 memPool T1xBobSell bal(T1) -> T1xAlice
 T2xAlice bal(T2) -> T2xBob`|
