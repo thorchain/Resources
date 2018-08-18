@@ -17,6 +17,7 @@ The protocol exhibits two levels of safety; byzantine resistance for each Norne 
 This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
 
 **Note**
+
 This paper is research-in-progress and presents two viable solutions for optimising performance for large shard-counts. One solution is a dynamically-scaled validator approach and accepting a decrease in time-to-finality with large Norne numbers; but maintaining optimial cross-shard transaction processing. The other uses a round-robin approach for shard-pairs to ensure performant pBFT block production; however due to probablistic transaction selection the average time for a cross-shard trade increases. Both have their merits and will likely need real-world testing to discern between the two. 
 
 
@@ -145,35 +146,15 @@ The following are the specific use cases:
 |:---|:---|:---|
 |Swapping Token 1 (T1) with Rune via the T1 CLP (or vice versa). |Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to Alice’s Rune account on the T0 chain. |`T1xAlice bal(T1) -> T1x0000 T1x0000 bal(T0) -> T0xAlice`|
 
-Swapping Token 1 (T1) with Token 2 (T2) via the T1 and T2 CLP (or vice versa). 
-Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to T2 CLP on the T2 chain. Token 2 is emitted to Alice’s T2 account on the T2 chain. 
-`T1xAlice bal(T1) -> T1x0000
-T1x0000 bal(T0) -> T2x0000
-T2x0000 bal(T2) -> T2xAlice`
+|Swapping Token 1 (T1) with Token 2 (T2) via the T1 and T2 CLP (or vice versa).| Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to T2 CLP on the T2 chain. Token 2 is emitted to Alice’s T2 account on the T2 chain.| `T1xAlice bal(T1) -> T1x0000 T1x0000 bal(T0) -> T2x0000 T2x0000 bal(T2) -> T2xAlice`|
 
 
-Trading Token 1 (T1) for Rune (T0) on the order book (or vice versa). 
-Bob creates a T0:T1 market sell order. 
-Alice broadcasts a T0:T1 buy order into the mem-pool for T0 and T1. Bob’s T0 is traded for Alice’s T1. Bob receives T1 and Alice receives T0. 
-`T0xBob bal(T0) -> T0xBobSell
+|Trading Token 1 (T1) for Rune (T0) on the order book (or vice versa).| Bob creates a T0:T1 market sell order.| Alice broadcasts a T0:T1 buy order into the mem-pool for T0 and T1. Bob’s T0 is traded for Alice’s T1. Bob receives T1 and Alice receives T0.| `T0xBob bal(T0) -> T0xBobSell T1xAlice bal(T1) -> T0T1 memPool T0xBobSell bal(T0) -> T0xAlice T1xAlice bal(T1) -> T1xBob`|
+|Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa).| Bob creates a T1:T2 market sell order. Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1. | `T1xBob bal(T1) -> T1xBobSell T2xAlice bal(T2) -> T1T2 memPool T1xBobSell bal(T1) -> T1xAlice
+T2xAlice bal(T2) -> T2xBob`|
 
-T1xAlice bal(T1) -> T0T1 memPool
+Each transaction must be atomic; where the entire transaction will proceed or fail. As trading involves two separate blocks on two separate chains, the proposer must have awareness of both chains before proposing the transaction. This is why the Yggdrasil protocol guarantees that there is always a group of Nornes that are available to propose blocks on any given shard pair.
 
-T0xBobSell bal(T0) -> T0xAlice
-T1xAlice bal(T1) -> T1xBob
-`
-Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa). 
-Bob creates a T1:T2 market sell order. 
-Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1. 
-`T1xBob bal(T1) -> T1xBobSell
-
-T2xAlice bal(T2) -> T1T2 memPool
-
-T`xBobSell bal(T`) -> T`xAlice
-T2xAlice bal(T2) -> T2xBob
-`
-
-Each transaction must be atomic; where the entire transaction will proceed or fail. As trading involves two separate blocks on two separate chains, the proposer must have awareness of both chains before proposing the transaction. This is why the Yggdrasil protocol guarantees that there is always a group of Nornes that are available to propose blocks on any given shard pair.  
 ### Algorithm
 In THORChain each Norne is randomly allocated exactly two distinct shards, and the number of shards in the system is defined as `N`, which is set by network saturation (defined below). The total number of Nornes must be equal to the total number of combinations of pairs of shards, `N choose 2`, multiplied by the minimum number of Nornes per Shard, `p`, set at 21. As an example, take 4 shards having `4C2 = 6` unique pairs of shards, which requires `6 * 21 = 126` Nornes in total. Each shard will have 21 Nornes monitoring it as Primary, `(N-1 * 21)-21 = 42` Nornes monitoring it as secondary (with a total of 63 Nornes monitoring it in total). 
 Primary Nornes propose and commit new transactions, whilst Secondary Nornes sync, monitor and publish fraud proofs to ensure Primary Nornes do not cheat. 
