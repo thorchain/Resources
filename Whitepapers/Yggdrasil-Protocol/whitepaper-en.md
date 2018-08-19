@@ -220,6 +220,13 @@ In a cross-shard trade, there will always be a Set of 21 Nornes observing the tr
 ### Publishing Fraud-proofs
 Observing Nornes can deterministically identify fraud and have the incentives to publish any detected fraud to earn the slashed stake from the fraudulent Norne. Consider the case where a cartel-controlled group of Nornes publish and commit a non-atomic trade `ID:T1π (T4-)` and `ID:T4- (T1π)`, where `T1` is on `ShardA` and `T4` is on `ShardB`. All of the `ShardA` Nornes will not be able to identify the fraud as they are not aware of the state of `ShardB`; and the transaction `ID:T1π (T4-)` fulfils all transaction criteria on `ShardA`. `ShardB` Nornes however can inspect the signed transaction they have from their memPool with that that was published to the chain in order to determine the fraud by comparing transaction IDs. If the transaction ID from the memPool does not match the asset movement of chains; then there was fraud. 
 
+The fault tolerance of this protocol can be determined by the number of fraudulent Nornes that would be required to prevent any honest Norne being able to post a fraud-proofs on any fraudulent Norne. This is set by (number of Nornes in each shard pair) divided by (number of Nornes watching either shard in the shard pair); which is `((N-1) * 21) / (N-1) * 2 * 21)`.
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure14.png" width="350" height="215" />
+
+*Figure: Fault tolerance asymptotes to 50% as shards increase.*
+
+
 ### Prioritising Cross-chain Transactions
 As the  number of shards increase, the ratio between common Nornes `S_a & S_b` and non-common Nornes between two shards decreases. With 4 shards the ratio is 33%, with 10 shards the ratio is 11%. The result of this is that cross-shard transactions are less likely to be picked up from the common memPool. Nornes are encouraged to counter this development by economic incentives as the cross-shard transaction involves gas fees from two chains and the proposing Norne is set to earn twice as much. Thus, Nornes will prioritize cross-chain transactions.
 
