@@ -11,15 +11,15 @@ V0.2 - August 2018
 >THORChain is highly-optimized multi-chain with an efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) in order to provide higher transaction throughput.  
 The THORChain multi-chain has `k` number of canonical chains with `k` discrete mem-pools. The network is broken into `n` shards, where each shard is comprised of `c` chains which are deterministically assigned to each shard. On average `c = k / n`. 
 
-THORChain's Nornes, are split into Norne Sets `NS` of 21 Nornes, the participation `p`, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Nornes required is set by network saturation, estimated by block size and a benchmarked transaction throughput. Each Norne Set covers `2` randomly assigned shards, known as the Scope. The total number of Shard Pairs equals the total number of Norne Sets, where `NS = nC2`, and deterministic assignment will ensure each shard will be overlapped by a discrete number of Norne Sets. Each Norne Set is appointed as either a validator proposing blocks, or as non-consensus-participating observer. Validators produce blocks in shards they maintain, whilst observers simply observe blocks, watching for fraud. All Nornes are economically incentivised through block rewards.
+>THORChain's Nornes, are split into Norne Sets `NS` of 21 Nornes, the participation `p`, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Nornes required is set by network saturation, estimated by block size and a benchmarked transaction throughput. Each Norne Set covers `2` randomly assigned shards, known as the Scope. The total number of Shard Pairs equals the total number of Norne Sets, where `NS = nC2`, and deterministic assignment will ensure each shard will be overlapped by a discrete number of Norne Sets. Each Norne Set is appointed as either a validator proposing blocks, or as non-consensus-participating observer. Validators produce blocks in shards they maintain, whilst observers simply observe blocks, watching for fraud. All Nornes are economically incentivised through block rewards.
 
-As each shard of `c` chains approaches saturation, it is split into two shards, one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, with the absolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards merging low-activity chains to reduce network overheads. Thus the network can scale as required by demand and can potentially be sharded to an upper bound only limited by the number of available Nornes.
+>As each shard of `c` chains approaches saturation, it is split into two shards, one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, with the absolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards merging low-activity chains to reduce network overheads. Thus the network can scale as required by demand and can potentially be sharded to an upper bound only limited by the number of available Nornes.
 
-The protocol is optimised for cross-shard trading by ensuring that there will always be a Norne Set validating on any two shards on the two chains containing the atomic trade. Once proposed, any of the watching Sets can observe the atomic trade and post fraud-proofs if fraud is observed. 
+>The protocol is optimised for cross-shard trading by ensuring that there will always be a Norne Set validating on any two shards on the two chains containing the atomic trade. Once proposed, any of the watching Sets can observe the atomic trade and post fraud-proofs if fraud is observed. 
 
-The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and a 1% rule for any Norne being able to post a fraud-proof. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
+>The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and a 1% rule for any Norne being able to post a fraud-proof. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
 
-This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
+>This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
 
 ### Document Set
 The following whitepapers should be read in conjunction:
@@ -157,12 +157,22 @@ Each transaction must be atomic; where the entire transaction will proceed or fa
 ### Algorithm
 In THORChain each Norne is randomly allocated exactly two distinct shards, and the number of shards in the system is defined as `N`, which is set by network saturation (defined below). The total number of Nornes must be equal to the total number of combinations of pairs of shards, `N choose 2`, multiplied by the minimum number of Nornes per Shard, `p`, set at 21. As an example, take 4 shards having `4C2 = 6` unique pairs of shards, which requires `4 * 21 = 126` Nornes in total. Each shard will have `(N-1 * 21) = 63` Nornes syncing, validating and observing all blocks occurring on all chains in the shard in three different Norne Sets.
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure1.png" width="250" height="350" />
+
+*Figure: 6 Sets maintain 4 shards. For a cross-shard transaction from ShardA to ShardB, there is 1 Set that has full clarity and 4 sets that have partial clarity on the trade.*
+
 Each shard shares a common set of Nornes with every other shard. Take shard `S_a` and `S_b` with total shards `N`. There will be 21 Nornes that maintain shards `S_a + S_b`, `(N-2) * 21` that maintain `S_a + S_k` for `k = 0, ..., 4 where k != a and k != b`, and `(N-2) * 21` that maintain `S_k + S_b` for `k = 0, ..., 4 where k != a and k != b`. This can be simplified to 21 `S_a + S_b` and  `(N-1) * 21` `!(S_a + S_b)`. 
 The network then deterministically begins a round-robin block production, with alternatively one Set proposing and committing blocks whilst the other Sets watch. Each Set produces blocks for all chains in both shards, so from the perspective of the Set proposing blocks for the shard pair, the two shards are completely homogenous. The following is an indication of this mechanism. The 67% threshold `15 of 21` consensus applies to the Set and the particular Norne that proposes the block is randomly chosen. As the Set is byzantine resistant, applying a second layer of random assignment to a Norne Set to produce on a shard pair may be unnecessary. Instead the protocol could determine the particular round-robin sequence of Norne Sets deterministically. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure2.png" width="250" height="350" />
+
 *Figure: Round 1. Set 1 and Set 6 produce blocks for Shards A, B, C and D. Single-chain, Cross-chain Intra-shard and Cross-shard transactions are collected and committed on all chains in all shards.* 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="250" height="350" />
+
 *Figure: Round 2. Set 2 and Set 4 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure4.png" width="250" height="350" />
 
 *Figure: Round 3. Set 3 and Set 5 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
 
