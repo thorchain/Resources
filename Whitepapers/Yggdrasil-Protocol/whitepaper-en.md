@@ -376,7 +376,11 @@ With this mechanism the Protocol can scale up and down depending on saturation, 
 
 
 ### Estimating Saturation
-Tracking saturation is now a huge part of how the Yggdrasil Protocol works. This can be done by each Norne calculating saturation on each shard they maintain and publishing this into the MerkleChain. Saturation in blockchains is a function of block producers finding the most valuable transactions that fit under a block size limit; which is NP-complete problem where there is no efficient solution to find in the first place. Indeed tracking block sizes is not direct answer of saturation as transaction types have different weights. As such there needs to be clear definition of blockchain throughput, and thus saturation, to identify a shard that is saturated and should split (or not and should merge). We propose using both a function of block size as a proportion of block limit, caveated by a benchmark of recorded all-time-high transaction throughput. The rule proposed is 90% block limit and 90% ATH TPS. As an example; if there a `10` chains in a shard, `S_a`, and the block limit is 4mb per chain, then the shard is 90% saturated at `10 * 4 * 0.9 = 36mb`. If the highest recorded TPS in a Shard is 5000 TPS, then the 90% threshold is 4500 TPS. A shard will then split above 36mb and 4500 TPS for more than `x` (100) blocks. 
+Tracking saturation is now a huge part of how the Yggdrasil Protocol works. This can be done by each Norne calculating saturation on each shard they maintain and publishing this into the MerkleChain. Saturation in blockchains is a function of block producers finding the most valuable transactions that fit under a block size limit; which is NP-complete problem where there is no efficient solution to find in the first place. Indeed tracking block sizes is not direct answer of saturation as transaction types have different weights. 
+
+As such there needs to be clear definition of blockchain throughput, and thus saturation, to identify a shard that is saturated and should split (or not and should merge). We propose using both a function of block size as a proportion of block limit, caveated by a benchmark of recorded all-time-high transaction throughput. The rule proposed is 90% block limit and 90% ATH TPS. 
+
+As an example; if there a `10` chains in a shard, `S_a`, and the block limit is 4mb per chain, then the shard is 90% saturated at `10 * 4 * 0.9 = 36mb`. If the highest recorded TPS in a Shard is 5000 TPS, then the 90% threshold is 4500 TPS. A shard will then split above 36mb and 4500 TPS for more than `x` (100) blocks. 
 
 ## Analysis
 
@@ -402,10 +406,13 @@ THORChain scales with the number of Nornes, but this is dependent on actual and 
 | Network TPS | 155,000.00 | Theoretical performance for 31 Shards. 
 
 As can be seen, assuming the the number of nodes required are available, the network needs less than 10,000 Nornes to achieve over 150k TPS for 1800 Tokens on 31 shards. The key number is the byzantine resistant threshold for each Set; set at 21. 21 is seen as a safe (but centralised) threshold in the industry; and in the case that the protocol only has one shard (low use when first starting), there will only be one Set of 21 maintaining network security. 
-There is an optimisation that could see the Threshold reduce to as low as 7 after there are sufficient total Nornes (such as 100). In this case the network could achieve 265k TPS (a 70% improvement) with only 9646 Nornes required, with all other things held constant. In this case each shard would be maintained by 7 Nornes, but watched by 350 Nornes which is safe. 
+
+There is an optimisation that could see the Threshold reduce to as low as 7 after there are sufficient total Nornes (such as 100). In this case the network could achieve 265k TPS (a 70% improvement) with only 9646 Nornes required, with all other things held constant. In this case each shard would be maintained by 7 Nornes, but watched by 350 Nornes which is safe.
+
 To achieve 1m TPS, there would need to be either 79,600 Nornes in total with 200 shards at 4 Nornes per Set (low security) or 139,300 Nornes with 7 Nornes per set. These are not inconceivable numbers with the right incentivisation. 
 
-**Comparison** 
+**Comparison.** 
+
 The first cryptocurrency known to use masternodes was Dash [6] of which there are currently `4000` nodes. With this many bonded Nornes, the Yggdrasil protocol algorithm could maintain `20` shards with byzantine resistance achieved. Since each Norne need only validate two shards, this means bandwidth, space, and computational requirements are reduced by up to 95%.
 
 ### Security
@@ -425,12 +432,15 @@ The following are unique aspects of the duties for any Norne that maintains the 
 3) Any compromised shard can be isolated from other shards by denying incoming transfers. Furthermore, it is possible to eject malicious Nornes if a majority of the overall Nornes is obtained. Interestingly, as the number of shards grows the storage, bandwidth, and computational requirements remain constant for individual Nornes.
 
 The advantage of the Yggdrasil protocol lies in its simplicity. The protocol is easy to understand and analyze, whilst providing increased cross-shard security. Furthermore, in contrast to many existing sharding protocol, our protocol shards both transactions and state. 
+
 Our scheme provides a balance between decentralization, security, and trust-minimization, optimizing the above-mentioned scalability trilemma. Decentralization comes with constant storage, bandwidth, and computational requirements regardless, of the number of shards. As the number of shards grows, so must the number of Nornes. Security here is clearly less than that of a single blockchain but there are mitigation strategies if a shard becomes defective. 
+
 Finally, this scheme far less trust-full than systems, such as EOS, as the number of Nornes contributing to consensus is much higher.
 
 ## Conclusion
-We have presented the THORChain sharding solution, a novel multi-sharding solution suitable for high transaction throughout blockchains. Out approach optimizes the tradeoffs involved in sharding by covering each shard with multiple Norne sets. Security of cross-shard transfers is increased through majority voting. 
-We have shown how the number of Norne sets increases with the total of shards in existence, whilst at the same time reducing the number of nodes required per Norne set. 
+We have presented the THORChain sharding solution, a novel multi-sharding solution suitable for high transaction throughout blockchains. Out approach optimizes the tradeoffs involved in sharding by covering each shard with multiple Norne sets. Security of cross-shard transfers is preserved by allowing observing nodes to post fraud-proofs to prevent malicious behaviour. 
+
+We have shown how the number of Norne sets required increases with the total number of shards in existence, yet the performance of each shard remains constant. Finality for single chain transactions remains close to theoretical minimum, however a probablistic delay affects cross-shard transactions. 
 
 ## References
 
