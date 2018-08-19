@@ -10,15 +10,10 @@ V0.2 - August 2018
 >Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. Yggdrasil introduces an entirely new vertically sharded mechanism that scales as network saturation increases and validator (called Norne in Yggdrasil) count grows. Validating nodes are known as Nornes in THORChain. 
 >THORChain is highly-optimized multi-chain with an efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) in order to provide higher transaction throughput.  
 The THORChain multi-chain has `k` number of canonical chains with `k` discrete mem-pools. The network is broken into `n` shards, where each shard is comprised of `c` chains which are deterministically assigned to each shard. On average `c = k / n`. 
-
 >THORChain's Nornes, are split into Norne Sets `NS` of 21 Nornes, the participation `p`, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Nornes required is set by network saturation, estimated by block size and a benchmarked transaction throughput. Each Norne Set covers `2` randomly assigned shards, known as the Scope. The total number of Shard Pairs equals the total number of Norne Sets, where `NS = nC2`, and deterministic assignment will ensure each shard will be overlapped by a discrete number of Norne Sets. Each Norne Set is appointed as either a validator proposing blocks, or as non-consensus-participating observer. Validators produce blocks in shards they maintain, whilst observers simply observe blocks, watching for fraud. All Nornes are economically incentivised through block rewards.
-
 >As each shard of `c` chains approaches saturation, it is split into two shards, one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, with the absolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards merging low-activity chains to reduce network overheads. Thus the network can scale as required by demand and can potentially be sharded to an upper bound only limited by the number of available Nornes.
-
 >The protocol is optimised for cross-shard trading by ensuring that there will always be a Norne Set validating on any two shards on the two chains containing the atomic trade. Once proposed, any of the watching Sets can observe the atomic trade and post fraud-proofs if fraud is observed. 
-
->The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and a 1% rule for any Norne being able to post a fraud-proof. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
-
+>The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and 99% fault tolerance characteristic for at least 1% of all Nornes can post a fraud-proofs on any shard. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
 >This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
 
 ### Document Set
@@ -93,10 +88,12 @@ Scaling is perhaps the most pressing concern for current blockchain technologies
 
 _Figure 1 : Scalability Trilemma_ 
 
-This can be seen in third-generation blockchains focusing on scalability, such as [EOS](https://eos.io/ ) reducing the number of Nornes to a mere 21, thereby introducing a risk of centralization. 
+This can be seen in third-generation blockchains focusing on scalability, such as [EOS](https://eos.io/ ) reducing the number of Nornes to 21, thereby introducing a risk of centralization. 
+
 Scaling proposals can be classified into two categories:
-Off-chain scaling consists in second-layer solutions that execute a number of transactions off the blockchain and use the blockchain's ledger for occasional settlement. By doing so, the requirement for sequential consistency [2] is relaxed. Bitcoin’s [Lightning](https://lightning.network/ ) and Ethereum’s [Raiden Network](https://raiden.network/ ) fall into this category.
-On-chain scaling solutions may entail modifying the consensus protocol, such as THORChain’s own model, in which a number of Nornes are chosen from a pool of staking nodes to execute an efficient variant of the Practical Byzantine Fault Tolerance [3] protocol to greatly improve transaction throughput and achieve very low-latency block finality. Other on-chain approaches include tweaking certain blockchain parameters, for example, Bitcoin Cash’s block size increase. 
+1) Off-chain scaling consists in second-layer solutions that execute a number of transactions off the blockchain and use the blockchain's ledger for occasional settlement. By doing so, the requirement for sequential consistency [2] is relaxed. Bitcoin’s [Lightning](https://lightning.network/ ) and Ethereum’s [Raiden Network](https://raiden.network/ ) fall into this category.
+2) On-chain scaling solutions may entail modifying the consensus protocol, such as THORChain’s own model, in which a number of Nornes are chosen from a pool of staking nodes to execute an efficient variant of the Practical Byzantine Fault Tolerance [3] protocol to greatly improve transaction throughput and achieve very low-latency block finality. Other on-chain approaches include tweaking certain blockchain parameters, for example, Bitcoin Cash’s block size increase.
+
 In between the two extremes are solutions that split up the blockchain into manageable pieces, in order to reduce the load on individual nodes. This split can be done vertically along application specific divides, as in the side-chain approach ([Lisk](https://lisk.io/), [Plasma](https://plasma.io/) [4]) or [THORChain’s multi-chain solution](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md). It can also be done horizontally, through sharding. 
 
 ### Sharding Background
@@ -149,8 +146,7 @@ The following are the specific use cases:
 |Swapping Token 1 (T1) with Rune via the T1 CLP (or vice versa).|Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to Alice’s Rune account on the T0 chain.|`T1xAlice bal(T1) -> T1x0000` `T1x0000 bal(T0) -> T0xAlice`|
 |Swapping Token 1 (T1) with Token 2 (T2) via the T1 and T2 CLP (or vice versa).|Alice sends Token 1 (T1) into the CLP on the T1 chain. Rune (T0) is emitted to T2 CLP on the T2 chain. Token 2 is emitted to Alice’s T2 account on the T2 chain.|`T1xAlice bal(T1) -> T1x0000` `T1x0000 bal(T0) -> T2x0000` `T2x0000 bal(T2) -> T2xAlice`|
 |Trading Token 1 (T1) for Rune (T0) on the order book (or vice versa).|Bob creates a T0:T1 market sell order. Alice broadcasts a T0:T1 buy order into the mem-pool for T0 and T1. Bob’s T0 is traded for Alice’s T1. Bob receives T1 and Alice receives T0.| `T0xBob bal(T0) -> T0xBobSell` `T1xAlice bal(T1) -> T0T1memPool` `T0xBobSell bal(T0) -> T0xAlice` `T1xAlice bal(T1) -> T1xBob`|
-|Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa).| Bob creates a T1:T2 market sell order. Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1. | `T1xBob bal(T1) -> T1xBobSell` `T2xAlice bal(T2) -> T1T2memPool` `T1xBobSell bal(T1) -> T1xAlice`
-`T2xAlice bal(T2) -> T2xBob`|
+|Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa).| Bob creates a T1:T2 market sell order. Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1.|`T1xBob bal(T1) -> T1xBobSell` `T2xAlice bal(T2) -> T1T2memPool` `T1xBobSell bal(T1) -> T1xAlice` `T2xAlice bal(T2) -> T2xBob`|
 
 Each transaction must be atomic; where the entire transaction will proceed or fail. As trading involves two separate blocks on two separate chains, the proposer must have awareness of both chains before proposing the transaction. This is why the Yggdrasil protocol guarantees that there is always a group of Nornes that are available to propose blocks on any given shard pair. 
  
@@ -224,10 +220,22 @@ Of note; this only affects cross-shard trades; not intra-shard cross-chain trade
 
 The protocol starts off with a single chain in a single shard, covered by a cap of `21` Nornes in a single Set. It is assumed there is a queue of valid and waiting Nornes that are keen to enter the Set. 
 
-As tokens are created, discrete chains of number `c` are added to the shard. To prepare for a possible split the cap of Nornes increase from `21` to `21 * 2 = 42` as network saturation climbs from 10% to 90%. Queued Nornes enter the Set automatically. 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure5.png" width="350" height="160" />
+*Figure: A single shard with a single chain.*
+
+As tokens are created, discrete chains of number `c` are added to the shard. To prepare for a possible split the cap of Nornes increase from `21` to `21 * 2 = 42` as network saturation climbs from 10% to 90%. Queued Nornes enter the Set automatically.
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure6.png" width="350" height="160" />
+
+*Figure: A single shard with multiple chains.*
 
 As soon as the network reaches 90% saturation for more than 100 blocks, the shard of `c` chains split into two shards; one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, administered by two Sets of 21 Nornes, with 42 common Nornes (complete overlap). The exact split is random; but may be biased towards chains that transact with each other frequently, ensuring the cross-chain transfers are minimised. As all 42 Nornes were split from a Set which had been syncing all chains in the shard the split will be seamless.
-The two sets begin an alternating block production schedule, ensuring that only a maximum of 15 Nornes are necessary 
+
+The two sets begin an alternating block production schedule, with each Set producing blocks for all chains on both shards and observing all blocks produced. Thus the protocol has the performance of a single 21 node validator set producing blocks on `c` chains, but the security of 42 nodes. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure7.png" width="350" height="160" />
+
+*Figure: A single shard with multiple chains.*
 
 | Set | Shard Relationship
 |---|---|
