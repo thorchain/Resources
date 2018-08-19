@@ -233,9 +233,13 @@ As soon as the network reaches 90% saturation for more than 100 blocks, the shar
 
 The two sets begin an alternating block production schedule, with each Set producing blocks for all chains on both shards and observing all blocks produced. Thus the protocol has the performance of a single 21 node validator set producing blocks on `c` chains, but the security of 42 nodes. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure7.png" width="350" height="160" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure7.png" width="350" height="225" />
 
-*Figure: A single shard with multiple chains.*
+*Figure: Round 1 on 2 shards; Set 1 produces blocks for both chains.*
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure8.png" width="350" height="225" />
+
+*Figure: Round 2 on 2 shards; Set 2 produces blocks for both chains.*
 
 | Set | Shard Relationship
 |---|---|
@@ -245,6 +249,10 @@ The two sets begin an alternating block production schedule, with each Set produ
 Importantly, the Sets are now syncing across two shards with chains; but propose and commit blocks to both shards. From their observation and action; nothing has changed. The MerkleChain keeps track of Set allocations. 
 
 Once again, as saturation in one shard (ShardA) climbs to 90%, ShardA's Norne cap increases from `21` to `21 * 2 = 42`, and then splits in the same manner. The new ShardC has half of ShardA’s pre-split chains. Set1 prunes all of ShardC’s chains, Set 2 prunes ShardA, and Set 3 retains ShardA and ShardC chains. Once again, nothing fundamentally changes to the protocol, apart from the MerkleChain notarising the allocations, and two sets (1&2) pruning chains. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure9.png" width="350" height="275" />
+
+*Figure: Splitting to three shards is seamless and asynchronous.*
 
 | Set | Shard
 |---|---|
@@ -263,7 +271,15 @@ As saturation in one shard (ShardA) again climbs to 90%, Set 1 increases its Nor
 | 3 | Prunes ShardD, Spawns Set 6.
 | 4 | Prunes ShardB, Watches ShardA, Maintains ShardD.
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure10.png" width="350" height="260" />
+
+*Figure: Splitting to three shards is seamless and asynchronous.*
+
 Once the ShardD is established, two more Sets of 21 Nornes open up for ShardB, ShardC and ShardD. 42 more Nornes sync the Shards and auction their way into Set 5 and Set 6. This can happen sequentially or concurrently to the organization above. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure11.png" width="350" height="250" />
+
+*Figure: The network has 6 Sets alternating to produce blocks for `c * 6` chains in 6 Shards.*
 
 | Set | Shard
 |---|---|
@@ -293,6 +309,10 @@ This process continues in sequence for more splitting of shards. The following i
 Shards can also merge if shard saturation becomes minimal, defined as less than 10% saturation for more than `x` blocks (100). The protocol incentive is that by merging two shards, a Set will earn more in transaction fees from the two merged shards, so will attempt to be the Set that coordinates a merge and gain from combining two other shards. A shard cannot start a merge process until it is less than 10% saturation and a shard cannot be merged to another that has more than 90% saturation. As saturation levels are tracked on the central MerkleChain this leads to deterministic merging. 
 Each shard is maintained by `N-1` Sets, so for every merge, there will be a race condition where any Set that maintains the min activity shard can attempt to sync and coordinate the merge in a winner-take-all approach. The winner will be the first to prove they have found, synced and merged two low activity shards satisfying all rules with at least 67% support from their Set. To complete a faster sync, Sets will find the smallest and lowest activity shards to speed up the process. Once a Set broadcasts to the MerkleChain that they have synced and merged two low activity shards, the Merklechain will shuffle Sets to favour the winning Set. 
 
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure12.png" width="350" height="260" />
+
+*Figure: Sets compete to merge shards by being the fastest to sync shard pairs.*
+
 In the example above, ShardB is the minimal activity shard, and is maintained by Set 1, Set 2 and Set 5. All Sets immediately ping the DHT to identify another low-activity shard (less than 90%) and then sync that shard for a merge; here it is ShardC. Sets must be syncing the two shards that are to be merged, as well as a third that will be the final shard pair that is not ShardB or ShardC. 
 
 |Set|Merging Shards|Shard Pair|Action|
@@ -309,6 +329,11 @@ At this point there are 3 unnecessary Sets that share commonality. They are Set3
 |Set 1 and Set 3| Demote Set 3|`Set 1 Stake > Set 3 Stake`|
 |Set 2 and Set 5| Demote Set 5|`Set 2 Stake > Set 5 Stake`|
 |Set 2 and Set 6| Demote Set 6|`Set 2 Stake > Set 6 Stake`|
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure13.png" width="350" height="260" />
+
+*Figure: Sets compete to merge shards by being the fastest to sync shard pairs.*
+
 
 Once demoted, there are 3 Sets, 3 Shards and 63 total Nornes actively producing blocks. The 63 demoted Nornes have various Shards and Chains synced, so can be made available to immediately cater for a possible new split back to 4 shards again. This is an effective way to re-org two shards that have large differences in activity levels, such as one being less than 10% and the other being close to 90%, in such a way that after 200 blocks the two shards will have 50% distributed each. The Split should immediately happen after the Merge so there is no cost to Nornes as the re-org will happen seamlessly.  
 
