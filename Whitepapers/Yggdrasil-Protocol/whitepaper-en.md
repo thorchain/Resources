@@ -10,16 +10,16 @@ V0.2 - August 2018
 >Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. Yggdrasil introduces an entirely new vertically sharded mechanism that scales as network saturation increases and validator (called Norne in Yggdrasil) count grows. Validating nodes are known as Nornes in THORChain. 
 >THORChain is highly-optimized multi-chain with an efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) in order to provide higher transaction throughput.  
 The THORChain multi-chain has `k` number of canonical chains with `k` discrete mem-pools. The network is broken into `n` shards, where each shard is comprised of `c` chains which are deterministically assigned to each shard. On average `c = k / n`. 
-THORChain's Nornes, are split into Norne Sets `NS` of 21 Nornes, the participation `p`, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Nornes required is set by network saturation, estimated by block size and a benchmarked transaction throughput. Each Norne Set covers `2` randomly assigned shards, known as the Scope. The total number of Shard Pairs equals the total number of Norne Sets, where `NS = nC2`, and deterministic assignment will ensure each shard will be overlapped by a discrete number of Norne Sets. Each Norne Set is appointed as either a validator proposing blocks, or as non-consensus-participating observer. Validators produce blocks in shards they maintain, whilst observers simply observe blocks, watching for fraud. All Nornes are economically incentivised through block rewards.  
+
+THORChain's Nornes, are split into Norne Sets `NS` of 21 Nornes, the participation `p`, and work to propose and commit blocks using the pBFT consensus algorithm. The total number of Nornes required is set by network saturation, estimated by block size and a benchmarked transaction throughput. Each Norne Set covers `2` randomly assigned shards, known as the Scope. The total number of Shard Pairs equals the total number of Norne Sets, where `NS = nC2`, and deterministic assignment will ensure each shard will be overlapped by a discrete number of Norne Sets. Each Norne Set is appointed as either a validator proposing blocks, or as non-consensus-participating observer. Validators produce blocks in shards they maintain, whilst observers simply observe blocks, watching for fraud. All Nornes are economically incentivised through block rewards.
+
 As each shard of `c` chains approaches saturation, it is split into two shards, one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, with the absolute minimum being a single chain. Sharding is divergent as well as it convergent; with shards merging low-activity chains to reduce network overheads. Thus the network can scale as required by demand and can potentially be sharded to an upper bound only limited by the number of available Nornes.
+
 The protocol is optimised for cross-shard trading by ensuring that there will always be a Norne Set validating on any two shards on the two chains containing the atomic trade. Once proposed, any of the watching Sets can observe the atomic trade and post fraud-proofs if fraud is observed. 
+
 The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and a 1% rule for any Norne being able to post a fraud-proof. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
+
 This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
-
-**Note**
-
-This paper is research-in-progress and presents two viable solutions for optimising performance for large shard-counts. One solution is a dynamically-scaled validator approach and accepting a decrease in time-to-finality with large Norne numbers; but maintaining optimial cross-shard transaction processing. The other uses a round-robin approach for shard-pairs to ensure performant pBFT block production; however due to probablistic transaction selection the average time for a cross-shard trade increases. Both have their merits and will likely need real-world testing to discern between the two. 
-
 
 ### Document Set
 The following whitepapers should be read in conjunction:
@@ -42,9 +42,9 @@ A self-amending forkless consensus algorithm for THORChain.
 
 ## Overview
 
-Introduction
+[Introduction](#introduction)
 
-Overview
+[Overview](#overview)
 
 [Sharding](#sharding)
   - Blockchain Scalability
@@ -70,7 +70,7 @@ Overview
   
 [Conclusion](#conclusion)	
 
-[References](#references)
+[References](#references)	
 
 ## Introduction
 
@@ -83,7 +83,6 @@ The platform architecture is based on a multi-chain solution, allowing multiple 
 Consensus in THORChain is achieved using a delegated Proof of Stake protocol with a target of 100 Norne nodes per Norne set that reaches consensus using a [pBFT voting protocol](http://pmg.csail.mit.edu/papers/osdi99.pdf ) [1]. Norne nodes are chosen according to the number of coins staked. Built-in reward and penalty mechanisms guarantee correct Norne behavior at the protocol level. Malicious actors can also be evicted and replaced by a node from a queue of backup Nornes.
 The focus of this paper is on sharding. Traditionally this method of scaling has received little attention due to its complexity and trustful nature of cross-shard transfers. Currently, only Ethereum and Cosmos appear to be pursuing similar solutions. That said, sharding is the only base-layer scaling solution which reduces the requirements of individual Nornes. The trust-full nature of sharding is that in cross-chain transfers it is not possible to be sure that the crediting and debiting of funds is done appropriately without validating other shards. While it is always safe to send tokens to another shard (worst case scenario is they don't credit it), receiving tokens from another shard risks inflating the overall money supply if they have not properly debited the sent tokens on their shard. In order to completely minimize trust, each Norne must be responsible for every shard. Of course, this removes the benefits of sharding entirely. 
 We propose a solution that is a better balance between the fundamental trade-offs in sharding solutions. In what remains of this paper, we will provide some further background on blockchain scalability and sharding, before detailing THORChain’s approach. 
-
 
 ## Sharding 
 ### Blockchain Scalability
@@ -99,7 +98,6 @@ Scaling proposals can be classified into two categories:
 Off-chain scaling consists in second-layer solutions that execute a number of transactions off the blockchain and use the blockchain's ledger for occasional settlement. By doing so, the requirement for sequential consistency [2] is relaxed. Bitcoin’s [Lightning](https://lightning.network/ ) and Ethereum’s [Raiden Network](https://raiden.network/ ) fall into this category.
 On-chain scaling solutions may entail modifying the consensus protocol, such as THORChain’s own model, in which a number of Nornes are chosen from a pool of staking nodes to execute an efficient variant of the Practical Byzantine Fault Tolerance [3] protocol to greatly improve transaction throughput and achieve very low-latency block finality. Other on-chain approaches include tweaking certain blockchain parameters, for example, Bitcoin Cash’s block size increase. 
 In between the two extremes are solutions that split up the blockchain into manageable pieces, in order to reduce the load on individual nodes. This split can be done vertically along application specific divides, as in the side-chain approach ([Lisk](https://lisk.io/), [Plasma](https://plasma.io/) [4]) or [THORChain’s multi-chain solution](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md). It can also be done horizontally, through sharding. 
-
 
 ### Sharding Background
 Sharding is a technique common in distributed data management systems. In databases, tables are split horizontally across rows into different shards, or vertically into columns. Different shards are stored by different nodes to spread the load. Horizontally sharding is more secure, but less optimised due to database lookups. 
@@ -133,13 +131,17 @@ Let’s consider this issue focusing on digital assets, such as a token. Shardin
 The fundamental problem with sharding is that with non-overlapping Norne sets is for the receiving shard to be sure the sending shard properly froze the debited funds.  For such a system to work each shard must have some basis for trusting other sending shards to properly debit cross-shard transfers. While this is not trust-minimizing, with public blockchains it is easy to tell if there has been a violation provided that copies of the shards exist independent from the Nornes, who themselves could cheat.
 It might see that this limitation could be circumvented if a single Norne set was responsible for all shards. The issue here is that in such a case the benefits of sharding are voided. If one Norne set is overlooking all shards, they might as well be validating a single chain instead, since the computational requirements are approximately the same.
 
+### Performance Issues
+Increasing the number of block producing nodes in a consensus-threshold PoS based algorithm reduces the performance of the network as node count grows. This is especially true for pBFT based algorithms where finality is achieved prior to block being committed. Requiring a higher number of validators to agree on a block will increase time-to-finaliy with a higher node count. Additionally, the signature aggregation of high numbers of nodes increase blockchain bloat. Indeed, incorporating Schnorr and BLS signature schemes reduce signature aggregation sizes down substantially; however does not improve network finality times; an important consideration for a high-throughput chain. A solution could be to cap block production on each shard to a fixed number of validators and incorporate a round-robin approach. The benefit to this is that finality would be close to optimal and signatures would be a fixed and predictable size. This approach comes with a sacrifice in decentralisation as less validators proportionally are required to agree on blocks in each shard as the shard count grows. 
+
 ## Yggdrasil Sharding
 ### Overview
 The Yggdrasil sharding solution is a vertical sharding solution that shards down entire chains, rather than splitting up chains. Thus, the protocol uses sharding techniques to implement a multi-chain solution, rather than retroactively fitting sharding to an existing chain. 
-The benefit to this is it does not require a coordinator to piece together shards, and it minimises cross-shard communication as transactions are more likely to be asset movement in a single shard. Splitting up chains in THORChain is trivial as each asset maintains its own tokenChain and the address space allows for sub-divisioning
+The benefit to this is it does not require a coordinator to piece together shards, and it minimises cross-shard communication as transactions are more likely to be asset movement in a single shard. Splitting up chains in THORChain is trivial as each asset maintains its own tokenChain and the address space allows for sub-divisioning.
 Yggdrasil requires that each of the Norne Sets cover only fixed number of shards, the Scope, to manage network overhead and achieve a high level of trust-minimization for cross-shard transactions. Yggdrasil enforces a minimum number of Nornes per shard pair; that is any two shards have a minimum number of Nornes proposing blocks on them and facilitating cross-shard transactions. By design, every shard will have a relationship with every other shard through a common set of Nornes. 
 For this reason, we describe the Yggdrasil sharding solution as trust-minimized sharding. 
-Yggdrasil is built this way for one cornerstone feature; to facilitate cross-chain transactions for cross-chain token transactions and trading. Cross-chain transactions can either be internal to shards, or across two shards. This is due to chains being spawned inside of an existing shard first, before being split into their own shard when the network demands for it. 
+Yggdrasil is built this way for one cornerstone feature; to facilitate cross-chain transactions for cross-chain token transactions and trading. Cross-chain transactions can either be internal to shards, or across two shards. This is due to chains being spawned inside of an existing shard first, before being split into their own shard when the network demands for it.
+
 The following are the specific use cases:
 
 |**Use Case**|**Description**|**Mechanics**|
@@ -150,61 +152,61 @@ The following are the specific use cases:
 |Trading Token 1 (T1) for Token 2 (T2) on the order book (or vice versa).| Bob creates a T1:T2 market sell order. Alice broadcasts a T1:T2 buy order into the mem-pool for T1 and T2. Bob’s T1 is traded for Alice’s T2. Bob receives T2 and Alice receives T1. | `T1xBob bal(T1) -> T1xBobSell` `T2xAlice bal(T2) -> T1T2memPool` `T1xBobSell bal(T1) -> T1xAlice`
 `T2xAlice bal(T2) -> T2xBob`|
 
-Each transaction must be atomic; where the entire transaction will proceed or fail. As trading involves two separate blocks on two separate chains, the proposer must have awareness of both chains before proposing the transaction. This is why the Yggdrasil protocol guarantees that there is always a group of Nornes that are available to propose blocks on any given shard pair.
-
+Each transaction must be atomic; where the entire transaction will proceed or fail. As trading involves two separate blocks on two separate chains, the proposer must have awareness of both chains before proposing the transaction. This is why the Yggdrasil protocol guarantees that there is always a group of Nornes that are available to propose blocks on any given shard pair. 
+ 
 ### Algorithm
-In THORChain each Norne is randomly allocated exactly two distinct shards, and the number of shards in the system is defined as `N`, which is set by network saturation (defined below). The total number of Nornes must be equal to the total number of combinations of pairs of shards, `N choose 2`, multiplied by the minimum number of Nornes per Shard, `p`, set at 21. As an example, take 4 shards having `4C2 = 6` unique pairs of shards, which requires `6 * 21 = 126` Nornes in total. Each shard will have 21 Nornes monitoring it as Primary, `(N-1 * 21)-21 = 42` Nornes monitoring it as secondary (with a total of 63 Nornes monitoring it in total). 
-Primary Nornes propose and commit new transactions, whilst Secondary Nornes sync, monitor and publish fraud proofs to ensure Primary Nornes do not cheat. 
+In THORChain each Norne is randomly allocated exactly two distinct shards, and the number of shards in the system is defined as `N`, which is set by network saturation (defined below). The total number of Nornes must be equal to the total number of combinations of pairs of shards, `N choose 2`, multiplied by the minimum number of Nornes per Shard, `p`, set at 21. As an example, take 4 shards having `4C2 = 6` unique pairs of shards, which requires `4 * 21 = 126` Nornes in total. Each shard will have `(N-1 * 21) = 63` Nornes syncing, validating and observing all blocks occurring on all chains in the shard in three different Norne Sets.
 
+Each shard shares a common set of Nornes with every other shard. Take shard `S_a` and `S_b` with total shards `N`. There will be 21 Nornes that maintain shards `S_a + S_b`, `(N-2) * 21` that maintain `S_a + S_k` for `k = 0, ..., 4 where k != a and k != b`, and `(N-2) * 21` that maintain `S_k + S_b` for `k = 0, ..., 4 where k != a and k != b`. This can be simplified to 21 `S_a + S_b` and  `(N-1) * 21` `!(S_a + S_b)`. 
+The network then deterministically begins a round-robin block production, with alternatively one Set proposing and committing blocks whilst the other Sets watch. Each Set produces blocks for all chains in both shards, so from the perspective of the Set proposing blocks for the shard pair, the two shards are completely homogenous. The following is an indication of this mechanism. The 67% threshold `15 of 21` consensus applies to the Set and the particular Norne that proposes the block is randomly chosen. As the Set is byzantine resistant, applying a second layer of random assignment to a Norne Set to produce on a shard pair may be unnecessary. Instead the protocol could determine the particular round-robin sequence of Norne Sets deterministically. 
 
-*Figure: overlapping shards. For clarity; shard `S_c` and `S_d` are not shown.* 
+*Figure: Round 1. Set 1 and Set 6 produce blocks for Shards A, B, C and D. Single-chain, Cross-chain Intra-shard and Cross-shard transactions are collected and committed on all chains in all shards.* 
 
-Each shard shares a common set of Nornes with every other shard. Here there is shard `S_a` and `S_b`. There will be 21 Nornes that maintain shards `S_a + S_b`, and 42 that maintain `S_a + S_k` for `k = 0, ..., 4 where k != a and k != b`, and 42 that maintain `S_b + S_k` for `k = 0, ..., 4 where k != a and k != b`. This can be simplified to 21 `S_a + S_b`, 42 `!S_a + S_b` and 42 `S_a + !S_b`. 
-Thus we can simplify how Nornes process transactions. 
-A transaction involving a single shard `S_a`. Any Norne that monitors `S_a` as a Primary shard (21 Nornes) will collect the transaction from the mem-pool and propose it. All other Nornes in the Primary will then agree and commit it. Any Norne that maintains the shard as Secondary will sync and validate the transaction, watching for cheating. 
-A transaction involving a both shards `S_a & S_b`. Any Norne that monitors `S_a & S_b` (21 Nornes) will collect the transaction from the combined mem-pool and propose it. All other Nornes in the combined group will then agree and commit it to both shards. All Nornes in `!S_a + S_b` and `S_a + !S_b` can then sync the respective shards and check for fraud. 
+*Figure: Round 2. Set 2 and Set 4 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
 
+*Figure: Round 3. Set 3 and Set 5 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
 
-
-### Internal-shard Single-chain Transactions
+### Single-chain Transactions
 Alice is on `Chain1` on `ShardA`. She makes a transaction to send `Token1` to another address. 
 Her transaction is broadcast into the mempool of ShardA with the transaction ID. `ID: T1xa1 -> T1xa2`
-A Primary Norne collects the transaction and proposes it `ID:T1π`.
-A super-majority of the Primary (15 Nornes) then agree and commit the transaction to `Chain1` in `ShardA`. 
-The rest of the Secondary sync and validate the transaction. 
+A nominated Norne collects the transaction and proposes it `ID:T1π`.
+A super-majority of the Set (15 Nornes) then agree and commit the transaction to `Chain1` in `ShardA`. 
+The rest of the Nornes sync and validate the transaction. 
 
-Assuming the Primary is not cartel-controlled or DOS’d, all transactions in the MemPool will be proposed. If the Primary is cartel-controlled, the most they can do is censor transactions. Any of the Secondary nodes can observe and report this for on-chain governance action, which may include replacing the Primary with other Nornes. 
+Assuming the Proposing Set is not cartel-controlled or DOS’d, all transactions in the MemPool will be proposed. If it is cartel-controlled, the most they can do is censor transactions. Any of the observing nornes from watching Sets can identify and report this for on-chain governance action, which may include replacing the Set with other Nornes. 
 
-
-
-### Internal-shard Cross-chain Transactions
-Alice is on `Chain1` on `ShardA`. She makes a trade with Bob for `Token2` on `Chain2`. 
-Her transaction is broadcast into the mempool of ShardA with the transaction ID. `ID: T1xa -> T1xb; T2xb -> T2xa; `
-A Primary Norne collects the transaction and proposes `ID:T1π (T2π)` and `ID:T2π (T1π)` as two blocks; one for each `Chain1` and `Chain2`, publishing hashes of each block in the other to ensure atomicity. 
-A super-majority of the Primary (15 Nornes) then agree and commit both blocks to `Chain1` and `Chain2` in `ShardA`, after ensuring the signatures of all blocks, as well as the trade math, are valid.
-The rest of the Secondary sync and validate the transaction. 
-A rogue Norne (friends with Bob), may attempt to publish a non-atomic trade; where only Token1 move, but Token2 does not; ie, Bob gets both Token1 and Token2. He would do so by publishing  `ID:T1π (T2-)` and `ID:T2- (T1π)`. All Primaries have a copy of the original order can immediately identify the fraud and not commit the transaction. 
-If the Primary is cartel-controlled (more than 15)  then they can publish and commit the fraudulent block. However, any of the non-controlled Primary Nornes and all of the Secondary Nornes have a copy of the original order and state; so can publish a fraud proof on all Nornes that published the fraud. 
-
-
-
+### Cross-chain Transactions
+Alice is on `Chain1` on `ShardA`. She makes a trade with Bob for `Token2` on `Chain2` in `ShardA`. 
+Her transaction is broadcast into the mempool of  `ShardA` with the transaction ID. `ID: T1xa -> T1xb; T2xb -> T2xa; `
+A proposing Norne collects the transaction and proposes `ID:T1π(T2π)` and `ID:T2π(T1π)` as two blocks; one for each `Chain1` and `Chain2`, publishing hashes of each block in the other to ensure atomicity. 
+A super-majority of the Set (15 Nornes) then agree and commit both blocks to `Chain1` and `Chain2` in `ShardA`, after ensuring the signatures of all blocks, as well as the trade math, are valid.
+The rest of the Sets sync and validate the transaction. 
+A rogue norne (friends with Bob), may attempt to publish a non-atomic trade; where only Token1 move, but Token2 does not; ie, Bob gets both Token1 and Token2. He would do so by publishing  `ID:T1π(T2-)` and `ID:T2-(T1π)`. All nornes in the Set have a copy of the original order can immediately identify the fraud and not commit the transaction. 
+If the Set is cartel-controlled (more than 15) then they can publish and commit the fraudulent block. However, any of the other nornes in the proposing Set and all of the nornes in the observing Sets have a copy of the original order and state; so can publish a fraud proof on all nornes that published the fraud. 
 
 ### Cross-shard Transactions
 Alice is on `Chain1` on `ShardA`. She makes a trade with Bob for `Token4` on `Chain4` on `ShardB`. 
-Her transaction is broadcast into the mempool of ShardA and ShardB with the transaction ID. `ID: T1xa -> T1xb; T4xb -> T4xa; `
-A Common Norne collects the transaction and proposes `ID:T1π (T4π)` and `ID:T4π (T1π)` as two blocks; one for each `Chain1` and `Chain4`, publishing hashes of each block in the other to ensure atomicity. 
+Her transaction is broadcast into the mempool of `ShardA` and `ShardB` with the transaction ID. `ID: T1xa -> T1xb; T4xb -> T4xa; `
+A Common Norne collects the transaction and proposes `ID:T1π(T4π)` and `ID:T4π(T1π)` as two blocks; one for each `Chain1` and `Chain4`, publishing hashes of each block in the other to ensure atomicity. 
 A super-majority of the Common (15 Nornes) then agree and commit both blocks to `Chain1` and `Chain4` in `ShardA` and `ShardB` respectively, after ensuring the signatures of all blocks, as well as the trade math, are valid.
-All Nornes in `ShardA` observe a valid `ID:T1π (T4π)` transaction, containing correct asset movement for `T1` (from Alice to Bob). They are not aware of the `T4` chain so cannot validate the `T4` transaction. 
-All Nornes in `ShardB` observe a valid `ID:T4π (T1π)` transaction, containing correct asset movement for `Tb` (from Bob to Alice). They are not aware of the `T1` chain so cannot validate the `T1` transaction. 
+All Nornes in `ShardA` observe a valid `ID:T1π(T4π)` transaction, containing correct asset movement for `T1` (from Alice to Bob). They are not aware of the `T4` chain so cannot validate the `T4` transaction. 
+All Nornes in `ShardB` observe a valid `ID:T4π(T1π)` transaction, containing correct asset movement for `Tb` (from Bob to Alice). They are not aware of the `T1` chain so cannot validate the `T1` transaction. 
 
-A rogue validator (friends with Bob), may attempt to publish a non-atomic trade; where only Token1 move, but Token4 does not; ie, Bob gets both Token1 and Token4. He would do so by publishing  `ID:T1π (T4-)` and `ID:T4- (T1π)`. All Common Nornes have a copy of the original order can immediately identify the fraud and not commit the transaction. 
-If the Common is cartel-controlled (more than 15) then they can publish and commit the fraudulent block. However, the fraudulent block will be not valid for `ShardA` or `ShardB` so Nornes from a Shard will reject the block and publish a fraud proof. They can do this because they have a copy of the original signed order by the user can demonstrably show the fraud. 
+A rogue validator (friends with Bob), may attempt to publish a non-atomic trade; where only Token1 move, but Token4 does not; ie, Bob gets both Token1 and Token4. He would do so by publishing  `ID:T1π(T4-)` and `ID:T4-(T1π)`. All Nornes have a copy of the original order can immediately identify the fraud and not commit the transaction. 
+If the Set is cartel-controlled (more than 15) then they can publish and commit the fraudulent block. However, the fraudulent block will be not valid for either `ShardA` or `ShardB` so Nornes from a defrauded Shard will reject the block and publish a fraud proof. They can do this because they have a copy of the original signed order by the user can demonstrably show the fraud. 
+
+In a cross-shard trade, there will always be a Set of 21 Nornes observing the transaction and available to make the atomic transaction. The trade is safe as it requires a minimum of `15 of 21` Nornes to collect, propose and commit the blocks containing the trade. Given that only a Norne inside the overlapping Sets can propose the transaction, and there will be `*(n-1)C2 * 21) * 2 - 21` Nornes who will be watching either one of the Shards and able to make a fraud-proof.
+
+### Publishing Fraud-proofs
+Observing Nornes can deterministically identify fraud and have the incentives to publish any detected fraud to earn the slashed stake from the fraudulent Norne. Consider the case where a cartel-controlled group of Nornes publish and commit a non-atomic trade `ID:T1π (T4-)` and `ID:T4- (T1π)`, where `T1` is on `ShardA` and `T4` is on `ShardB`. All of the `ShardA` Nornes will not be able to identify the fraud as they are not aware of the state of `ShardB`; and the transaction `ID:T1π (T4-)` fulfils all transaction criteria on `ShardA`. `ShardB` Nornes however can inspect the signed transaction they have from their memPool with that that was published to the chain in order to determine the fraud by comparing transaction IDs. If the transaction ID from the memPool does not match the asset movement of chains; then there was fraud. 
 
 ### Prioritising Cross-chain Transactions
-As the  number of shards increase, the ratio between common Nornes `S_a & S_b` and non-common Nornes between two shards decereases. With 4 shards the ratio is 33%, with 10 shards the ratio is 11%. The result of this is that cross-shard transactions are less likely to be picked up from the common memPool. Nornes are encouraged to counter this development by economic incentives as the cross-shard transaction involves gas fees from two chains and the proposing Norne is set to earn twice as much. Thus, Nornes will prioritize cross-chain transactions.
+As the  number of shards increase, the ratio between common Nornes `S_a & S_b` and non-common Nornes between two shards decreases. With 4 shards the ratio is 33%, with 10 shards the ratio is 11%. The result of this is that cross-shard transactions are less likely to be picked up from the common memPool. Nornes are encouraged to counter this development by economic incentives as the cross-shard transaction involves gas fees from two chains and the proposing Norne is set to earn twice as much. Thus, Nornes will prioritize cross-chain transactions.
 
-## Publishing Fraud-proofs
-Observing Nornes can deterministically identify fraud and have the incentives to publish any detected fraud to earn the slashed stake from the fraudulent Norne. Consider the case where a cartel-controlled group of Nornes publish and commit a non-atomic trade `ID:T1π (T4-)` and `ID:T4- (T1π)`, where `T1` is on `ShardA` and `T4` is on `ShardB`. All of the `ShardA` Nornes will not be able to identify the fraud as they are not aware of the state of `ShardB`; and the transaction `ID:T1π (T4-)` fulfils all transaction criteria on `ShardA`. `ShardB` Nornes however can inspect the signed transaction they have from their memPool with that that was published to the chain in order to determine the fraud by comparing transaction IDs. If the transaction ID from the memPool does not match the asset movement of chains; then there was fraud. 
+### Cross-shard delays
+The main benefit to the round-robin approach is that finality would be close to optimal (indeed 500ms is achievable) and signatures would be almost negligible. The main downside from a performance perspective is that cross-shard trade (even if prioritised through higher fees) would be probabilistically produced in the round-robin, increasing the time that they are confirmed in. 
+As an example, in a round-robin of 31 shards; a cross-shard trade involving a shard pair may take up to 30 blocks before it would be produced; so the time to confirmation and finality is of range: `L * 2  :  L * 2 + 30 * L * 2`, where `L` is block latency. With 0.5 second blocks this could be 0.5 seconds to 16 seconds. Since the round-robin is deterministic, the approximate time to finality for any given trade could be indicated ahead of time to the user. 
+Of note; this only affects cross-shard trades; not intra-shard cross-chain trades; which would be produced on time every 0.5 seconds by a Norne Set in the network. The probability of a trade being intra-shard and not cross-shard is `c-1 * n / (c*n Choose 2)`, where `c` is the average number of chains per shard and `n` is the total number of shards. Thus at 31 the likelihood of cross-shard over 98%. In reality this means that a cross-shard trades will be produced with 98% likelihood, and they are 100% likely to be produced inside of 16 seconds and 3% `1 / 31` likely of being produced in less than 1 second. In summary, for our benchmark of 31 shards, 10,000 Nornes and 155k TPS; there is a maximum of 16 seconds for a cross-shard transaction, with the typical trade being processed in 8 seconds. 
 
 ## Merging and Splitting Shards
 
@@ -215,6 +217,7 @@ The protocol starts off with a single chain in a single shard, covered by a cap 
 As tokens are created, discrete chains of number `c` are added to the shard. To prepare for a possible split the cap of Nornes increase from `21` to `21 * 2 = 42` as network saturation climbs from 10% to 90%. Queued Nornes enter the Set automatically. 
 
 As soon as the network reaches 90% saturation for more than 100 blocks, the shard of `c` chains split into two shards; one shard containing `floor(c / 2)` chains and the other with `ceiling(c / 2)` chains, administered by two Sets of 21 Nornes, with 42 common Nornes (complete overlap). The exact split is random; but may be biased towards chains that transact with each other frequently, ensuring the cross-chain transfers are minimised. As all 42 Nornes were split from a Set which had been syncing all chains in the shard the split will be seamless.
+The two sets begin an alternating block production schedule, ensuring that only a maximum of 15 Nornes are necessary 
 
 | Set | Shard Relationship
 |---|---|
@@ -231,6 +234,8 @@ Once again, as saturation in one shard (ShardA) climbs to 90%, ShardA's Norne ca
 | 2 | Prunes ShardA. 
 | 3 | Watches ShardA, Maintains ShardC.
 
+The network then engages in a round robin of `Set1:A&B; Set3:C` `Set2:B&C; Set3:A` and then `Set1:B; Set3:B&C`
+
 As saturation in one shard (ShardA) again climbs to 90%, Set 1 increases its Norne cap from `21` to `21 * 2 = 42`, and then prepares to split in the same manner. The split happens in a concerted and deterministic method involving pruning and retaining the chains. Once the Set has split then there immediately becomes available two additional sets that can be spawned from Set 2 and Set 3 The three new Sets inherit shard relationships as per the following table: 
 
 | Set | Shard
@@ -240,7 +245,7 @@ As saturation in one shard (ShardA) again climbs to 90%, Set 1 increases its Nor
 | 3 | Prunes ShardD, Spawns Set 6.
 | 4 | Prunes ShardB, Watches ShardA, Maintains ShardD.
 
-Once the ShardD is established, two more Sets of 21 Nornes open up for Watch capacity on ShardB, ShardC and ShardD. 42 more Nornes sync the Shards and auction their way into Set 5 and Set 6. This can happen sequentially or concurrently to the organization above. 
+Once the ShardD is established, two more Sets of 21 Nornes open up for ShardB, ShardC and ShardD. 42 more Nornes sync the Shards and auction their way into Set 5 and Set 6. This can happen sequentially or concurrently to the organization above. 
 
 | Set | Shard
 |---|---|
@@ -248,9 +253,9 @@ Once the ShardD is established, two more Sets of 21 Nornes open up for Watch cap
 | 6 | Syncs & Watches ShardC, Syncs & Watches ShardD.
 
 This process continues in sequence for more splitting of shards. The following is indicative of the first 10 Shards. The mechanics for the split is that the splitting shard spawns the new Set; and once split, `nC2 - ( ( n-1 )C2 ) * 21` more Norne positions open up to watch the new shards. 
-
-|Shards|Pairs (nC2)|Nornes per Shard|New Nornes|Watching Nodes|Total Nornes (21 per pair)|
-|---|---|---|---|---|---|
+ 
+|Shards|Pairs `nC2`|Nornes per Shard|New Nornes|Watching Nodes|Total Nornes (21 per pair)|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 |1|1|21|-|0|21|
 |2|1|21|21|21|42|
 |3|3|42|21|21|63|
@@ -261,25 +266,31 @@ This process continues in sequence for more splitting of shards. The following i
 |8|28|147|147|126|588|
 |9|36|168|168|147|756|
 |10|45|189|189|168|945|
- 
+
+
 *Note 1: A shard can only be reduced to a minimum of a single chain to prevent splitting the state of a single chain; which is very complex.*
 *Note 2: Flexxing the cap on Nornes does not change performance; it simply prevents a shard being split but without the minimum number of Nornes available to maintain.*
 
-## Alternative; Round-Robin
-The main issue with the dynamically-scaled approach above is that the number of Nornes grow exponentially with each shard; so that at 31 Shards there is 630 Nornes across 30 Sets that are monitoring each possible Shard Pair. This would require `0.67 * 630` = 422 Nornes to agree on each block; which will substantially reduce time-to-finality and increase block sizes with large signature aggregations; ~24kb for current signature schemes. Indeed, incorporating BLS signature aggregations would reduce it down to around 360 bytes; however it does not improve network finality times; an important consideration for a high-throughput chain. 
-A solution could be to cap block production on each shard pair to a single Norne Set (of 21 Nornes) and incorporate a round-robin approach. The benefit to this is that finality would be close to optimal (indeed 500ms is achievable) and signatures would be almost negligible. The main downside from a performance perspective is that cross-shard trade (even if prioritised through higher fees) would be probabilistically produced in the round-robin, increasing the time that they are confirmed in. 
-As an example, in a round-robin of 31 shards; a cross-shard trade involving a shard pair may take up to 30 blocks before it would be produced; so the time to confirmation and finality is of range: `L * 2  :  L * 2 + 30 * L * 2`, where `L` is block latency. With 0.5 second blocks this could be 0.5 seconds to 16 seconds. Since the round-robin is deterministic, the approximate time to finality for any given trade could be indicated ahead of time to the user. 
-Of note; this only affects cross-shard trades; not intra-shard cross-chain trades; which would be produced on time every 0.5 seconds by a Norne Set in the network. The probability of a trade being intra-shard and not cross-shard is `c-1 * n / (c*n Choose 2)`, where `c` is the average number of chains per shard and `n` is the total number of shards. Thus at 31 the likelihood of cross-shard over 98%. In reality this means that a cross-shard trades will be produced with 98% likelihood, and they are 100% likely to be produced inside of 16 seconds and 3% `1 / 31` likely of being produced in less than 1 second. In summary, for our benchmark of 31 shards, 10,000 Nornes and 155k TPS; there is a maximum of 16 seconds for a cross-shard transaction, with the typical trade being processed in 8 seconds. 
-
-The network then deterministically begins its round-robin block production, with alternatively one Set Proposing whilst the other Set Watching. Each Set produces blocks for all chains in both shards, so to the Set proposing the two shards are completely homogenous and it does not distinguish or prefer one Shard over the other. 
-
 ### Merging Shards
-Shards can also merge if shard saturation becomes low. Once the shard is less than 10% saturation then the Primary Set (Set2) that maintains it will propose to merge it (ShardB) with its Sibling (ShardC). The exception to this if the Sibling Shard is above 90%; then the merge will not go ahead. Once Set2 starts signalling it will merge its two shards into the Merging Shard, then the Secondary Set watching the Merging Shard (Set1) will learn of the proposal and start syncing the Sibling Shard that is to be merged, ShardC. 
-At the same time, the Primary Set will start syncing the Shard that is watched by the Merging Shard’s other Secondary Set (Set5), which is ShardD. 
+Shards can also merge if shard saturation becomes minimal, defined as less than 10% saturation for more than `x` blocks (100). The protocol incentive is that by merging two shards, a Set will earn more in transaction fees from the two merged shards, so will attempt to be the Set that coordinates a merge and gain from combining two other shards. A shard cannot start a merge process until it is less than 10% saturation and a shard cannot be merged to another that has more than 90% saturation. As saturation levels are tracked on the central MerkleChain this leads to deterministic merging. 
+Each shard is maintained by `N-1` Sets, so for every merge, there will be a race condition where any Set that maintains the min activity shard can attempt to sync and coordinate the merge in a winner-take-all approach. The winner will be the first to prove they have found, synced and merged two low activity shards satisfying all rules with at least 67% support from their Set. To complete a faster sync, Sets will find the smallest and lowest activity shards to speed up the process. Once a Set broadcasts to the MerkleChain that they have synced and merged two low activity shards, the Merklechain will shuffle Sets to favour the winning Set. 
 
-Once the merge is complete, the Merged Shard will contain all chains from the former Merging Shard (ShardB) and the Sibling Shard (ShardC). This will be seamless as the Primary Set already had both synced. The Secondary Set (Set1) will have been synced and can safely watch the new Shard. 
+In the example above, ShardB is the minimal activity shard, and is maintained by Set 1, Set 2 and Set 5. All Sets immediately ping the DHT to identify another low-activity shard (less than 90%) and then sync that shard for a merge; here it is ShardC. Sets must be syncing the two shards that are to be merged, as well as a third that will be the final shard pair that is not ShardB or ShardC. 
 
-At this point there are 3 unnecessary Sets that share commonality. They are Set3 (the Primary from the old Sibling Shard that was merged) sharing commonality with Set1, Set5 (the Secondary from the old Merging Shard) sharing commonality with Set2 and Set6, (also not a Primary) sharing commonality with Set2. They are not paid any block rewards, but continue to sync and be available on standby. 
+|Set|Merging Shards|Shard Pair|Action|
+|:---:|---|---|---|
+|Set 1| `ShardB & ShardC`| `ShardA or ShardD`|Sync ShardC|
+|Set 2| `ShardB & ShardC`| `ShardA or ShardD`|Sync ShardD|
+|Set 5| `ShardB & ShardC`| `ShardA or ShardD`|Sync ShardC|
+
+In this example Set 2 manages to sync ShardD and complete the merge on ShardB and ShardC the fastest, broadcasting to the MerkleChain the success. This may be likely since to them ShardB and ShardC were already homogenous (as a pair) and they simply had to sync ShardD. For `x` blocks they signal a fully synced ShardD and provided ShardB still remains below 10% saturation then they can complete the merge. 
+At this point there are 3 unnecessary Sets that share commonality. They are Set3 sharing commonality with Set1, Set5 sharing commonality with Set2 and Set6 sharing commonality with Set2. These three sets can deterministically removed based on stake levels:
+
+|Set Redundancy|Action|Reason|
+|:---:|---|---|
+|Set 1 and Set 3| Demote Set 3|`Set 1 Stake > Set 3 Stake`|
+|Set 2 and Set 5| Demote Set 5|`Set 2 Stake > Set 5 Stake`|
+|Set 2 and Set 6| Demote Set 6|`Set 2 Stake > Set 6 Stake`|
 
 Once demoted, there are 3 Sets, 3 Shards and 63 total Nornes actively producing blocks. The 63 demoted Nornes have various Shards and Chains synced, so can be made available to immediately cater for a possible new split back to 4 shards again. This is an effective way to re-org two shards that have large differences in activity levels, such as one being less than 10% and the other being close to 90%, in such a way that after 200 blocks the two shards will have 50% distributed each. The Split should immediately happen after the Merge so there is no cost to Nornes as the re-org will happen seamlessly.  
 
@@ -292,18 +303,23 @@ The following is the sequence of a Split and subsequent Merge:
 |3|`>90% Saturation` | Norne Set (Set1) start signalling to split
 |4|`100 Blocks`
 |5|`101st Block`| A new Norne Set (Set2) commissioned maintaining a new shard `S_B`. Set1 watches `S_B` and Set2 watches `S_A`. Both Sets have 21 Nornes. 
-|6|`45->10% Saturation on `S_B` |  Set1 and Set2 ensure they are synced. 
-|7|`<10% Saturation on `S_B` |  Set2 start signalling the merge.
+|6|`45->10% Saturation on `S_B` |  
+|7|`<10% Saturation on `S_B` |  Set1 and Set2 ensure they are synced and signal a merge. 
 |8|`100 Blocks`
-|9|`101st Block`| Set2 is now Primary for merged shard `S_AB`, with Set1 watching. 
+|9|`101st Block`| Set2 completes the merge.
 
 _Table: Order for splitting and merging_
 
 With this mechanism the Protocol can scale up and down depending on saturation, with the correct amount of Nornes and Norne Sets at all times. 
 
+
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="500" height="412" />
 
 _Figure: Overview of the YGGDrasil Protocol_
+
+
+### Estimating Saturation
+Tracking saturation is now a huge part of how the Yggdrasil Protocol works. This can be done by each Norne calculating saturation on each shard they maintain and publishing this into the MerkleChain. Saturation in blockchains is a function of block producers finding the most valuable transactions that fit under a block size limit; which is NP-complete problem where there is no efficient solution to find in the first place. Indeed tracking block sizes is not direct answer of saturation as transaction types have different weights. As such there needs to be clear definition of blockchain throughput, and thus saturation, to identify a shard that is saturated and should split (or not and should merge). We propose using both a function of block size as a proportion of block limit, caveated by a benchmark of recorded all-time-high transaction throughput. The rule proposed is 90% block limit and 90% ATH TPS. As an example; if there a `10` chains in a shard, `S_a`, and the block limit is 4mb per chain, then the shard is 90% saturated at `10 * 4 * 0.9 = 36mb`. If the highest recorded TPS in a Shard is 5000 TPS, then the 90% threshold is 4500 TPS. A shard will then split above 36mb and 4500 TPS for more than `x` (100) blocks. 
 
 ## Analysis
 
@@ -336,8 +352,6 @@ To achieve 1m TPS, there would need to be either 79,600 Nornes in total with 200
 The first cryptocurrency known to use masternodes was Dash [6] of which there are currently `4000` nodes. With this many bonded Nornes, the Yggdrasil protocol algorithm could maintain `20` shards with byzantine resistance achieved. Since each Norne need only validate two shards, this means bandwidth, space, and computational requirements are reduced by up to 95%.
 
 ### Security
-In a cross-shard trade, there will always be a Set of 21 Nornes observing the transaction and available to make the atomic transaction. The trade is safe as it requires a minimum of `15 of 21` Nornes to collect, propose and commit the blocks containing the trade. Given that only a Norne inside the overlapping Sets can propose the transaction, and there will be `*(n-1)C2 * 21) * 2 - 21` Nornes who will be watching either one of the Shards and able to make a fraud-proof.
-
 The main challenge with the Yggdrasil sharding approach is that the number of Nornes that maintain each shard reduce proportionally to the total as the number of shards increase. As the number of shards grows, a much smaller number than two thirds of all Nornes need to be compromised or form a cartel to perform an attack on the shard. Indeed the most valuable chains need far more security than chains that maintain low-value tokens, and once such chain is the RuneChain `T0`.
 The following are unique aspects of the duties for any Norne that maintains the RuneChain in one of the 2 Sets of the RuneChain Validating Group:
 - Maintain the MerkleChain, which syncs the network, holds the verifiably random function and the DHT for the THORChain Name Service. 
@@ -379,6 +393,3 @@ executes multiprocess programs. IEEE Trans. Computers, 28(9):690- 691.
 **[7]** Boneh, D., Lynn, B. & Shacham, H. J Cryptology (2004) 17: 297. https://doi.org/10.1007/s00145-004-0314-9
 
 **[8]** D. Boneh, M. Drijvers, and G. Neven. Cryptology ePrint Archive: Report 2018/483. https://eprint.iacr.org/2018/483.pdf 
-
-
-
