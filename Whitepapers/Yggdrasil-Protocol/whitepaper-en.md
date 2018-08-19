@@ -157,22 +157,22 @@ Each transaction must be atomic; where the entire transaction will proceed or fa
 ### Algorithm
 In THORChain each Norne is randomly allocated exactly two distinct shards, and the number of shards in the system is defined as `N`, which is set by network saturation (defined below). The total number of Nornes must be equal to the total number of combinations of pairs of shards, `N choose 2`, multiplied by the minimum number of Nornes per Shard, `p`, set at 21. As an example, take 4 shards having `4C2 = 6` unique pairs of shards, which requires `4 * 21 = 126` Nornes in total. Each shard will have `(N-1 * 21) = 63` Nornes syncing, validating and observing all blocks occurring on all chains in the shard in three different Norne Sets.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure1.png" width="250" height="350" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure1.png" width="350" height="250" />
 
 *Figure: 6 Sets maintain 4 shards. For a cross-shard transaction from ShardA to ShardB, there is 1 Set that has full clarity and 4 sets that have partial clarity on the trade.*
 
 Each shard shares a common set of Nornes with every other shard. Take shard `S_a` and `S_b` with total shards `N`. There will be 21 Nornes that maintain shards `S_a + S_b`, `(N-2) * 21` that maintain `S_a + S_k` for `k = 0, ..., 4 where k != a and k != b`, and `(N-2) * 21` that maintain `S_k + S_b` for `k = 0, ..., 4 where k != a and k != b`. This can be simplified to 21 `S_a + S_b` and  `(N-1) * 21` `!(S_a + S_b)`. 
 The network then deterministically begins a round-robin block production, with alternatively one Set proposing and committing blocks whilst the other Sets watch. Each Set produces blocks for all chains in both shards, so from the perspective of the Set proposing blocks for the shard pair, the two shards are completely homogenous. The following is an indication of this mechanism. The 67% threshold `15 of 21` consensus applies to the Set and the particular Norne that proposes the block is randomly chosen. As the Set is byzantine resistant, applying a second layer of random assignment to a Norne Set to produce on a shard pair may be unnecessary. Instead the protocol could determine the particular round-robin sequence of Norne Sets deterministically. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure2.png" width="250" height="350" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure2.png" width="350" height="250" />
 
 *Figure: Round 1. Set 1 and Set 6 produce blocks for Shards A, B, C and D. Single-chain, Cross-chain Intra-shard and Cross-shard transactions are collected and committed on all chains in all shards.* 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="250" height="350" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure3.png" width="350" height="250" />
 
 *Figure: Round 2. Set 2 and Set 4 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure4.png" width="250" height="350" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Yggdrasil-Protocol/images/figure4.png" width="350" height="250" />
 
 *Figure: Round 3. Set 3 and Set 5 produce blocks for Shards A, B, C and D. All transactions are collected and committed on all chains in all shards.* 
 
