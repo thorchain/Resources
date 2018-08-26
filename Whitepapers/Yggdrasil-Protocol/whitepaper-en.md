@@ -16,6 +16,14 @@ The THORChain multi-chain has `k` number of canonical chains with `k` discrete m
 >The protocol exhibits two levels of safety; byzantine resistance for each Norne Set and 99% fault tolerance characteristic for at least 1% of all Nornes can post a fraud-proofs on any shard. An on-chain verifiably random function (VRF) nominates the appointments for each shard and can thwart any attempt to control or censor transactions. The VRF is an implementation of the Boneh–Lynn–Shacham (BLS) signature [7] threshold scheme and is a VRF for the network [8]. 
 >This protocol employs a novel vertical-sharding approach to solving the scalability trilemma, and exhibits sufficient trust-minimised safety whilst at the same time achieving excellent scalability and decentralisation. 100k transactions per second can be achieved with less 10k nodes and 1m transactions per second can be achieved with less than 80k nodes. 
 
+**Work in Progress**
+- Synchronous v Asynchronous
+- Coordinating a safe under ansynchrony network
+  - Consensus by tag
+  - Finality overlay (three blocks)
+  - Coordinating cross-shard
+- Fee model (sunk cost model, with pooled tax refer Vitalik ZCash)
+
 ### Document Set
 The following whitepapers should be read in conjunction:
 
