@@ -142,8 +142,9 @@ The locked coins on the external chain will need to be moved as one transaction,
 **Reliability.**  By re-shuffling validators and moving assets every `x` blocks in multi-sigs the protocol and users can be assured that Validators are online and have access to their private keys. This will reduce the risk of loss of asset if more than one validator goes offline. Additionally, by moving assets regularly, `n-1 of n` or even `n of n` can be attempted depending on security required. Further if a Validator in a sub-set is evicted for other reasons, or confesses to a compromised or lost private key they can be removed in schedule by signalling. 
 
 ### Supervised Sub-set Signatories
-It is necessary to supervise each sub-set with full protocol oversight to ensure that sub-sets are not victims to supermajority sybil attacks, where an attacker gains control of an entire sub-set to spend locked assets. The solution is for the Validator Set to observe each sub-set and take action when risks are higher than tolerated for bridges. 
-Observing Risk. The security of the bridge is thus equal to the sum of the stake for `m` validators in a `m of n` bridge if validators are completely slashed if they spend the locked assets. Thus rogue validators will observe the sum of locked assets and may consider an attack if they have more to gain by spending locked assets and being completely slashed. This is easy to observe and communicate to users. A bridge is risky when:
+It is necessary to supervise each sub-set with full protocol oversight to ensure that sub-sets are not victims to supermajority sybil attacks, where an attacker gains control of an entire sub-set to spend locked assets. The solution is for the Validator Set to observe each sub-set and take action when risks are higher than tolerated for bridges.
+
+**Observing Risk**. The security of the bridge is thus equal to the sum of the stake for `m` validators in a `m of n` bridge if validators are completely slashed if they spend the locked assets. Thus rogue validators will observe the sum of locked assets and may consider an attack if they have more to gain by spending locked assets and being completely slashed. This is easy to observe and communicate to users. A bridge is risky when:
 
 ```m * stake <= sum(locked assets)```
 
