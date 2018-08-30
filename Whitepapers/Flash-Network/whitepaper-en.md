@@ -164,8 +164,11 @@ The Flash Network is designed with the expectation that in order for a Layer 2 N
 ### Related Work
 
 The Flash Network draws on ideas from various other protocols and networks, and brings them together in a user-centric, customizable way that empowers users to trade with the methods that meet their requirements best. This section surveys some of the existing technologies and compares them in terms of the features and functions they support.
+
 0x[7] is an Ethereum-based Protocol that allows creation and relaying of orders off-chain with on chain settlement. It supports instant limit order creation, but does not directly support market orders, automatic order matching, complex order types. It defers to other services to deal with relaying and liquidity.
+
 Airswap[8] is a similar protocol more focused on peer-to-peer trades and OTC private trading. It defers to other services to matchmake peers for their trades, and does not have true order books like a typical exchange.
+
 Liquidity.Network[9] is a protocol that allows nodes to join an off-chain 'Hub' that allows them to share liquidity and transact off chain with an alternative consensus mechanism run by hub operators, with trust mitigated by allowing users to make challenges and withdraw funds to the root blockchain in the event of a dispute. It is similar to Plasma[4], a general purpose Ethereum Layer 2 scaling solution. It compromises on decentralized availability/ease of use but not on decentralized security.
 
 Idex[10] is a semi-centralized exchange that uses a similar off-chain construction to Plasma, but has more heavily centralized control over transactions. User funds are still protected and can be withdrawn in the event of a dispute, but their honest transactions are still at risk of being discarded after confirmed by the system. It compromises further on decentralization to favor ease of use.
@@ -174,10 +177,13 @@ Gnosis DutchX exchange[11] is an alternative decentralized exchange system that 
 
 ### Layer 2 Trading
 Layer 2 trading will facilitate instant trades “atomic swaps” between two parties. The key elements of this is the following:
-Indication. A party must open a channel and put up an interest to sell an asset at a specified price. 
-Offer. A second party must also open a channel with an interest to buy the asset.
-Execution. The two assets must be atomically swapped at the terms agreed. 
+
+* **Indication.** A party must open a channel and put up an interest to sell an asset at a specified price. 
+* **Offer.** A second party must also open a channel with an interest to buy the asset.
+* **Execution.** The two assets must be atomically swapped at the terms agreed. 
+
 This can be facilitated through the use of trading channels, a payment channel that indicates the order type amongst other trade information such as expiry. An aggregator then collects all trades across pairs, and a matcher performs the matching of trades. 
+
 The following would be an example of a trading channel, posting a sell order of 100 T1 tokens for 1 T0 token (Rune) at a price of 0.01. The trading channel would need to be holding at least 100 TKN1 for this order to be fulfilled. 
 
 ```
