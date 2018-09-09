@@ -52,7 +52,9 @@ A self-amending forkless consensus algorithm for THORChain.
 [Implementation](#implementation)
 - Entering a Bridge	
 - Trading tCoin	
-- Exiting a Bridge	
+- Exiting a Bridge
+- Bitcoin Bifröst
+- Ethereum Bifrost
 - Bifröst CLPs	
 - Generating a Bifröst CLP	
 - CLP Transactions	
