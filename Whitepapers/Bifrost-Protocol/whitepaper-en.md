@@ -54,7 +54,8 @@ A self-amending forkless consensus algorithm for THORChain.
 - Trading tCoin	
 - Exiting a Bridge
 - Bitcoin Bifröst
-- Ethereum Bifrost
+- Ethereum Bifröst
+- Monero Bifröst
 - Bifröst CLPs	
 - Generating a Bifröst CLP	
 - CLP Transactions	
@@ -320,6 +321,17 @@ Notes:
 3) Similiar to Bitcoin, users can also elect to create a private-linked bridge to their own Rune Address and can make transactions with no extra-data input required. All Ethereum and tokens they whitelist observed on their private bridge will be minted into their account. 
 
 [Ethereum Gnosis Multi-sig](https://github.com/gnosis/MultiSigWallet)
+
+### Monero Bifröst
+
+The Monero Bifröst will have the following adaptions:
+
+1) Use of [Payment ID](https://getmonero.org/resources/moneropedia/paymentid.html) in place of `OP_RETURN`
+2) Limit to `n-1 of n` and `n of n` [multi-sigs](https://monerodocs.org/multisignature/)
+3) Validators to sync key-images 
+4) [Private View Keys](https://monerodocs.org/cryptography/asymmetric/private-key/#private-view-key) to be published by validators to allow auditing of bridge funds
+
+This set-up will also support all cryptonote-based blockchains, (such as [Loki](loki.network)).
 
 ### Security
 
