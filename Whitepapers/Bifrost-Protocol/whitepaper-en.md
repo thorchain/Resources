@@ -161,7 +161,6 @@ The mechanism for this can be built into the consensus rules of the Validator Se
 BLS signature thresholds can be used to further prevent issues during Validator Set re-orgs, as only a threshold of signatures is required to be achieved, instead of a specific aggregation of signatures. For example, if `15 / 21` signatures are required for a particular bridge, it does not need to specify the  set of signatures required to form a `15 / 21` signature threshold, only that `67%` is required. The reverse occurs to move the coin off the ecosystem. This translates to flexibility in who can be part of a sub-set, and tolerates validators leaving and re-entering the Validator Set, which could be a frequent occurrence in a healthy and competitive environment of validators. BLS signature threshold theory has been extensively researched by [DFinity](https://dfinity.org). 
 
 
-
 ### On-chain Governance
 
 On-chain governance, (known as the Æsir Protocol) is deeply integrated into THORChain and is a cornerstone of the protocol. Validator Signalling is a perpetual and continuous process by which Validators signal support for on-chain proposals and integrate them. This process is outlined in detail in the Validator Signalling whitepaper. With effective on-chain governance the protocol can quickly adapt to a changing environment. This is especially required for managing cross-chain compatibility and its inherent risks. 
@@ -228,6 +227,34 @@ Users must specify which external chain they want to exit on, as it is their cho
 *Figure: A THORChain token is exited and created on a parent chain.* 
 
 Having cross-chain compatibility is imperative for THORChain to augment the entire ecosystem by bringing the benefits of decentralised trading and liquidity to all existing tokens. With the correct design, THORChain may be a far more favourable environment for digital assets to exist and be the ecosystem of choice for the creation of digital assets. 
+
+### Bitcoin Bifröst
+
+THORChain validators host Bitcoin full nodes and publish their Bitcoin public keys with HD derivation. Any user can then elect to create a bridge to THORChain by following the steps:
+1) Collect public addresses from `n` validators of their choosing
+2) Create a `m of n` multi-signature account
+3) Publish all bridge details on THORChain such as the address, confirmations required and nominated refresh cycle in blocks
+
+THORChain validators will then start cycling through randomly chosen validators into the `m of n` multi-signature every cycle, and spending all held UTXOs to new multi-sigs:
+1) Randomly assign another validator to be a party, by creating a `m of n` multi-sig with the new validator replacing a random old validator
+2) Spending all UTXOs to the new multi-sig
+3) Publishing new public keys
+
+The user follows the steps below to enter the Bitcoin Bifröst:
+1) Generates a THORChain destination address `tdAddr`
+2) Creates a Bitcoin transaction that includes the `tdAddr` encoded in the 80 byte `OP_RETURN` output script to the multi-sig. 
+
+The validators then propose to mint the `tBTC` on THORChain using the following process:
+1) Observe the incoming transaction to a Bifröst multi-sig with `x UTXOs` and transaction id `txid`, with the minimum required confirmations for that bridge. 
+2) Publish a proposal to mint `x tBTC` from the Bitcoin CLP to `tdAddr` and including the `txid` as proof
+3) If 67% of validators also see the transaction confirmed with minimum requirements, the minting is committed and the transaction made. 
+
+Exiting is simpler:
+
+1) The user publishes a transaction on THORChain to spend `x tBTC` to a Bitcoin destination address `bdAddr` via chosen bridge
+2) The validators commit the transaction to THORChain at block `k`
+3) At block `k+1` the validators sign to spend `x UTXOs` from the nominated Bitcoin multi-sig, publishing the `txid` as proof that it was authorised on-chain
+4) If `m of n` validators sign the UTXO then the Bitcoin is released to the user's `bdAddr`
 
 
 ## Bifröst CLPs
