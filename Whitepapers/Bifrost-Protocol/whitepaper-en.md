@@ -233,7 +233,7 @@ Having cross-chain compatibility is imperative for THORChain to augment the enti
 THORChain validators host Bitcoin full nodes and publish their Bitcoin public keys with HD derivation. Any user can then elect to create a bridge to THORChain by following the steps:
 1) Collect public addresses from `n` validators of their choosing
 2) Create a `m of n` multi-signature account
-3) Publish all bridge details on THORChain such as the address, confirmations required and nominated refresh cycle in blocks
+3) Publish all bridge details on THORChain such as the address, confirmations required and nominated refresh cycle in blocks, and linked coin (Bitcoin).
 
 THORChain validators will then start cycling through randomly chosen validators into the `m of n` multi-signature every cycle, and spending all held UTXOs to new multi-sigs:
 1) Randomly assign another validator to be a party, by creating a `m of n` multi-sig with the new validator replacing a random old validator
@@ -256,6 +256,66 @@ Exiting is simpler:
 3) At block `k+1` the validators sign to spend `x UTXOs` from the nominated Bitcoin multi-sig, publishing the `txid` as proof that it was authorised on-chain
 4) If `m of n` validators sign the UTXO then the Bitcoin is released to the user's `bdAddr`
 
+Notes:
+1) All Bitcoin-based blockchains can be supported with this process, provided they have the 40 or 80 byte `OP_RETURN` feature or similiar
+2) `OP_RETURN` is prunable from the Bitcoin blockchain so it will not cause Bitcoin blockchain bloat, as it is not necessary once the transaction has been committed on the THORChain side. 
+3) If it is not possible to demarc on-chain the THORChain destination address for THORChain, an alternative method of linking a single-use only multi-sig with a THORChain address is possible, described below.
+
+#### Linking without OP_RETURN
+An alternative method to linking a UTXO-based blockchain transaction to a THORChain destination account involves the following steps:
+
+1) User creates a THORChain address and pre-funds it with Rune. 
+2) User creates a single-use only `m of n` bridge on the linking blockchain.
+3) User then links the multi-signature address to their THORChain address on THORChain. This is an on-chain transaction that will require Rune to pay as gas. 
+4) Any incoming transactions to the multi-signature will created minted coins on the user's address. This link can never be broken and is not suitable to be used as a public bridge. 
+
+Useful links:
+[Bitcoin Multi-sigs](https://en.bitcoin.it/wiki/Multisignature)
+[Bitcoin RPC](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC))
+[Bitcoin Raw Transactions](https://en.bitcoin.it/wiki/Raw_Transactions)
+[Multi-Sig Example](https://gist.github.com/gavinandresen/3966071)
+[OP_Return](https://en.bitcoin.it/wiki/OP_RETURN)
+[OP_RETURN Example](https://www.blockchain.com/btc/tx/6dfb16dd580698242bcfd8e433d557ed8c642272a368894de27292a8844a4e75?show_adv=true)
+[OP_RETURN Questions](https://bitcoin.stackexchange.com/questions/31972/how-to-add-additional-information-to-transaction)
+
+### Ethereum Bifröst
+
+THORChain validators host Ethereum full nodes and publish their Ethereum public keys with HD derivation. Any user can then elect to create a bridge to THORChain by following the steps:
+1) Collect public addresses from `n` validators of their choosing
+2) Create a `m of n` multi-signature account using a smart contract template
+3) Publish all bridge details on THORChain such as the address, confirmations required, nominated refresh cycle in blocks, and linked coin (Ethereum).
+4) Publish the smart contract methods that validators will need to call on the smart contract to spend and add/remove parties to the signature
+
+THORChain validators will then start cycling through randomly chosen validators into the `m of n` multi-signature every cycle:
+1) Randomly assign another validator to be a party, by creating a `m of n` multi-sig with the new validator replacing a random old validator
+2) Publishing new public keys
+
+The user follows the steps below to enter the Ethereum Bifröst:
+1) Generates a THORChain destination address `tdAddr`
+2) Creates an Ethereum transaction that includes the `tdAddr` encoded in the extra data field and spends to the Ethereum multi-sig
+
+The validators then propose to mint the `tETH` on THORChain using the following process:
+1) Observe the incoming transaction to a Bifröst multi-sig with `x ETH` and transaction id `txid`, with the minimum required confirmations for that bridge. 
+2) Publish a proposal to mint `x tETH` from the Ether CLP to `tdAddr` and including the `txid` as proof
+3) If 67% of validators also see the transaction confirmed with minimum requirements, the minting is committed and the transaction made. 
+
+Exiting is simpler:
+
+1) The user publishes a transaction on THORChain to spend `x tETH` to an Ethereum destination address `edAddr` via chosen bridge
+2) The validators commit the transaction to THORChain at block `k`
+3) At block `k+1` the validators sign to spend `x ETH` from the nominated Ethereum multi-sig, publishing the `txid` as proof that it was authorised on-chain
+4) If `m of n` validators sign the transaction then the Ether is released to the user's `edAddr`
+
+Notes:
+1) All Ethereum-based blockchains can be supported with this process, provided they have the extra-data feature or similiar
+2) ERC-20 and ERC-223 tokens can be supported by whitelisting them in the Ethereum Bifröst and linking them to the correct coin on THORChain.
+3) Similiar to Bitcoin, users can also elect to create a private-linked bridge to their own Rune Address and can make transactions with no extra-data input required. All Ethereum and tokens they whitelist observed on their private bridge will be minted into their account. 
+
+[Ethereum Gnosis Multi-sig](https://github.com/gnosis/MultiSigWallet)
+
+### Security
+
+As explained at length in the Security section, THORChain will require protocol level slashing rules to immediately slash a validator's stake if they attempt to spend from any of the multi-signatures without posting a valid `txid` first, or they spend to an incorrect user address with a valid transaction. Additionally, the multi-signatures must be re-cycled over a nominated period of blocks to ensure the bridges are secure and useable at all times. Lastly, the protocol must include rules to compare the value in each multi-sig with the security of the bridge (`m * stake` for a `m of n` multi-sig), and create automatic spend if the security threshold of the bridge reaches a pre-determined level, such as 50-90%. If there are no higher-level bridges, then the protocol must also have a feature to increase the signature requirements on an insecure bridge, ie from `m of n` to `m+1 of n` or `m+1 of n+1`. 
 
 ## Bifröst CLPs
 
