@@ -1,3 +1,5 @@
+# Telegram Stickers
+
 Stickers uploaded will be reviewed before they are uploaded and made visible in the THORChain Telegram Stickers pack.
 
 Requirements for stickers:
