@@ -273,11 +273,17 @@ An alternative method to linking a UTXO-based blockchain transaction to a THORCh
 
 Useful links:
 [Bitcoin Multi-sigs](https://en.bitcoin.it/wiki/Multisignature)
+
 [Bitcoin RPC](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC))
+
 [Bitcoin Raw Transactions](https://en.bitcoin.it/wiki/Raw_Transactions)
+
 [Multi-Sig Example](https://gist.github.com/gavinandresen/3966071)
+
 [OP_Return](https://en.bitcoin.it/wiki/OP_RETURN)
+
 [OP_RETURN Example](https://www.blockchain.com/btc/tx/6dfb16dd580698242bcfd8e433d557ed8c642272a368894de27292a8844a4e75?show_adv=true)
+
 [OP_RETURN Questions](https://bitcoin.stackexchange.com/questions/31972/how-to-add-additional-information-to-transaction)
 
 ### Ethereum Bifröst
