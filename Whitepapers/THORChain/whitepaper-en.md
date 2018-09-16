@@ -11,7 +11,7 @@ V0.1 July 2018
 ### Document Set
 The following whitepapers should be read in conjunction:
 
-- [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md) (this paper)
+- [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
 A lightning fast decentralised exchange protocol.
 
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
