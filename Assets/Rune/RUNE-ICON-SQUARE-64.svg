@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>RUNE-ICON-SQUARE-64</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="-7.96148507%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#33FF99" offset="0%"></stop>
+            <stop stop-color="#00CCFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="215.553867%" y1="50%" x2="-104.268174%" y2="60.8824956%" id="linearGradient-2">
+            <stop stop-color="#33FF99" offset="0%"></stop>
+            <stop stop-color="#00CCFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="ASGARDEX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-33.000000, -159.000000)">
+            <g id="RUNE-ICON-SQUARE-64" transform="translate(33.000000, 159.000000)">
+                <circle id="Oval-3" fill="#1C2731" cx="32" cy="32" r="32"></circle>
+                <rect id="Rectangle-2" fill="#1C2731" x="0" y="0" width="64" height="64"></rect>
+                <circle id="Oval" stroke="url(#linearGradient-1)" stroke-width="2" fill="#1C2731" cx="32" cy="32" r="26.2564103"></circle>
+                <polygon id="ᚱ" fill="url(#linearGradient-2)" points="29.0708478 46.1128205 25.4358974 46.1128205 25.4358974 17.2307692 29.0708478 17.2307692 38.3755305 22.4856431 38.3755305 26.4564313 35.0566628 32.1459188 40.351047 46.1128205 36.4790347 46.1128205 31.2241608 31.9483672 35.2937248 24.8760181 29.0708478 21.3595987"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
