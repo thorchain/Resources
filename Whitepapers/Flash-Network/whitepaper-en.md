@@ -13,19 +13,19 @@ V0.1 July 2018
 ### Document Set
 The following whitepapers should be read in conjunction:
 
-- [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain) 
+- [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
 A lightning fast decentralised exchange protocol.
 
-- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol) 
+- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
 Secure and fast cross-chain bridges for THORChain.
 
-- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network) *(this paper)*
+- [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network/whitepaper-en.md) (this paper)
 A layer 2 Network for instant asset exchange on THORChain.
 
-- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
+- [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol/whitepaper-en.md)
 Dynamic multi-set sharding for THORChain.
 
-- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol)
+- [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol/whitepaper-en.md)
 A self-amending forkless consensus algorithm for THORChain. 
 
 ## Overview
