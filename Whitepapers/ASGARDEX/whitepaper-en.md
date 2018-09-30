@@ -52,13 +52,13 @@ Continuous liquidity pools (CLPs) work by bonding two assets to each other in a 
 
 On-chain liquidity pools hold bonded assets at a 1:1 ratio in total value, where `value = price * amount`. If price shifts in the surrounding market then anyone can arbitrage the pool to correct the price imbalance by purchasing cheap assets (or selling expensive assets). As a result, the pool will always hold bonded assets at a price that matches external markets, else an opportunity exists for someone to gain from. As the assets are bonded together, liquidity is termed as “continuous”, as there will always be a sell-side for each buy order, no matter the price.
 
- <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-1.png" width="700px" height="350px" />
+ <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-1.png" width="500px" height="250px" />
 
 Here 100 Rune are bonded to 100 Tokens at a 1:1 value ratio (1 *100 : 1* 100). If the token value in the wider market increases to 1.20 Rune, then the value of the Token pool is now 120 Rune. Since the assets are bonded, the 120 Tokens are collateralised by 100 Rune, which is at a 20% discount to the wider market. Anyone can now purchase Tokens at a discount by simply placing enough Rune in the pool to correct the pool value ratio back to 1:1. In this case they would place 10 Rune, receive 9 Tokens (at a 10% discount) and the pool value ratio would be back to 1:1, where 1*110 = 1.20 * 91. 
 
 Note: pricing here is in Rune (ᚱ), assuming a constant Rune price, but the CLP functioning as described is irrelevant to the price of Rune, and may in fact be based in $ or BTC, assuming proper $:ᚱ or BTC:ᚱ price discovery is in place. For the rest of the paper, ᚱ will be used interchangeably with $, with the assumption that the $:ᚱ market is an efficient market. 
 
- <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-2.png" width="700px" height="350px" />
+ <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-2.png" width="500px" height="250px" />
  
 ### Slip
 
@@ -100,7 +100,7 @@ The graph below indicates how this bonding curve works. As the amount transacted
 
 With low amounts (<10% of the liquidity depth), stakers can earn up to roughly 0.1% on each trade, which matches the typical taker fees on exchanges.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-3.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-3.png" width="500px" height="250px" />
 
 ### Arbitrage
 
@@ -110,7 +110,7 @@ This is 8% more Rune than if they had just made an ad-hoc trade across a balance
 
 The end result is that both stakers and arbitragers receive a gain from maintaining the price and liquidity in the pool, with a healthy return to the arbitrager for correcting the price, and a passive return for the stakers for maintaining the liquidity. Additionally, assuming the fees are not withdrawn, the liquidity depth in the pool has increased, which is more favourable to traders. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-4.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-4.png" width="500px" height="250px" />
 
 Staking
 Staking is an inherent and important part of the protocol and provides liquidity to all assets. Due to the way that CLPs are created alongside the instantiation of digital assets on THORChain, there will always be some liquidity depth to assets. By adding incentivisation (liquidity fees), liquidity depth can be vastly increased, increasing the usefulness and value of the protocol. 
@@ -130,7 +130,7 @@ If the staker performs an asymmetric stake-in they will cause a price imbalance 
 
 Here shown for the scenarios of staking from 0% to 100% symmetrically (ie 0 Rune and 10 Token, or vice versa). As shown, it is most favourable to stake 100% symmetrically; with an asymmetric stake causing a 2.5% reduction in assets. This is more pronounced at lower liquidity depths.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-5.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-5.png" width="500px" height="250px" />
 
 ### Balancing Stake
 
@@ -142,15 +142,15 @@ Where `priceRune` is always 1, and `priceToken = 1- (TKN / RUNE)`
 
 Incoming assets are accrued by arbitrage or natural market trades. As a result of the ensuring trade volume across the pool caused by the price imbalance, fees accumulate and the pool actually ends up with more assets than a pure symmetrical stake, shown below. Additionally, the arbitrager makes a small return on taking advantage of the price imbalance.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-6.png" width="700px" height="350px" />
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-7.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-6.png" width="500px" height="250px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-7.png" width="500px" height="250px" />
 
 ### Withdrawing
 
 Assets held in pools are entirely self sovereign at all times. Users can withdraw interest or their principle at any time by signing an on-chain transaction with their private key. They can withdraw symmetrically or asymmetrically; however an asymmetric withdrawal will create a price balance that will naturally be arbitraged out, returning the staker to a symmetrical position. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-8.png" width="700px" height="350px" />
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-9.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-8.png" width="500px" height="250px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-9.png" width="500px" height="250px" />
 
 Here is the case of a stake removing their stake asymmetrically, causing a price imbalance on the pool. Immediately an arbitrager restores the pool balance to earn cheap tokens, and thereby returning the pool ratio to 1. In this case all stakers earn on the liquidity fee, and the asymmetric staker is balanced out. 
 
@@ -188,7 +188,7 @@ A powerful feature of the CLP is that multiple assets can be grouped on one side
 
 If a user wishes to sell their index token against the CLP, they simply send in their tokens, which are immediately destroyed in the pool. The corresponding amount of underlying assets (pro-rata to the index) are then sent via the external CLPs to swap into Rune, which is then issued to the user. 
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-10.png" width="700px" height="350px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-10.png" width="500px" height="250px" />
 
 Such a pool would present a number of arbitrage opportunities in order to keep the index re-balanced with respect to the total value of the grouped assets and collateralised Rune. A good example of this is are stablecoins. A basket of stablecoins using assets from different implementations would then be far less risky than any individual stablecoin. The pool would be constantly re-balanced by arbitrage agents, which in itself provide better assurances of a recovery from natural market fluctuations around the assets. 
 
