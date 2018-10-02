@@ -256,15 +256,80 @@ Fill or Kill
 All or Nothing
 Immediate or Cancel
 
-Limit and Market orders
+### StableCoins 
 
-FIX 4.4
+THORChain’s macro vision is to create a highly liquid payment network built on a completely trustless structure. An imperative feature for mainstream adoption are stablecoins that are pegged to existing fiat currencies such as USD, YEN, EURO and AUD. The first way to achieve this is to simply tokenise existing stablecoins, while the second is to support the development of stable coins on the platform. The first will naturally be easy if the bridges in `§ 8` are built. 
+THORChain has all the required features to create StableCoins with auditable supply and collateral using a Variable Supply token and its CLP and full Validator Set participation. The following would be the process:
+- A tokenChain `tUSD` is created by the Validator Set. A `Rune:tUSD` CLP is created that is variable supply, requiring `2 / 3` signatures from Validators, or by a on-chain smart contract.  
+- At each round, Validators (on smart contract) propose a price `$` that the Rune is valued at. They can infer this by any means possible, most likely by reading APIs off a conglomerate of external exchanges of Rune. Validators can also nominate Rune pricing by watching Bitcoin pricing off external exchanges, and converting to Rune price by the `Rune:tBTC` price feed. 
+- At each round `n + 1` the median of nominated prices is stored in the block. Outliers may invoke slashing rules to penalise poor price nomination. 
+- As Rune price fluctuates, `tUSD` supply in the CLP is negatively changed by the Validators. As an example, Rune price decreases by `2%`, so `tUSD` Supply increases by `4%`. This causes `tUSD` to become inflated and cheap. 
+- Self-interested arbitrageurs will then send in Rune to buy cheap `tUSD`, until `tUSD` returns to `1:1` backed in Assets.
+- Additionally, the liquidity fee will increase the staked collateral in the CLP to match volume and reduce slip. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure38.png" width="900px" height="246px" />
+
+*Figure: Collateralized on-chain StableCoins.* 
+
+This process can be repeated for any other fiat currency and is very simple. Once an external price of Rune is set (in the fiat currency), then the protocol deliberately creates arbitrage opportunities by influencing money supply to attract third parties to act in a self-interested manner to restore any price imbalance. By requiring full Validator Set participation in the price nomination the price of the StableCoin can be relied upon with the same assurance as the entire protocol itself.  The pricing/supply feedback loop can be modified to reduce damping and price sensitivity. 
+
+### Token Baskets  & Indexes
+A THORChain can go further than a single token being represented in a CLP. With a combination of CLP scripts and trustless price feeds, token baskets and indexes can be created and represented by a single asset. This allows users and traders to carry a single token and know that the token’s price trustlessly represents other assets.   
+A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `TKN3`, where the `TokenData` and `CLPData` for `TKNIndex` is linked to the CLPs of the indexed assets. The `TKNIndex` CLP is bonded to include liquidity in all other CLPs so the price of `TKNIndex` is thus representative of the linked assets. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure40.png" width="350px" height="223px" />
+
+*Figure: Token Baskets*
 
 ## Multi-chain and Multi-token Support
 
+THORChain will implement the [Bifröst Protocol](https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md) to allow support of all tradable assets, no matter the originating chain. The Bifröst Protocol is essentially a trust-minimised bridging protocol that does not require any change to the bridged chain, and uses the security of the THORChain ecosystem to ensure that assets never present a viable honeypot to any adversary. This allows assets to be moved seamlessly on and off the ecosystem.
+Bridges to THORChain are supervised by THORChain validators in multi-signature accounts, but by randomly reshuffling the signatories and having multiple bridges with different security and performance metrics, each bridge maintains optimal performance whilst being supervised with full protocol security. If a validator attempts to spend locked assets they are slashed and the seized assets can be used to restore the assets. With the use of CLP price feeds the protocol can become self-aware of the risks of each bridge, and make adjustments to signature requirements. 
+Tokens on THORChain gain low fees, on-chain liquidity, and a superior trading environment, and all assets can be used by traders to stake inside CLPs to earn on liquidity fees, so `tCoins` will likely be more valuable than original assets. Tokens created on THORChain can also be easily deployed on multiple other chains but recovered easily. 
+
+
 ## Permissionless and Private Access
 
+### THORChain Accounts
+
+There is no restriction on who can generate a THORChain account and trade from it, and trading has no limits. Indeed, there is no restriction on who can enter the ecosystem via the Bifrost Protocol, and no limits on those assets movements. As there is no restriction on who can become a THORChain validator, and there are correct incentives for a large group of active and standby validators, there are several layers of redundancy to the ecosystem. THORChain is a protocol that simply allows for the transfer and trading of assets, it does not enforce any level of account management, control or censorship.
+
+In order for juridictionally compliant exchanges to be built on THORChain, it is up for the exchange itself to add a KYC/AML layer and an account management system. The exchanges best placed to do this are those with fiat on/off ramps. 
+
+Additionally, in order for Security Tokens to be traded and supported on THORChain, it is up for the exchange layer to add an account whitelisting feature to ensure tokens can only be bought/sold between registered users. 
+
+### FIX 4.4 Protocol ABI
+
+FIX 4.4 is the Foreign Information Exchange protocol built for trading desks to place trades such as indications, orders and executions in a standardised and efficient way across a network. It has been adopted as the standard electronic trading protocol and THORChain intends to build for FIX 4.4 compatibility to allow liquidity and access to institutional traders and investors. 
+The following message types are commonly used in FIX 4.4:
+- Indication of Interest
+- Quote Request
+- Quote Response
+- Quote
+- New Order
+- Execution Report
+- Allocation Instruction 
+- Allocation Report
+- Trade Capture Report
+- Application Blockchain Interface (ABI) bridges the protocols and allows orders to be generated on Layer 1 or Layer 2 depending on liquidity needs and order types. 
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure41.png" width="350px" height="400px" />
+
+*Figure: FIX 4.4 implementation proposal.*
+
+### Anonymity
+
+THORChain can implement the [ZeroCoin Protocol](http://zerocoin.org/media/pdf/ZerocoinOakland.pdf) to allow re-spawning of accounts to prevent linkability. Tokens are destroyed in one transaction and then trustlessly spawned in a new coinbase transaction. To prevent temporal analysis tracking identity, Alice can specify a block height delay to the re-spawn of her account. To prevent temporal analysis identifying immediately appearing tokens with immediately disappearing tokens; a variable wait time can be set to increase noise.
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure39.png" width="350px" height="298px" />
+
+*Figure: Anonymity.*
+
+
 ## Conclusion
+
+ASGARDEX represents a new frontier of exchanges, with permissionless access, on-chain incentivised liquidity and advanced trading features. THORChain, the protocol that it is built on, will power the next generation of exchanges, wallets and payment networks.
+
 
 ## References
 
