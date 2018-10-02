@@ -98,15 +98,12 @@ Compared to the Bancor Protocol [1], which mints “smart tokens” in a ratio t
 
 Take the CLP above with 100 Rune `RUNE` and 100 Token `TKN`. If a trade of 10 Rune was made `txR` the corresponding emission of token `txTKN` is defined as follows:
 
-`txTKN / TKN = txRUNE / RUNE`
 ![\frac{tx_{TKN}}{TKN} = \frac{tx_{R}}{RUNE}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20%5Cfrac%7Btx_%7BTKN%7D%7D%7BTKN%7D%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%7D)
 
-`txTKN = (txRUNE / RUNE ) * TKN`
 ![tx_{TKN} = \frac{tx_{R}}{RUNE} * TKN](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20tx_%7BTKN%7D%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%7D%20*%20TKN)
 
 However, this bond is purely linear and does not enforce a price slip. As such a 100 Rune trade would simply empty the entire pool of Token, leaving a `1 * 200 : 1 * 0` value ratio, which does not respect the Rule (1) above. As such, we need to price each asset in terms of the price ratio after the trade. This is done by simply adding the incoming transaction to the total Rune collateral. 
 
-`txTKN = ( txRUNE) / (RUNE + txRUNE)) * TKN`
 ![tx_{TKN} = \frac{tx_{R}}{RUNE + tx_{R}} * TKN](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20tx_%7BTKN%7D%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%20&plus;%20tx_%7BR%7D%7D%20*%20TKN)
 
 ### Fees
@@ -119,16 +116,15 @@ However, this provides no return to underlying stakers as arbitrage from one sid
 
 These characteristics ensure that stakers are incentivised the most where there is high volume and low liquidity, and that if they withdraw their gains they add a price-corrective function to the market. The equation is:
 
-`txFee = tradeSlip ^ 2 * txTKN`
 ![tx_{Fee} = tradeSlip^{2} * tx_{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20tx_%7BFee%7D%20%3D%20tradeSlip%5E%7B2%7D%20*%20tx_%7BTKN%7D)
 
-where `tradeSlip = (txRune - (txTKN * (RUNE/TKN))) / txRune`
+where;
+
 ![tradeSlip = \frac{ tx_{R} - \frac{RUNE}{TKN}}{tx_{R}}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7B%20tx_%7BR%7D%20-%20%5Cfrac%7BRUNE%7D%7BTKN%7D%7D%7Btx_%7BR%7D%7D)
 
 
 The final bonding curve is:
 
-`tokensEmitted = txTKN - txFee`
 ![tokensEmitted = tx_{TKN} - tx{Fee}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20tokensEmitted%20%3D%20tx_%7BTKN%7D%20-%20tx%7BFee%7D)
 
 ![tokensEmitted = \frac{tx_{R}}{RUNE + tx_{R}} * TKN - ( \frac{ tx_{R} - \frac{RUNE}{TKN}}{tx_{R}}) ^{2} * tx_{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%20&plus;%20tx_%7BR%7D%7D%20*%20TKN%20-%20%28%20%5Cfrac%7B%20tx_%7BR%7D%20-%20%5Cfrac%7BRUNE%7D%7BTKN%7D%7D%7Btx_%7BR%7D%7D%29%20%5E%7B2%7D%20*%20tx_%7BTKN%7D)
@@ -163,7 +159,8 @@ It is in the interest of the user to stake symmetrically in the pool. This is pe
 
 `stake(bal_RUNE, bal_TKN)`
 
-Where `bal_RUNE / RUNE = bal_TKN / TKN`
+Where:
+
 ![\frac{bal_{RUNE}}{RUNE} = \frac{bal_{TKN}}{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20%5Cfrac%7Bbal_%7BRUNE%7D%7D%7BRUNE%7D%20%3D%20%5Cfrac%7Bbal_%7BTKN%7D%7D%7BTKN%7D)
 
 If the staker performs an asymmetric stake-in they will cause a price imbalance that will immediately be arbitraged out, and will incur slip that is experienced on their own assets. After the arbitrage is finished, the asymmetric staker will have both assets, minus whatever slip they experienced, plus any fees they accumulated during the arbitrage. 
@@ -179,6 +176,7 @@ An asymmetrical stake is balanced for the staker by the protocol simply accruing
 `priceRune * RUNE = priceToken * TKN`
 
 Where `priceRune` is always 1, and `priceToken` is:
+
 ![priceToken = 1 - \frac{TKN}{RUNE}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_jvn%20%5Clarge%20priceToken%20%3D%201%20-%20%5Cfrac%7BTKN%7D%7BRUNE%7D)
 
 
