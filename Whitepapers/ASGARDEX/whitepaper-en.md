@@ -85,14 +85,12 @@ Continuous liquidity pools (CLPs) work by bonding two assets to each other in a 
 On-chain liquidity pools hold bonded assets at a 1:1 ratio in total value, where `value = price * amount`. If price shifts in the surrounding market then anyone can arbitrage the pool to correct the price imbalance by purchasing cheap assets (or selling expensive assets). As a result, the pool will always hold bonded assets at a price that matches external markets, else an opportunity exists for someone to gain from. As the assets are bonded together, liquidity is termed as “continuous”, as there will always be a sell-side for each buy order, no matter the price.
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-1.png" width="500px" height="250px" />
- 
 *Figure: Rune bonded to Token at 1:1*
 
 
 Here 100 Rune are bonded to 100 Tokens at a 1:1 value ratio `1 * 100 : 1 * 100`. If the token value in the wider market increases to 1.20 Rune, then the value of the Token pool is now 120 Rune. Since the assets are bonded, the 120 Tokens are collateralised by 100 Rune, which is at a 20% discount to the wider market. Anyone can now purchase Tokens at a discount by simply placing enough Rune in the pool to correct the pool value ratio back to 1:1. In this case they would place 10 Rune, receive 9 Tokens (at a 10% discount) and the pool value ratio would be back to 1:1, where `1 * 110 = 1.20 * 91`. 
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-2.png" width="500px" height="250px" />
- 
 *Figure: Rune bonded to Token at 1:0.8 after market movement*
   
   
