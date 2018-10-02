@@ -6,7 +6,10 @@ devs@thorchain.org
 V0.1 September 2018
 
 ### Abstract 
->ASGARDEX is the first decentralised exchange to be built on THORChain.  
+>ASGARDEX is the first decentralised exchange to be built on THORChain, intended to break feature-parity with the world's top centralised exchanges, at the same time as being more secure, reliable and powerful than any exchange before it. The features of ASGARDEX are not limited to it, instead being indicative of the powerful underlying capabilities of THORChain itself. Due to protocol-level developer inventives it is expected that there will be hundreds of exchanges, wallets and payment services deployed on THORChain. 
+ASGARDEX will allow any token and coin to be traded and swapped in a completely self-sovereign and trustless environment, with no limits or account control. ASGARDEX will be highly performant, processing trades inside a second, as well as being deeply liquid with on-chain incentivised liquidity pools. Traders will be able to trade securely, coin and token holders will be able to stake in liquidity pools to earn a return, arbitrage agents will be able to earn whilst arbitraging across liquidity pools, and users will be able to swap assets instantly from decentralised applications. 
+Being primarily an exchange, ASGARDEX will have native support for limit and market orders with advanced trade types and management. ASGARDEX will also feature leveraged margin trading, lending, indexes, derivatives, asset shorting and assets swaps. ASGARDEX supports fixed supply, variable supply, non-fungible tokens and security tokens.
+ASGARDEX is part of the ambitious THORChain project and will be actively developed in accordance with public development milestones. 
 
 ### Document Set
 The following whitepapers should be read in conjunction:
@@ -36,7 +39,36 @@ A self-amending forkless consensus algorithm for THORChain.
 
 ## Introduction
 
+### Exchanges. 
+One of the most important advents of the cryptocurrency economy is the crypto exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As digital assets reach market equilibrium prices, all market participants benefit from clearing markets that are otherwise either unavailable or not at true equilibrium due to interference from governments, regulators, or logistical barriers. Venture capitalists, service providers, employees, founders, and other company stakeholders benefit from freely available liquidity that is not locked up in arcane or encumbering pre-IPO restrictions. This is true for tokens regardless of whether they are asset-backed, service-backed, or infrastructure-backed. In the asset-backed case case, cryptocurrency exchanges allow for easier transactions of securities that are currently more costly in terms of time and money due to reconciliation requirements that are natively on the blockchain and otherwise handled by back-office workers.
+Cryptocurrency exchanges allow people increased flexibility in using the cryptocurrency of their choice for each individual transaction they undertake. They can focus on a few key markets that capture their consumption needs. 
 
+As specialized cryptocurrencies gain traction, users can segment their wealth in specific token ecosystems. They can reward these ecosystems with more of their wealth for positive governance and pro-social activity, forcing all token ecosystems to compete with each other to provide the best economy for users. This competition is only feasible with the proliferation of exchanges that enable fast, secure, reliable transfers of wealth from one token to another.
+
+Finally, exchanges allow traders to profit from predicting the future behavior of markets. As global wealth becomes increasingly concentrated in the hands of the few, so too go the resources needed to predict the future of markets and thereby gain additional wealth. Because cryptocurrency markets are new and lightly regulated, large incumbents have less of an overwhelming advantage over lay-traders in forming accurate, profitable hypotheses. Skilled traders can participate more directly in the rewards of insightful analysis without tethering themselves to major institutions, which can disperse market gains.
+
+### Decentralized Exchanges. 
+Of course, the above is only true to the extent that other sources of power are also decentralized. One clear target for decentralization is the exchange itself. Centralized exchanges can hold undue power over users. This allow them to engage in many of the regressive practices that cryptocurrency enthusiasts dislike in the fiat world.
+Some hold users’ funds without explanation or recourse. A decentralized alternative will allow users to maintain self-sovereign rights to their assets at all times. Some centralized exchanges bar users, currencies, or transactions because of local law in their domicile. A decentralized alternative has no central operator upon which a nation state can impose restrictions. A decentralized alternative with public code can benefit from perpetual public security audits and publicly driven code changes. All things being equal, decentralized exchanges (DEXes) more adequately capture the ethos of cryptocurrencies than centralized ones. 
+All things are not yet equal, however. Decentralized exchanges need feature and performance parity with centralized exchanges to successfully compete. Binance, one of the most popular centralized exchanges, processes over 1 million transactions per second. Forkdelta, a popular decentralized exchange, routinely has transactions that take minutes. Bittrex, a popular centralized exchange, has a well-designed UI honed by design specialists and a simple-to-use UX. Barterdex, a DEX, has an obtuse UI and requires several cumbersome steps in its UX. Centralized cryptocurrency exchanges pride themselves on listing a myriad of different token types. Most modern DEXes operate within a single cryptocurrency’s ecosystem (for example, stellar for Stellardex and ether for Etherdelta) allowing users to trade only tokens in one protocol.
+To avoid some of these constraints, some DEXes take partial steps to toward decentralization but centralize key aspects of the system (like order books and matching engines). This is a nice attempt but these services do not provide censorship resistance and so do not fulfill the promise of decentralization. The market needs a decentralized exchange that adheres to the core tenets of decentralization and still provides a world-class exchange experience that meets the feature and performance standards set by centralized exchanges.
+
+### ASGARDEX
+ASGARDEX is a new approach to this problem by building a blockchain itself to be the DEX, rather than building a DEX on an existing protocol. In this way the protocol can be optimised to solving the problems solely limited to asset exchange as opposed to adding unnecessary features such as turing-complete scripting languages. Additionally the DEX is not constrained by the limitations of the underlying protocol, as the protocol can be readily changed with on-chain governance to match the pace of innovation in the industry. 
+
+A trade is simply an atomic swap between at least two assets and two accounts at a pre-agreed price and within any time condititions. With this focus, THORChain is being developed and ASGARDEX will be the first exchange to be built on the protocol. More accurately, ASGARDEX is simply a user interface that is built with THORChain as the decentralised backend. As THORChain is completely open-source, it is imagined that there will be hundreds of exchanges also built on THORChain, contributing to the same liquidity and user-base. 
+
+ASGARDEX is part of much larger picture; that by creating a near-perfect environment for trading, the inevitable flow of liquidity and users will allow the protocol to support a much larger payment network, which will use the underlying liquidity and trustless price feeds of the protocol. This is the Flash Network, [discussed at length here]() and it will allow anyone to pay in any currency instantly, at near-perfect price conversions.
+
+The features that ASGARDEX will bring to life on THORChain will allow it (and any other exchange built on the protocol) to break feature-parity with current centralised exchanges, as well as powering the next generation of wallets and payment services. 
+
+The cornerstone features of ASGARDEX:
+- Incentivised On-chain Liquidity
+- Advanced Trading
+- Multi-chain and Multi-token support
+- Permissionless Access
+
+These features are discussed at length in this paper. 
 
 ## Incentivised On-chain Liquidity
 
@@ -227,6 +259,10 @@ Immediate or Cancel
 Limit and Market orders
 
 FIX 4.4
+
+## Multi-chain and Multi-token Support
+
+## Permissionless and Private Access
 
 ## Conclusion
 
