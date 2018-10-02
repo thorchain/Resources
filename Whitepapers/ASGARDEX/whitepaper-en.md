@@ -104,7 +104,7 @@ Take the CLP above with 100 Rune `RUNE` and 100 Token `TKN`. If a trade of 10 Ru
 
 However, this bond is purely linear and does not enforce a price slip. As such a 100 Rune trade would simply empty the entire pool of Token, leaving a `1 * 200 : 1 * 0` value ratio, which does not respect the Rule (1) above. As such, we need to price each asset in terms of the price ratio after the trade. This is done by simply adding the incoming transaction to the total Rune collateral. 
 
-`txTKN = ( txRUNE) / (RUNE + txRUNE)) * TKN`
+`txTKN = (txRUNE) / (RUNE + txRUNE)) * TKN`
 
 ### Fees
 
@@ -123,6 +123,9 @@ where `tradeSlip = (txRune - (txTKN * (RUNE/TKN))) / txRune`
 The final bonding curve is:
 
 `tokensEmitted = txTKN - txFee`
+`tokensEmitted = txRUNE) / (RUNE + txRUNE)) * TKN - ((txRune - (txTKN * (RUNE/TKN))) / txRune) ^ 2 * txTKN`
+
+Or visually:
 
 ![tokensEmitted = \frac{tx_{R}}{RUNE + tx_{R}} * TKN - ( \frac{ tx_{R} - \frac{RUNE}{TKN}}{tx_{R}}) ^{2} * tx_{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%20&plus;%20tx_%7BR%7D%7D%20*%20TKN%20-%20%28%20%5Cfrac%7B%20tx_%7BR%7D%20-%20%5Cfrac%7BRUNE%7D%7BTKN%7D%7D%7Btx_%7BR%7D%7D%29%20%5E%7B2%7D%20*%20tx_%7BTKN%7D)
 
