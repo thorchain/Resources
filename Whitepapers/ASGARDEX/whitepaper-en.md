@@ -32,6 +32,34 @@ A self-amending forkless consensus algorithm for THORChain.
 ## Overview
 
 [Introduction](#introduction)	
+- Exchanges
+- Decentralised Exchanges
+- ASGARDEX
+
+[Incentivised On-chain Liquidity](#Incentivised-on-chain-liquidity)
+- Slip
+- Fees
+- Arbitrage
+- Staking
+- Balancing Stake
+- Withdrawing
+
+[Advanced Features](#advanced-features)
+- Asset Swaps
+- Cross-token Pairs
+- Index and Baskets
+- Lending
+- Leveraged Margin Trading
+- Shorting Assets
+- Trade Types
+- Stablecoins
+
+[Multi-chain and Multi-token Support](#Multi-chain-and-Multi-token-Support)
+
+[Permissionless and Private Access](#Permissionless-and-Private-Access)
+- THORChain Accounts
+- FIX 4.4 Protocol ABI
+- Anonymity
 
 [Conclusion](#conclusion)	
 
@@ -39,7 +67,7 @@ A self-amending forkless consensus algorithm for THORChain.
 
 ## Introduction
 
-### Exchanges. 
+### Exchanges
 One of the most important advents of the cryptocurrency economy is the crypto exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As digital assets reach market equilibrium prices, all market participants benefit from clearing markets that are otherwise either unavailable or not at true equilibrium due to interference from governments, regulators, or logistical barriers. Venture capitalists, service providers, employees, founders, and other company stakeholders benefit from freely available liquidity that is not locked up in arcane or encumbering pre-IPO restrictions. This is true for tokens regardless of whether they are asset-backed, service-backed, or infrastructure-backed. In the asset-backed case case, cryptocurrency exchanges allow for easier transactions of securities that are currently more costly in terms of time and money due to reconciliation requirements that are natively on the blockchain and otherwise handled by back-office workers.
 Cryptocurrency exchanges allow people increased flexibility in using the cryptocurrency of their choice for each individual transaction they undertake. They can focus on a few key markets that capture their consumption needs. 
 
@@ -209,19 +237,19 @@ Assets held in pools are entirely self sovereign at all times. Users can withdra
 *Figure: An assymetric stake-out and consequential arbitrage*
 
 
-Here is the case of a stake removing their stake asymmetrically, causing a price imbalance on the pool. Immediately an arbitrager restores the pool balance to earn cheap tokens, and thereby returning the pool ratio to 1. In this case all stakers earn on the liquidity fee, and the asymmetric staker is balanced out. 
+Here is the case of a staker removing their stake asymmetrically, causing a price imbalance on the pool. Immediately an arbitrager restores the pool balance to earn cheap tokens, and thereby returning the pool ratio to 1. In this case all stakers earn on the liquidity fee, and the asymmetric staker is balanced out. 
 
 ### Benefits
 
 The benefits for this are ground-breaking when it comes to a digital asset exchange. 
 
-With deep on-chain liquidity, any wider market volatility creates arbitrage opportunities which slows down market movements, as each price fluctuation needs to “move” through the pool. The depth of the liquidity pool has a dampening effect on asset volatility and translates to a transparent and observable “market inertia”.
-With liquidity incentivisation strategies, anyone can stake assets in liquidity pools and earn on liquidity fees as the market moves from side to side. This liquidity is normally held on exchange cold wallets or user wallets and never contributes to market liquidity.
-As volume grows across a trading pair, this will translate to increased volume over the pool and a disbursement in fees to liquidity stakers. Receiving a passive return on staked assets will incentivise more liquidity to be staked which will increase the liquidity depth of the pool, improving trading experience. 
-With an observable and deep liquidity depth, large orders can be processed on-market without creating adverse reactions, as staked liquidity can’t be faked, and any price movements can be immediately arbitraged out by anyone.
-With permissionless staking and arbitrage mechanisms, it become very difficult to manipulate asset prices; as any manipulated asset immediately exposes the manipulator. 
-With on-chain liquidity pools, the liquidity pool ratio becomes a fair, open and transparent market price for the asset, which can be processed in on-chain transactions. 
-On-chain trustless price feeds enable the protocol to build a wide array of advanced features not previously possible. 
+- With deep on-chain liquidity, any wider market volatility creates arbitrage opportunities which slows down market movements, as each price fluctuation needs to “move” through the pool. The depth of the liquidity pool has a dampening effect on asset volatility and translates to a transparent and observable “market inertia”.
+- With liquidity incentivisation strategies, anyone can stake assets in liquidity pools and earn on liquidity fees as the market moves from side to side. This liquidity is normally held on exchange cold wallets or user wallets and never contributes to market liquidity.
+- As volume grows across a trading pair, this will translate to increased volume over the pool and a disbursement in fees to liquidity stakers. Receiving a passive return on staked assets will incentivise more liquidity to be staked which will increase the liquidity depth of the pool, improving trading experience. 
+- With an observable and deep liquidity depth, large orders can be processed on-market without creating adverse reactions, as staked liquidity can’t be faked, and any price movements can be immediately arbitraged out by anyone.
+- With permissionless staking and arbitrage mechanisms, it become very difficult to manipulate asset prices; as any manipulated asset immediately exposes the manipulator. 
+- With on-chain liquidity pools, the liquidity pool ratio becomes a fair, open and transparent market price for the asset, which can be processed in on-chain transactions. 
+- On-chain trustless price feeds enable the protocol to build a wide array of advanced features not previously possible. 
 
 ## Advanced Features
 
