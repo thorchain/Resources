@@ -1036,33 +1036,6 @@ A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `
 
 *Figure: Token Baskets*
 
-### Anonymity
-
-THORChain can implement ZK-proofs to allow re-spawning of accounts to prevent linkability. This is a similar implementation to Komodo and is made using known techniques. tokens are destroyed in one transaction and then trustlessly spawned in a new coinbase transaction. To prevent temporal analysis tracking  identity, Alice can specify a block height delay to the re-spawn of her account. To prevent temporal analysis identifying immediately appearing tokens with immediately disappearing tokens; a variable wait time can be set to increase noise.
-
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure39.png" width="350px" height="298px" />
-
-*Figure: Anonymity.*
-
-### FIX 4.4 Protocol ABI
-
-FIX 4.4 is the Foreign Information Exchange protocol built for trading desks to place trades such as indications, orders and executions in a standardised and efficient way across a network. It has been adopted as the standard electronic trading protocol and THORChain intends to build for FIX 4.4 compatibility to allow liquidity and access to institutional traders and investors. 
-The following message types are commonly used in FIX 4.4:
-- Indication of Interest
-- Quote Request
-- Quote Response
-- Quote
-- New Order
-- Execution Report
-- Allocation Instruction 
-- Allocation Report
-- Trade Capture Report
-- Application Blockchain Interface (ABI) bridges the protocols and allows orders to be generated on Layer 1 or Layer 2 depending on liquidity needs and order types. 
-
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure41.png" width="350px" height="400px" />
-
-*Figure: FIX 4.4 implementation proposal.*
-
 
 ## Conclusion
 THORChain is a lightning fast decentralised exchange with protocol-level trading features to achieve feature parity with the best centralised exchanges of the day; all with full self-sovereign asset management. THORChain solves the fundamental problems of existing decentralised exchanges with a fast on-chain trading experience, on-chain continuous liquidity and correct incentivisation economics for exchange and wallet developers.
