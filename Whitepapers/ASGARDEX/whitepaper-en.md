@@ -123,6 +123,7 @@ where `tradeSlip = (txRune - (txTKN * (RUNE/TKN))) / txRune`
 The final bonding curve is:
 
 `tokensEmitted = txTKN - txFee`
+
 `tokensEmitted = txRUNE) / (RUNE + txRUNE)) * TKN - ((txRune - (txTKN * (RUNE/TKN))) / txRune) ^ 2 * txTKN`
 
 Or visually:
