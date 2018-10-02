@@ -86,9 +86,9 @@ On-chain liquidity pools hold bonded assets at a 1:1 ratio in total value, where
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-1.png" width="500px" height="250px" />
 
-Here 100 Rune are bonded to 100 Tokens at a 1:1 value ratio (1 *100 : 1* 100). If the token value in the wider market increases to 1.20 Rune, then the value of the Token pool is now 120 Rune. Since the assets are bonded, the 120 Tokens are collateralised by 100 Rune, which is at a 20% discount to the wider market. Anyone can now purchase Tokens at a discount by simply placing enough Rune in the pool to correct the pool value ratio back to 1:1. In this case they would place 10 Rune, receive 9 Tokens (at a 10% discount) and the pool value ratio would be back to 1:1, where 1*110 = 1.20 * 91. 
+Here 100 Rune are bonded to 100 Tokens at a 1:1 value ratio `1 * 100 : 1 * 100`. If the token value in the wider market increases to 1.20 Rune, then the value of the Token pool is now 120 Rune. Since the assets are bonded, the 120 Tokens are collateralised by 100 Rune, which is at a 20% discount to the wider market. Anyone can now purchase Tokens at a discount by simply placing enough Rune in the pool to correct the pool value ratio back to 1:1. In this case they would place 10 Rune, receive 9 Tokens (at a 10% discount) and the pool value ratio would be back to 1:1, where `1 * 110 = 1.20 * 91`. 
 
-Note: pricing here is in Rune (ᚱ), assuming a constant Rune price, but the CLP functioning as described is irrelevant to the price of Rune, and may in fact be based in $ or BTC, assuming proper $:ᚱ or BTC:ᚱ price discovery is in place. For the rest of the paper, ᚱ will be used interchangeably with $, with the assumption that the $:ᚱ market is an efficient market. 
+>Note: pricing here is in Rune (ᚱ), assuming a constant Rune price, but the CLP functioning as described is irrelevant to the price of Rune, and may in fact be based in $ or BTC, assuming proper $:ᚱ or BTC:ᚱ price discovery is in place. For the rest of the paper, ᚱ will be used interchangeably with $, with the assumption that the $:ᚱ market is an efficient market. 
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-2.png" width="500px" height="250px" />
  
