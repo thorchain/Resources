@@ -56,7 +56,7 @@ A self-amending forkless consensus algorithm for THORChain.
 
 [Multi-chain and Multi-token Support](#multi-chain-and-multi-token-support)
 
-[Permissionless and Private Access](#permissionless-and-private-ccess)
+[Permissionless and Private Access](#permissionless-and-private-access)
 - THORChain Accounts
 - FIX 4.4 Protocol ABI
 - Anonymity
