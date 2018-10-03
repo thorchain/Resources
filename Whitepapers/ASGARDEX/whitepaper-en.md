@@ -54,9 +54,9 @@ A self-amending forkless consensus algorithm for THORChain.
 - Trade Types
 - Stablecoins
 
-[Multi-chain and Multi-token Support](#Multi-chain-and-Multi-token-Support)
+[Multi-chain and Multi-token Support](#multi-chain-and-multi-token-support)
 
-[Permissionless and Private Access](#Permissionless-and-Private-Access)
+[Permissionless and Private Access](#permissionless-and-private-ccess)
 - THORChain Accounts
 - FIX 4.4 Protocol ABI
 - Anonymity
