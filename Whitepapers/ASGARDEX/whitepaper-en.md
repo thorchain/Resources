@@ -299,7 +299,6 @@ The following are the agents and their incentives:
 - Arbitrage across markets and earn on price discovery. 
 - Build an exchange or wallet and add maker/taker fees.
 - Run a Validator and earn on block rewards. 
-- Run a Liquidity Node and earn on liquidity fees. 
 
 ### Staking Liquidity
 The simplest contribution anyone can make is to simply stake liquidity in pools. The value of their liquidity is always protected, they always earn on volume and their assets are always self-sovereign. Staking will be so simple, that it can be performed directly from wallets and a simple on-chain transaction is required to stake-in, stake-out or withdraw earnings.
@@ -353,9 +352,52 @@ With less than 5% of circulating assets staked, even single trades as large as $
 
 ### Arbitrage Agents
 
-Arbitrage agents work to continually level the market and ensure that CLPs are balanced to fair market price. They make returns by spotting differences in value between different markets and by taking advantage of them. To 
+Arbitrage agents work to continually level the market and ensure that CLPs are balanced to fair market price. They make returns by spotting differences in value between different markets and by taking advantage of them. 
+
+As an example, 100 Rune and Tokens are staked. A trader and an arbitrager both start with 10 of each asset. 
+
+| Trade | Rune | Price | Token | Trader Account | Arb Account |
+|---|---|---|---|---|
+| Start | 100 Rune | 1 | 100 Token | 10 Rune | 10 Token |
+| Trader in | 10 -> | 1.2 | 9.02 -> | 9.02 Token | 10 Token |
+| Arb back | <- 9.92 | 1 | <- 9.1 | 9.02 Token | 0.9 Token, 9.92 Rune |
+| Trade back | <- 8.21 | 0.84 | <- 9.02 | 8.21 Rune | 0.9 Token, 9.92 Rune |
+| Arb In | 9.92 -> | 1 | 10.53 -> | 8.21 Rune | 11.43 token | 
+
+After two market-slipping trades and the consequential price-correcting arbitrage, the arbitrager ends up with 15% more in assets. The trader experienced a slip, but they were expecting this. 
+
+Using real-world data, we can see the large opportunity at hand. The assumptions in this analysis is that there would be 10 equal-opportunity arbitrage agents, and they all attempt to fully arbitrage any trades. 
 
 
+| Comparison | Arbitrage Volume | Arb Size | Earning Per Arb | Daily Earnings | ROI on Assets (10%) | 
+|---|---|---|---|---|---|
+| Shapeshift Equiv | $1.3m | $443 | 24c | $360 | 8.3% |
+| Bancor Equiv | $1.5m | $600 | 50c | $600 | 10.0% |
+| IDEX Equiv | $1m | $400 | 40c | $500 | 12.4% |
+| EtherDelta Equiv | $332 | $100k | 82c | 12.2% | 
+| All | $3.9m | $443 | 10c | $442 | 10% | 
+
+This shows that arbitrage agents have more than enough incentive to continually correct markets and ensure that the pools always reflect fair market price. 
+
+### Developer Incentives
+
+In order to attract a wide variety of developers and businesses to build on the infrastructure and provide the tools for arbitrage and traders, there are three sources of potential revenue:
+
+1) Protocol-level incentives as maker/taker fees. 
+2) Stake assets on behalf of users and earn liquidity fees.
+3) Arbitrage across markets using exchange infrastructure and existing liquidity.
+
+Liquidity and arbitrage fees are entirely dependent on the wider market, but the optional maker/taker fees would create a price-competitive environment and would tend to zero. Staffed exchange interfaces would have no liquidity or feature advantage over staff-less exchange interfaces, so they would need to continually improve customer service and user experience to win users. 
+
+### Validator Block Rewards
+
+THORChain proposes a 20m Rune/year block reward, which begins as 2% and smoothly asymptotes to zero. Validators have to stake assets to enter the validator set. The economics on this are covered widely in [THORChain Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
+
+Validators host nodes, secure THORChain and are part of the on-chain governance protocol to allow continual upgradeability. 
+
+### Summary 
+
+All agents that contribute to the THORChain ecosystem receive adequate incentivisation. 
 
 ## Advanced Features
 
