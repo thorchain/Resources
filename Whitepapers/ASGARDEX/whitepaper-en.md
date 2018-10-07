@@ -122,7 +122,6 @@ Each validator on the THORChain protocol alone will be as secure as an entire le
 #### Resilience
 THORChain's consensus protocol, the [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol/whitepaper-en.md), encourages high churn in the validator set which is open for anyone to join. With high churn, the incentives are in place to counter any malicious behaviour from validators, such as censorship, front-running or oppressive behaviour. Additionally, it means that the protocol is resistant to large numbers of validators being shut down at any time (from state-level oppression), to be replaced quickly by new validators in new regions. 
 
-
 ### THORCHAIN
 THORChain is a new approach to this problem by building a blockchain itself to be the DEX, rather than building a DEX on an existing protocol. In this way the protocol can be optimised to solving the problems solely limited to asset exchange as opposed to adding unnecessary features such as turing-complete scripting languages. Additionally the DEX is not constrained by the limitations of the underlying protocol, as the protocol can be readily changed with on-chain governance to match the pace of innovation in the industry. 
 
@@ -134,15 +133,17 @@ The features that ASGARDEX will bring to life on THORChain will allow it (and an
 
 The cornerstone features of ASGARDEX:
 - Incentivised On-chain Liquidity
-- Advanced Trading
+- Advanced Trading & Payments
 - Multi-chain and Multi-token support
 - Permissionless Access
 
-These features are discussed at length in this paper. 
+These features are discussed at length below. 
 
 ## Incentivised On-chain Liquidity
 
-Creating the incentives for on-chain liquidity is a cornerstone feature of THORChain. Instead of digital assets being held in accounts that don’t contribute to market liquidity, THORChain encourages users to stake their assets in on-chain continuous liquidity pools that add to market liquidity and earn their holders a return. 
+Creating the incentives for on-chain liquidity is a cornerstone feature of THORChain. Instead of digital assets being held in accounts that don’t contribute to market liquidity, THORChain encourages users to stake their assets in on-chain continuous liquidity pools that add to market liquidity and earn their holders a return. Once assets are held on-chain, then the ratio between assets now becomes a direct indicator of asset price. Once the protocol becomes self-aware of asset prices, then advanced trustless features can be supported, which is the basis for advanced trades, lending and payment services. 
+
+### Continuous Liquidity Pools
 
 Continuous liquidity pools (CLPs) work by bonding two assets to each other in a pool in terms of their value. Each time an asset is placed in the pool, the opposite asset is emitted in a ratio that matches the corresponding change in value. As such, trading across a pool creates a price slip which serves as the basis for arbitrage, staking incentivisation and price predictability in the pool. The price slip is mathematically defined, and works to ensure four aspects:
 
@@ -151,28 +152,25 @@ Continuous liquidity pools (CLPs) work by bonding two assets to each other in a 
 3) Those staking the underlying liquidity always earn a return on a trade. 
 4) Those arbitraging across the pool earn a return on a trade. 
 
-
 On-chain liquidity pools hold bonded assets at a 1:1 ratio in total value, where `value = price * amount`. If price shifts in the surrounding market then anyone can arbitrage the pool to correct the price imbalance by purchasing cheap assets (or selling expensive assets). As a result, the pool will always hold bonded assets at a price that matches external markets, else an opportunity exists for someone to gain from. As the assets are bonded together, liquidity is termed as “continuous”, as there will always be a sell-side for each buy order, no matter the price.
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-1.png" width="500px" height="250px" />
  
 *Figure: Rune bonded to Token at 1:1*
 
-
 Here 100 Rune are bonded to 100 Tokens at a 1:1 value ratio `1 * 100 : 1 * 100`. If the token value in the wider market increases to 1.20 Rune, then the value of the Token pool is now 120 Rune. Since the assets are bonded, the 120 Tokens are collateralised by 100 Rune, which is at a 20% discount to the wider market. Anyone can now purchase Tokens at a discount by simply placing enough Rune in the pool to correct the pool value ratio back to 1:1. In this case they would place 10 Rune, receive 9 Tokens (at a 10% discount) and the pool value ratio would be back to 1:1, where `1 * 110 = 1.20 * 91`. 
 
  <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-2.png" width="500px" height="250px" />
  
 *Figure: Rune bonded to Token at 1:0.8 after market movement*
-  
-  
-  >Note: pricing here is in Rune (ᚱ), assuming a constant Rune price, but the CLP functioning as described is irrelevant to the price of Rune, and may in fact be based in $ or BTC, assuming proper $:ᚱ or BTC:ᚱ price discovery is in place. For the rest of the paper, ᚱ will be used interchangeably with $, with the assumption that the $:ᚱ market is an efficient market. 
+   
+>Note: pricing here is in Rune (ᚱ), assuming a constant Rune price, but the CLP functioning as described is irrelevant to the price of Rune, and may in fact be based in $ or BTC, assuming proper $:ᚱ or BTC:ᚱ price discovery is in place. For the rest of the paper, ᚱ will be used interchangeably with $, with the assumption that the $:ᚱ market is an efficient market. 
  
 ### Slip
 
 Compared to the Bancor Protocol [1], which mints “smart tokens” in a ratio that is bonded to wider market circulating supply, THORChain CLPs do not mint, and instead enforce a price slip on traded assets proportional to the trade size and existing collateral. 
 
-Take the CLP above with 100 Rune `RUNE` and 100 Token `TKN`. If a trade of 10 Rune was made `txR` the corresponding emission of token `txTKN` is defined as follows:
+Take the CLP above with 100 Rune `RUNE` and 100 Token `TKN`. If a trade of 10 Rune was made `txRUNE` the corresponding emission of token `txTKN` is defined as follows:
 
 `txTKN / TKN = txRUNE / RUNE`
 
@@ -192,7 +190,7 @@ However, this provides no return to underlying stakers as arbitrage from one sid
 
 These characteristics ensure that stakers are incentivised the most where there is high volume and low liquidity, and that if they withdraw their gains they add a price-corrective function to the market. The equation is:
 
-`txFee = tradeSlip ^ 2 * txTKN`
+`txFee = tradeSlip * txTKN`
 
 where `tradeSlip = (txRune - (txTKN * (RUNE/TKN))) / txRune`
 
@@ -200,11 +198,11 @@ The final bonding curve is:
 
 `tokensEmitted = txTKN - txFee`
 
-`tokensEmitted = txRUNE) / (RUNE + txRUNE)) * TKN - ((txRune - (txTKN * (RUNE/TKN))) / txRune) ^ 2 * txTKN`
+`tokensEmitted = (txRUNE / (RUNE + txRUNE)) * TKN - ((txRune - (txTKN * (RUNE/TKN))) / txRune) * txTKN`
 
 Or visually:
 
-![tokensEmitted = \frac{tx_{R}}{RUNE + tx_{R}} * TKN - ( \frac{ tx_{R} - \frac{RUNE}{TKN}}{tx_{R}}) ^{2} * tx_{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%20&plus;%20tx_%7BR%7D%7D%20*%20TKN%20-%20%28%20%5Cfrac%7B%20tx_%7BR%7D%20-%20%5Cfrac%7BRUNE%7D%7BTKN%7D%7D%7Btx_%7BR%7D%7D%29%20%5E%7B2%7D%20*%20tx_%7BTKN%7D)
+![tokensEmitted = \frac{tx_{R}}{RUNE + tx_{R}} * TKN - ( \frac{ tx_{R} - \frac{RUNE}{TKN}}{tx_{R}}) ^{2} * tx_{TKN}](https://latex.codecogs.com/gif.latex?%5Cdpi%7B120%7D%20%5Cfn_cm%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Btx_%7BR%7D%7D%7BRUNE%20&plus;%20tx_%7BR%7D%7D%20*%20TKN%20-%20%28%20%5Cfrac%7B%20tx_%7BR%7D%20-%20%5Cfrac%7BRUNE%7D%7BTKN%7D%7D%7Btx_%7BR%7D%7D%29%20*%20tx_%7BTKN%7D)
 
 This bonding curve enforces a predictable price slip and fee on any trade, as well as ensuring that values on both sides of the pool are always adhered to; Rule (2).
 
@@ -216,18 +214,15 @@ With low amounts (<10% of the liquidity depth), stakers can earn up to roughly 0
 
 *Figure: The bonding curve for THORChain CLPs*
 
-
 ### Arbitrage
 
-We take the case that 100 Rune and 100 Token are staked. If a trade of 10 Rune was made, the trader would experience a 10% slip, and receive 9 Tokens. Assuming the wider market does not change, an arbitrager will see the opportunity of the 10% discounted Rune, and perform a counter-trade of 9.10 Tokens to receive 9.92 Rune.
+To ensure that the market becomes extremely efficient and price discovery happens immediately, then arbitrage agents must be readily incentivised to arbitrage across markets. This does not refer to time-based arbitrage, where an agent will buy or sell an asset based on what they think it could or should be worth (such as the markets around algorithmic stable-coins). Instead this is purely market-based arbitrage; assets in one market are cheaper than in another, and a race condition exists to be the first to exploit the difference. THORChain CLPs will allow agents to make gains on arbitraging markets, and these gains are always deterministic. As a result, the markets on ASGARDEX will very closely match fair market price. 
 
-This is 8% more Rune than if they had just made an ad-hoc trade across a balanced pool. Once the counter-trade is performed the final ratio has been restored to 100.9 Rune to 100.9 Token, 1:1. The stakers receive a payout of slip - arbitrage, which is 0.08 Token and 0.08 Rune. 
+As an example, we take the case that 100 Rune and 100 Token are staked. If a trade of 10 Rune was made, the trader would experience a 10% slip, and receive 9 Tokens. Assuming the wider market does not change, an arbitrager will see the opportunity of the 10% discounted Rune, and perform a counter-trade of 9.10 Tokens to receive 9.92 Rune.
+
+This is 8% more Rune than if they had just made an ad-hoc trade across a balanced pool. Once the counter-trade is performed the final ratio has been restored to 100.9 Rune to 100.9 Token, 1:1. The stakers also receive a payout of `slip - arbitrage`, which is 0.08 Token and 0.08 Rune. 
 
 The end result is that both stakers and arbitragers receive a gain from maintaining the price and liquidity in the pool, with a healthy return to the arbitrager for correcting the price, and a passive return for the stakers for maintaining the liquidity. Additionally, assuming the fees are not withdrawn, the liquidity depth in the pool has increased, which is more favourable to traders. 
-
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-4.png" width="500px" height="250px" />
-
-*Figure: Symmetrically staking in a CLP*
 
 
 ### Staking
@@ -243,6 +238,10 @@ It is in the interest of the user to stake symmetrically in the pool. This is pe
 `stake(bal_RUNE, bal_TKN)`
 
 Where `bal_RUNE / RUNE = bal_TKN / TKN`
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-4.png" width="500px" height="250px" />
+
+*Figure: Symmetrically staking in a CLP*
 
 If the staker performs an asymmetric stake-in they will cause a price imbalance that will immediately be arbitraged out, and will incur slip that is experienced on their own assets. After the arbitrage is finished, the asymmetric staker will have both assets, minus whatever slip they experienced, plus any fees they accumulated during the arbitrage. 
 
@@ -269,7 +268,7 @@ Incoming assets are accrued by arbitrage or natural market trades. As a result o
 *Figure: An assymetric stake-in and consequential arbitrage*
 
 
-### Withdrawing
+### Stake-out (withdrawing)
 
 Assets held in pools are entirely self sovereign at all times. Users can withdraw interest or their principle at any time by signing an on-chain transaction with their private key. They can withdraw symmetrically or asymmetrically; however an asymmetric withdrawal will create a price balance that will naturally be arbitraged out, returning the staker to a symmetrical position. 
 
@@ -277,7 +276,6 @@ Assets held in pools are entirely self sovereign at all times. Users can withdra
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-9.png" width="500px" height="250px" />
 
 *Figure: An assymetric stake-out and consequential arbitrage*
-
 
 Here is the case of a staker removing their stake asymmetrically, causing a price imbalance on the pool. Immediately an arbitrager restores the pool balance to earn cheap tokens, and thereby returning the pool ratio to 1. In this case all stakers earn on the liquidity fee, and the asymmetric staker is balanced out. 
 
@@ -292,6 +290,72 @@ The benefits for this are ground-breaking when it comes to a digital asset excha
 - With permissionless staking and arbitrage mechanisms, it become very difficult to manipulate asset prices; as any manipulated asset immediately exposes the manipulator. 
 - With on-chain liquidity pools, the liquidity pool ratio becomes a fair, open and transparent market price for the asset, which can be processed in on-chain transactions. 
 - On-chain trustless price feeds enable the protocol to build a wide array of advanced features not previously possible. 
+
+## Analysis of Incentives
+THORChain incentivises every agent in the network to add value and be economically rewarded.
+The following are the agents and their incentives:
+
+- Stake liquidity in pools and be rewarded on liquidity fees.
+- Arbitrage across markets and earn on price discovery. 
+- Build an exchange or wallet and add maker/taker fees.
+- Run a Validator and earn on block rewards. 
+- Run a Liquidity Node and earn on liquidity fees. 
+
+### Staking Liquidity
+The simplest contribution anyone can make is to simply stake liquidity in pools. The value of their liquidity is always protected, they always earn on volume and their assets are always self-sovereign. Staking will be so simple, that it can be performed directly from wallets and a simple on-chain transaction is required to stake-in, stake-out or withdraw earnings.
+
+The following is an analysis of the expected returns for staking from real-world data (missing data is extrapolated based on trade sizes and spreads), sampled in Q3 2018.
+
+| Exchange | 24hr Volume | Number of transactions | Liquidity Depth | Ave Trade Size |
+|---|---|---|---|---|
+|Shapeshift (All) | $1.3m | 3000 | $15m | ~$430 |
+| Bancor (Top 10) | $1.5m | 2500 | $15m | ~$600 | 
+| IDEX | $1m | 2500 | $8m | ~$400 |
+| EtherDelta | $100k | 300 | $2.7m | ~$330 |
+| Total | $3.9m | 8800 | $40m | ~$450 |
+
+
+The following are assumptions:
+- The liquidity depth is staked in both the Asset and Rune, amounting to 10% of assets held on the exchange
+- All trades are made at the average trade size
+
+| Comparison | Staked Assets | Daily Earnings | Monthly Return | Annual Return | Ave Slip Size |
+|---|---|---|---|---|---|
+| Shapeshift Equiv | $1.5m | $720 | 3% | 34% | 0.06% |
+| Bancor Equiv | $1.5m | $1200 | 5% | 57% | 0.08% |
+| IDEX Equiv | $800k | $100 | 7.5% | 90% |0.1% | 
+| EtherDelta Equiv | $270k | $250 | 5% | 65% | 0.25% |
+| All | $4m | $890 | 1.5% | 16% | 0.02% |
+
+As can be seen, even with 10% of circulating assets being staked, returns for stakers are very favourable, and average trade slips never exceed 25 basis points. 
+
+If the expected return of 5% annual was the target, then the total assets to be staked would be around $8m, or 20% of circulating. However these are non-zero returns, compared to zero returns if not staking, so the target can be reduced to 1%. At this target, the total staked assets would comprise of 40% of the entire circulating assets. 
+
+To gain an awareness of the size of the opportunity, we can attempt to extrapolate out to the entire market. The largest influence on returns to stakers is transaction size and liquidity depth. To conduct the analysis we adjust both liquidity depth and transaction size to target an annual return of 1% for staked assets.
+
+
+| Transaction Size | 24hr Volume | Staked Assets | Annual Return | Ave Slip Size |
+|---|---|---|---|---|---|
+| $1k | $20bn | $1.6bn | 1% | 0.0% |
+| $10k | $20bn | $5.2bn | 1% | 0.0% |
+| $100k | $20bn | $16bn | 1% | 0.0% |
+
+On analysis we can see that with even very low transaction sizes, the incentives are always present to encourage more users to stake liquidity. As liquidity depth increases, the market can facilitate even larger trades. The size of these trades are considerable, even with less than 10% of all assets staked. 
+
+| Trade Size | Staked Assets (5%) | Trade Slip Size |
+|---|---|---|---|
+| $1m | $10bn | 0.04% |
+| $10m | $10bn | 0.4% |
+| $100m | $10bn | 4% |
+
+With less than 5% of circulating assets staked, even single trades as large as $100m can be made on-market with very little impact to price. These large trades can be instantly processed by the CLPs, offering large incentives to stakers. 
+
+
+### Arbitrage Agents
+
+Arbitrage agents work to continually level the market and ensure that CLPs are balanced to fair market price. They make returns by spotting differences in value between different markets and by taking advantage of them. To 
+
+
 
 ## Advanced Features
 
