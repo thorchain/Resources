@@ -334,7 +334,7 @@ To gain an awareness of the size of the opportunity, we can attempt to extrapola
 
 
 | Transaction Size | 24hr Volume | Staked Assets | Annual Return | Ave Slip Size |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | $1k | $20bn | $1.6bn | 1% | 0.0% |
 | $10k | $20bn | $5.2bn | 1% | 0.0% |
 | $100k | $20bn | $16bn | 1% | 0.0% |
@@ -342,7 +342,7 @@ To gain an awareness of the size of the opportunity, we can attempt to extrapola
 On analysis we can see that with even very low transaction sizes, the incentives are always present to encourage more users to stake liquidity. As liquidity depth increases, the market can facilitate even larger trades. The size of these trades are considerable, even with less than 10% of all assets staked. 
 
 | Trade Size | Staked Assets (5%) | Trade Slip Size |
-|---|---|---|---|
+|---|---|---|
 | $1m | $10bn | 0.04% |
 | $10m | $10bn | 0.4% |
 | $100m | $10bn | 4% |
@@ -357,7 +357,7 @@ Arbitrage agents work to continually level the market and ensure that CLPs are b
 As an example, 100 Rune and Tokens are staked. A trader and an arbitrager both start with 10 of each asset. 
 
 | Trade | Rune | Price | Token | Trader Account | Arb Account |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Start | 100 Rune | 1 | 100 Token | 10 Rune | 10 Token |
 | Trader in | 10 -> | 1.2 | 9.02 -> | 9.02 Token | 10 Token |
 | Arb back | <- 9.92 | 1 | <- 9.1 | 9.02 Token | 0.9 Token, 9.92 Rune |
@@ -374,7 +374,7 @@ Using real-world data, we can see the large opportunity at hand. The assumptions
 | Shapeshift Equiv | $1.3m | $443 | 24c | $360 | 8.3% |
 | Bancor Equiv | $1.5m | $600 | 50c | $600 | 10.0% |
 | IDEX Equiv | $1m | $400 | 40c | $500 | 12.4% |
-| EtherDelta Equiv | $332 | $100k | 82c | 12.2% | 
+| EtherDelta Equiv | $332 | $100k | $122 | 82c | 12.2% | 
 | All | $3.9m | $443 | 10c | $442 | 10% | 
 
 This shows that arbitrage agents have more than enough incentive to continually correct markets and ensure that the pools always reflect fair market price. 
