@@ -71,22 +71,51 @@ A self-amending forkless consensus algorithm for THORChain.
 ## Introduction
 
 ### Exchanges
-One of the most important advents of the cryptocurrency economy is the exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As of late 2018, there are almost 15,000 exchanges supporting a $200bn economy with over 2000 digital assets being actively traded. Whilst there is some question of accuracy, over $10bn in digital assets are reported to be traded every day. 
+One of the most important aspects of the cryptocurrency economy is the exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As of late 2018, there are almost 15,000 exchanges supporting a $200bn economy with over 2000 digital assets being actively traded. Whilst there is some question of accuracy, over $10bn in digital assets are reported to be traded every day. 
 
-The current exchanges that support this economy are:
-- Centralised exchanges that support fiat on/off rails
+The current exchanges that support this economy are mostly centralised, comprised of:
+- Regulated centralised exchanges that support fiat on/off rails
 - Centralised exchanges that only support crypto-crypto trading
-- Decentralised exchanges that are built on protocols and limited to the tokens on that protocol
-- Decentralised peer-peer liquidity networks where trades are handled directly
-- An opaque OTC economy
+- Hybrid decentralised exchanges that marry digital assets with centralised features to pursue performance and useability
+
+The small number of decentralised exchanges that are in use suffer from performance, liquidity and useability, and almost none support cross-chain trading. 
+
+#### Competition
+Each exchange competes for users, liquidity and mind-share, going to extra-ordinary efforts to attract traders with trans-fee mining practises, referral schemes and market-making practises to inflate volumes. As a result it becomes a zero-sum game, as there only exists a finite number of traders and their liquidity at any given time. 
+
+#### Volatility
+Most assets are held in wallets that do not add to market liquidity. Token holders become speculators as the primary reason for holding these assets simply becomes to hold for a future return. As a result markets are very thinly traded, where large orders cause large movements in the markets and assets are volatile. There is a tendency for most crypto users to accuse large traders of "manipulating" the market, although these large traders are simply executing trades in a thinly traded market. The volatility of the market is thus a symptom of the fragmented infrastructure supporting exchanges.
+Over 80% of Bitcoin UTXOs are older than 3 months, and 50% older than a year [link](https://coinsavage.com/content/2018/08/bitcoin-data-science-pt-2-the-geology-of-lost-coins/). Thus it can be safe to assume that less than 10% of Bitcoin assets contribute to the billions of daily volume in Bitcoin trading alone. 
+
+#### Liquidity
+Most digital assets never touch exchanges, and even for assets deposited on exchanges, they are rarely used to contribute to market liquidity. Users simply want to swap assets, and are conditioned to remove their assets from exchanges promptly. Traders attempt to arbitrage markets with the minimum amount of assets needed with the minimum amount of spread necessary. As a result the "book" is normally built by the exchange itself. 
+As an example, the Bitfinex Cold wallet contains almost [150k Bitcoin](https://bitinfocharts.com/bitcoin/address/3D2oetdNuZUqQHPJmcMDDHYoqkyNVsFk9r), but these assets cannot be used for market liquidity and are simply held on behalf of users. 
+
+#### Security
+Every centralised exchange has either been hacked, or could suffer from a hack at any time. The total value in assets hacked from digital asset exchanges is extremely concerning and there is no simple solution. Each exchange has to build their own security infrastructure and best practises, and the larger they are, the more of a target they become.
+
+#### Fragmented Asset Support
+Every centralised exchange suffers a technical and infrastructure burden in supporting new blockchains and tokens. New nodes need to be run, scripts need to be added, wallets need to be supported. As a result, most exchanges only support a minor subset of the market, despite there being over 2000 unique assets (and many more not yet trading due to this reason). 
 
 
+### Solution; An exchange protocol 
 
-### Decentralized Exchanges. 
-Of course, the above is only true to the extent that other sources of power are also decentralized. One clear target for decentralization is the exchange itself. Centralized exchanges can hold undue power over users. This allow them to engage in many of the regressive practices that cryptocurrency enthusiasts dislike in the fiat world.
-Some hold users’ funds without explanation or recourse. A decentralized alternative will allow users to maintain self-sovereign rights to their assets at all times. Some centralized exchanges bar users, currencies, or transactions because of local law in their domicile. A decentralized alternative has no central operator upon which a nation state can impose restrictions. A decentralized alternative with public code can benefit from perpetual public security audits and publicly driven code changes. All things being equal, decentralized exchanges (DEXes) more adequately capture the ethos of cryptocurrencies than centralized ones. 
-All things are not yet equal, however. Decentralized exchanges need feature and performance parity with centralized exchanges to successfully compete. Binance, one of the most popular centralized exchanges, processes over 1 million transactions per second. Forkdelta, a popular decentralized exchange, routinely has transactions that take minutes. Bittrex, a popular centralized exchange, has a well-designed UI honed by design specialists and a simple-to-use UX. Barterdex, a DEX, has an obtuse UI and requires several cumbersome steps in its UX. Centralized cryptocurrency exchanges pride themselves on listing a myriad of different token types. Most modern DEXes operate within a single cryptocurrency’s ecosystem (for example, stellar for Stellardex and ether for Etherdelta) allowing users to trade only tokens in one protocol.
-To avoid some of these constraints, some DEXes take partial steps to toward decentralization but centralize key aspects of the system (like order books and matching engines). This is a nice attempt but these services do not provide censorship resistance and so do not fulfill the promise of decentralization. The market needs a decentralized exchange that adheres to the core tenets of decentralization and still provides a world-class exchange experience that meets the feature and performance standards set by centralized exchanges.
+The solution to all of these problems is an exchange protocol that can power any number of exchanges, support any asset and allow liquidity to back all trades. Such an exchange protocol could have the following features:
+
+#### Incentivised Liquidity
+Any liquidity added to the protocol adds to the liquidity of the network, improving the experience of users, traders and exchanges. If anyone could add their assets (but retain full self-sovereign control of them at any time), then assets that would typically be held on cold wallets away from the market, now add to the market and earn their holders a return at the same time. 
+
+#### Anti-competition
+With less than 5-10% of assets in circulation on exchanges, exchanges would no longer compete for the same users, traders and liquidity. Instead they could target a blue sky of new users, new traders and new liquidity; and as they joined the network, the overall experience for all would dramatically increase. 
+
+#### Market Inertia
+As new liquidity enters the network to pursue the returns paid out for liquidity, the volatility of the market would quickly decrease. All market movements would need to shift an increasingly larger pool of active, on-market liquidity. It is feasible that almost all available liquidity would flood to this new network, as it would be the first network paying a return for on-market liquidity, then quickly the network paying the highest return. This network would then smooth out the existing volatility of the market and the market would become hyper-efficient and not susceptible to low-liquidity price movements. 
+
+#### Consolidated Assets
+Once the network is established, on-chain tokens would be trivial to support, and listing would become user-initiated and requiring no input from the protocol. The burden to adding new blockchains would simply become a one-time decision on the potential cost of supporting a new node, versus the lifetime benefits of adding extra liquidity to the protocol. Once added, all exchanges built on the protocol would have instant access to the new asset. 
+
+#### Security
+Each validator on the THORChain protocol would be as secure as an entire legacy exchange, and the protocol is launching with 21 of them. In future, when the [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol/whitepaper-en.md) is supported, each validator would only have the burden of running at most three different 
 
 ### ASGARDEX
 ASGARDEX is a new approach to this problem by building a blockchain itself to be the DEX, rather than building a DEX on an existing protocol. In this way the protocol can be optimised to solving the problems solely limited to asset exchange as opposed to adding unnecessary features such as turing-complete scripting languages. Additionally the DEX is not constrained by the limitations of the underlying protocol, as the protocol can be readily changed with on-chain governance to match the pace of innovation in the industry. 
