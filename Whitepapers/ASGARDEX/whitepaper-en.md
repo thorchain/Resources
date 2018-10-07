@@ -97,16 +97,18 @@ Every centralised exchange has either been hacked, or could suffer from a hack a
 #### Fragmented Asset Support
 Every centralised exchange suffers a technical and infrastructure burden in supporting new blockchains and tokens. New nodes need to be run, scripts need to be added, wallets need to be supported. As a result, most exchanges only support a minor subset of the market, despite there being over 2000 unique assets (and many more not yet trading due to this reason). 
 
+#### Vulnerable to Oppression
+The right to hold and transfer value should never be censored or oppressed. Building gateways and limitations around this creates an environment of low liquidity, low-efficiency markets, poor price discovery and manipulation. It is reasonable to track and limit transfers of value between the real and digital world, but purely digital asset transfers should always be unencumbered. Current exchanges are extremely vulnerable to state-level oppression, leading to asset seizures, loss of privacy and lack of transparency. 
 
 ### Solution; An exchange protocol 
 
-The solution to all of these problems is an exchange protocol that can power any number of exchanges, support any asset and allow liquidity to back all trades. Such an exchange protocol could have the following features:
+The solution to all of these problems is an exchange protocol that can power any number of exchanges, facilitate any asset and support all liquidity. Such an exchange protocol could have the following features:
 
 #### Incentivised Liquidity
-Any liquidity added to the protocol adds to the liquidity of the network, improving the experience of users, traders and exchanges. If anyone could add their assets (but retain full self-sovereign control of them at any time), then assets that would typically be held on cold wallets away from the market, now add to the market and earn their holders a return at the same time. 
+Any liquidity added to the protocol adds to the liquidity of the network, improving the experience of users, traders and exchanges. If anyone could add their assets (but retain full self-sovereign control of them at any time), then assets that would typically be held on cold wallets away from the market, would add to the market and earn their holders a return at the same time. 
 
 #### Anti-competition
-With less than 5-10% of assets in circulation on exchanges, exchanges would no longer compete for the same users, traders and liquidity. Instead they could target a blue sky of new users, new traders and new liquidity; and as they joined the network, the overall experience for all would dramatically increase. 
+With less than 5-10% of assets in circulation on exchanges, exchanges would no longer compete for the same users, traders and liquidity. Instead they could target a blue sky of new users, new traders and new liquidity; and as they joined the network, the overall experience for all would dramatically increase. This could be achieved with new trustless incentivisation strategies around using assets in liquidity pools, lending, borrowing and more freedom to move across digital assets at any time or place. 
 
 #### Market Inertia
 As new liquidity enters the network to pursue the returns paid out for liquidity, the volatility of the market would quickly decrease. All market movements would need to shift an increasingly larger pool of active, on-market liquidity. It is feasible that almost all available liquidity would flood to this new network, as it would be the first network paying a return for on-market liquidity, then quickly the network paying the highest return. This network would then smooth out the existing volatility of the market and the market would become hyper-efficient and not susceptible to low-liquidity price movements. 
@@ -115,14 +117,18 @@ As new liquidity enters the network to pursue the returns paid out for liquidity
 Once the network is established, on-chain tokens would be trivial to support, and listing would become user-initiated and requiring no input from the protocol. The burden to adding new blockchains would simply become a one-time decision on the potential cost of supporting a new node, versus the lifetime benefits of adding extra liquidity to the protocol. Once added, all exchanges built on the protocol would have instant access to the new asset. 
 
 #### Security
-Each validator on the THORChain protocol would be as secure as an entire legacy exchange, and the protocol is launching with 21 of them. In future, when the [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol/whitepaper-en.md) is supported, each validator would only have the burden of running at most three different 
+Each validator on the THORChain protocol alone will be as secure as an entire legacy exchange, and the protocol is built on a super-majority consensus algorithm with many validators participating. In future, when the [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol/whitepaper-en.md) is supported, each validator would only have the burden of running at most three different blockchains, (typically two). This will rapidly increase decentralisation, improve resilience and reduce attack vectors. 
 
-### ASGARDEX
-ASGARDEX is a new approach to this problem by building a blockchain itself to be the DEX, rather than building a DEX on an existing protocol. In this way the protocol can be optimised to solving the problems solely limited to asset exchange as opposed to adding unnecessary features such as turing-complete scripting languages. Additionally the DEX is not constrained by the limitations of the underlying protocol, as the protocol can be readily changed with on-chain governance to match the pace of innovation in the industry. 
+#### Resilience
+THORChain's consensus protocol, the [Æsir Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/AEsir-Protocol/whitepaper-en.md), encourages high churn in the validator set which is open for anyone to join. With high churn, the incentives are in place to counter any malicious behaviour from validators, such as censorship, front-running or oppressive behaviour. Additionally, it means that the protocol is resistant to large numbers of validators being shut down at any time (from state-level oppression), to be replaced quickly by new validators in new regions. 
 
-A trade is simply an atomic swap between at least two assets and two accounts at a pre-agreed price and within any time condititions. With this focus, THORChain is being developed and ASGARDEX will be the first exchange to be built on the protocol. More accurately, ASGARDEX is simply a user interface that is built with THORChain as the decentralised backend. As THORChain is completely open-source, it is imagined that there will be hundreds of exchanges also built on THORChain, contributing to the same liquidity and user-base. 
 
-ASGARDEX is part of much larger picture; that by creating a near-perfect environment for trading, the inevitable flow of liquidity and users will allow the protocol to support a much larger payment network, which will use the underlying liquidity and trustless price feeds of the protocol. This is the Flash Network, [discussed at length here]() and it will allow anyone to pay in any currency instantly, at near-perfect price conversions.
+### THORCHAIN
+THORChain is a new approach to this problem by building a blockchain itself to be the DEX, rather than building a DEX on an existing protocol. In this way the protocol can be optimised to solving the problems solely limited to asset exchange as opposed to adding unnecessary features such as turing-complete scripting languages. Additionally the DEX is not constrained by the limitations of the underlying protocol, as the protocol can be readily changed with on-chain governance to match the pace of innovation in the industry. 
+
+ASGARDEX will be the first exchange to be built on the protocol. More accurately, ASGARDEX is simply a user interface that is built with THORChain as the decentralised backend. As THORChain is completely open-source, it is imagined that there will be hundreds of exchanges also built on THORChain, contributing to the same liquidity and user-base. 
+
+ASGARDEX is part of much larger picture; that by creating a near-perfect environment for trading, the inevitable flow of liquidity and users will allow the protocol to support a much larger payment network, which will use the underlying liquidity and trustless price feeds of the protocol.
 
 The features that ASGARDEX will bring to life on THORChain will allow it (and any other exchange built on the protocol) to break feature-parity with current centralised exchanges, as well as powering the next generation of wallets and payment services. 
 
