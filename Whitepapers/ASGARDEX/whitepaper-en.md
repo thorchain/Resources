@@ -374,7 +374,7 @@ Using real-world data, we can see the large opportunity at hand. The assumptions
 | Shapeshift Equiv | $1.3m | $443 | 24c | $360 | 8.3% |
 | Bancor Equiv | $1.5m | $600 | 50c | $600 | 10.0% |
 | IDEX Equiv | $1m | $400 | 40c | $500 | 12.4% |
-| EtherDelta Equiv | $332 | $100k | $122 | 82c | 12.2% | 
+| EtherDelta Equiv |  $100k | $332 | 82c | $122 | 12.2% | 
 | All | $3.9m | $443 | 10c | $442 | 10% | 
 
 This shows that arbitrage agents have more than enough incentive to continually correct markets and ensure that the pools always reflect fair market price. 
