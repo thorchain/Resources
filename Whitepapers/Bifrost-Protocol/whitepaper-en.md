@@ -15,8 +15,8 @@ The following whitepapers should be read in conjunction:
 - [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
 A lightning fast decentralised exchange protocol.
 
-- [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
-Secure and fast cross-chain bridges for THORChain.
+- [Bifröst Protocol Networking Spec](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/networking-whitepaper-en.md)
+Secure bridges to THORChain without hard security guarantees
 
 - [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network/whitepaper-en.md)
 A layer 2 Network for instant asset exchange on THORChain.
