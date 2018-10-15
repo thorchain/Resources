@@ -6,9 +6,12 @@ devs@thorchain.org
 V0.1 October 2018
 
 ### Abstract 
-> The Bifröst Protocol builds an economic layer on top of the bridging protocol between THORChain and other blockchains, such that the economic incentives ensure that nodes will always lose more than they gain. These economic incentives allow for a robust and resilient bridging protocol, that is permissionless, but safe. 
-> THORChain Validators choose to sync and report on the latest chainstate for external bridged chains in the hope they are selected for a quorum of nodes that can be party to bridge wallets and earn on exit fees. Failing to report the correct chainstate, or by broadcasting nuisance transactions will see them kicked from the quorom. 
+> The Bifröst Protocol builds an economic layer on top of the bridging protocol between THORChain and other blockchains, such that the economic incentives ensure that nodes will always lose more than they gain when attacking. These economic incentives allow for a robust and resilient bridging protocol, that is permissionless, but safe. 
+
+> THORChain Validators choose to sync and report on the latest chainstate for external bridged chains in the hope they are selected for a quorum of nodes that can be party to bridge wallets and earn on exit fees. Failing to report the correct chainstate, or by broadcasting nuisance transactions will see them kicked from the quorom.
+
 > Not all THORChain Validators may be part of the quorum for a bridged chain, but they will all have access to the full quorum list and be fully aware of the nodes that are. Additionally, all nodes in quorum are always THORChain validators, so the quorum is a compliant sub-set of the consensus group that anyone can join. 
+
 > The quorum works in tandem with the THORChain Validators to ensure that bridge assets enter and exit securely. A healthy fee market is built around exiting, so that bridge nodes in quorum have the correct incentives to stay synced and in quorum. 
 
 
