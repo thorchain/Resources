@@ -115,7 +115,7 @@ THORChain does not enforce running bridge nodes as this would radically increase
 
 Here is the case that there are `k` THORChain Validators, with Bitcoin, Ethereum and Monero bridges. A non-zero sub-set of them run Ethereum, Monero or Bitcoin nodes, or any combination of them, and can show they do so. Some may run all three nodes.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/bifrost-protocol/images/bifrost-networking1.png" width="500px" height="285px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/Bifrost-Protocol/images/bifrost-networking1.png" width="500px" height="285px" />
 
 If a Validator can show that they are running a node, and that they have validated up to the latest blockheight (within a buffer), then they are included in the Quorum for that bridge. A validator may be in the Quorum for all three bridges. Being included in a Quorum thus gives them a probablistic opportunity to be included as a party to each bridge, and any time a user exits an asset on that bridge they get to share in the exit fee. 
 
