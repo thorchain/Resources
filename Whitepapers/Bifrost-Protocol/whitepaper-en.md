@@ -330,6 +330,21 @@ Notes:
 
 [Ethereum Gnosis Multi-sig](https://github.com/gnosis/MultiSigWallet)
 
+#### Future Ethereum Bifrost additions
+In addition to the basic protocol specified, there are two suggested augmentations that can be used to improve the Ethereum Bifrost. These augmentations will be relevant to other Bifrosts too, but will be initially explored for Ethereum.
+
+##### SPV-like proofs (adapted from ideas in [4])
+The basic Bifrost uses its own consensus mechanism whereby it just waits for `m of n` validators to sign transactions that allow ETH/ERC20 token transfers in either direction. This consensus mechanism effectively happens at a layer above the core THORChain and core Ethereum consensus.
+
+Using block headers and merkle trees, we can create short proofs (similar to Bitcoin SPV/Light Client proofs) that allow us to depend only on the core underlying consensus without needing an additional layer above.
+
+For the Ethereum -> THORChain direction, instead of minting based on the `m of n` consensus, we allow any relayer to submit a transaction to THORChain that consists of a proof that the corresponding transaction was included in a block on Ethereum. We would implement a basic light client within the core THORChain consensus that can verify this proof and then trigger the minting immediately. With this, even in the event of a consensus attack on THORChain, attackers would not be able to mine fake ETH or ERC20 onto THORChain without breaking protocol, so we have much stronger security here.
+
+For the THORChain -> Ethereum direction, we need to create proofs that an Ethereum smart contract can verify. Tendermint's default consensus and serialization cannot be cheaply verified on Ethereum, but with a change to using Secp256k1 signatures for the THORChain consensus, an Ethereum smart contract could verify signatures onchain. With this addition, we do not theoretically increase security, as signatures would still come from the same THORChain consensus validators that, but in practice we then gain the full THORChain blockchain security for our Bifrost, and so only be vulnerable to a full THORChain consensus attack. This solution would also remove the need for the additional Bifrost layer consensus, mean a simpler protocol with less code, a smaller attack surface and a more performant and cleaner codebase.
+
+##### Gossip-based signature gathering
+The basic Bifrost requires, in both directions, for validators to post their signatures onchain to THORChain or Ethereum to run the system. This is inefficient, as we do not require consensus for each signature to be posted to the blockchain individually, we only require consensus on the full set of signatures to be posted. This means that, as an optimization we could allow validators to communicate through the THORChain gossip network (or any offchain communication channel they choose) to share their signatures, and only once the full `m of n` signatures are received by any validator, that validator can post all the signatures together in a single on chain transaction. This would mean only 1 transaction needed to go onchain (for either the Ethereum or THORChain direction), improving performance and reducing gas fees. With this augmentation we may still want to leave the original process with each signature going onchain still intact, as it may provide some additional protection as a backup system for the Bifrost in the event of complex network-level attacks against offchain communication channel used.
+
 ### Monero Bifröst
 
 The Monero Bifröst will have the following adaptions:
@@ -542,3 +557,5 @@ The Bifröst Protocol will be built for THORChain to augment the entire cryptocu
 [2]Anon, n.d. Total Transaction Fees in USD. [online] Blockchain. Available at: <https://www.blockchain.com/charts/transaction-fees-usd>
 
 [3]Unchained, C., 2018. The Technicals of Interoperability-Introducing the Ethereum Peg Zone. [online] Cosmos Blog. Available at: <https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f>
+
+[4]Cosmos, 2018. 2-way permissionless pegzones. [online] Cosmos Github. Available at: https://github.com/cosmos/peggy/tree/master/spec
