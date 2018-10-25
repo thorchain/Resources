@@ -71,7 +71,7 @@ A self-amending forkless consensus algorithm for THORChain.
 ## Introduction
 
 ### Exchanges
-One of the most important aspects of the cryptocurrency economy is the exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As of late 2018, there are almost 15,000 exchanges supporting a $200bn economy with over 2000 digital assets being actively traded. Whilst there is some question of accuracy, over $10bn in digital assets are reported to be traded every day. 
+One of the most important aspects of the cryptocurrency economy is the exchange. While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely. As of late 2018, there are over 200 exchanges supporting a $200bn economy with over 2000 digital assets being actively traded. Whilst there is some question of accuracy, over $10bn in digital assets are reported to be traded every day. 
 
 The current exchanges that support this economy are mostly centralised, comprised of:
 - Regulated centralised exchanges that support fiat on/off rails
