@@ -14,6 +14,9 @@ The following whitepapers should be read in conjunction:
 - [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
 A lightning fast decentralised exchange protocol.
 
+- [ASGARDEX](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/whitepaper-en.md)
+A lightning fast decentralised exchange built on THORChain.
+
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
 Secure and fast cross-chain bridges for THORChain.
 
