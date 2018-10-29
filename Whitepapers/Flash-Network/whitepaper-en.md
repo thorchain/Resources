@@ -8,7 +8,7 @@ devs@thorchain.org
 V0.1 July 2018
 
 ### Abstract 
->The Flash Network is a Layer 2 payment channel network on THORChain, allowing instant trades across all tokens and liquidity pools. Liquidity hubs anchor to price feeds and an economic model ensures always-on liquidity and high reliability of payment channels. Bridges with other Layer 2 networks such as Lightning, Raiden and Celer allow for instant exchange of any connected asset. Support for off chain trading mechanisms allow for fully featured decentralized exchanges.
+>The Flash Network is a Layer 2 payment channel network on THORChain, allowing instant trades across all tokens and liquidity pools. Liquidity hubs anchor to price feeds and an economic model ensures always-on liquidity and high reliability of payment channels. Bridges with other Layer 2 networks such as Lightning, Raiden and Bolt allow for instant exchange of any connected asset. 
 
 ### Document Set
 The following whitepapers should be read in conjunction:
@@ -62,7 +62,8 @@ A self-amending forkless consensus algorithm for THORChain.
 ### Payment Networks
 
 **Layer 2 Payment Networks**. A Layer 2 payment network sits on top of a blockchain and is composed of bi-directional payment channels. While the underlying blockchain defines and secures value, a Layer 2 Network allows trustless, scalable and unicast transactions of that value. The Lightning Network [1] on Bitcoin has been under development for several years now; and is still in nascent stages. Whilst a very promising payment technology; it is suffering from early issues of reliability and liquidity. Channels close frequently, and there is no strong economic incentive for nodes to fill channels with liquidity. 
-Payment Networks. The Visa Network is one of the incumbent global payment processors; used in almost all countries, processing up to 40k transactions per second and moving $6.8tn in currencies each year. However it is centralised, expensive and uses legacy technologies with no current support for cryptocurrencies. 
+
+**Payment Networks.** The Visa Network is one of the incumbent global payment processors; used in almost all countries, processing up to 40k transactions per second and moving $6.8tn in currencies each year. However it is centralised, expensive and uses legacy technologies with no current support for cryptocurrencies. 
 
 ### Flash Network 
 **Flash Network.** The Flash Network adds an instant exchange layer on top of THORChain allowing users to instantly trade any supported asset. Economic incentives reward liquidity and reliability, creating a highly useable payment channel network. Bridges with external Layer 2 Networks such as Lightning[1] and Raiden[2] allow trades across networks. The Flash Network is built to allow seamless and instant trades between any asset on any network for the THORPayments ecosystem.  
@@ -74,7 +75,7 @@ Payment Networks. The Visa Network is one of the incumbent global payment proces
 ### Overview
 In order to achieve widespread success, THORChain needs to provide a payments system that succeeds at both being a fully transparent, trustless network as well as providing simple, seamless and opaque interactions for everyday end users. Optimizing for ideal UX and performance with minimal fees and waiting times and strong payment guarantees is the goal of the Flash Network. The Flash Network will allow for instant transfers from one user to another and guaranteed payments across different token pairs with automated conversion. Additionally, beyond everyday user payments and conversions, later work will allow for it to become a fully fledged Layer 2 trading system that supports the needs of different kinds of traders and complex trades.
 
-The Flash Network is a Payment Channel Network and DEX protocol that sits on top of THORChain and links the trustless price feed from each underlying Continuous Liquidity Pool (CLP) with a group of liquidity providing nodes (named Mjölnir). Liquidity nodes within a group open channels up with each other and fill channels with Rune and tokens they wish to support.
+The Flash Network is a Payment Channel Network that sits on top of THORChain and links the trustless price feed from each underlying Continuous Liquidity Pool (CLP) with a group of liquidity providing nodes (named Mjölnir). Liquidity nodes within a group open channels up with each other and fill channels with Rune and tokens they wish to support.
 Payments can be made instantly and across TokenChains and facilitate high frequency trading.  
 Users open channels with Mjölnir and perform flash transactions. When a flash is made, the continuous liquidity node is used to instantly trade tokens at internal pool pricing; which represents fair market pricing. Instead of performing 1:1 channel movements (such as lightning network) the Mjölnir perform channel movements at the underlying token price ratio.
 
@@ -87,13 +88,13 @@ In this example Alice pays Bob 1 Rune, but Bob wishes to receive in TKN1, which 
 
 Mjölnir Liquidity Hubs in the Flash Network are comprised of an unlimited amount of nodes that are incentivised to hold liquidity in channels across the hub with the RUNE token, and settle trades. Each node that joins the hub puts up a minimum amount of liquidity, which is governed by the following equation:
 
-```minimumLiquidity=hubLiquiditynodeCount+1```
+```minimumLiquidity = hubLiquiditynodeCount + 1```
 
 Liquidity is shared across all nodes in the hub, and all channels evenly. The nodes then collect transactional fees from trades which add to existing liquidity. Hubs that attract high amounts of trades and subsequent fees, will attract more nodes to join, which in turn increases the liquidity available. This will attract more traders. On the other hand, well-connected hubs will be expensive to join, thereby encouraging nodes to distribute their liquidity across more hubs. 
 Each Liquidity Hub is connected to a single TokenChain, and has direct access to the on-chain CLP. There can be multiple Liquidity Hubs connected to the same TokenChain, thereby encouraging fee competition for each pair. 
 Nodes can exit the hubs at any time; and retract their collateral and any collected fees:
 
-```Claim=hubLiquiditynodeCount```
+```Claim = hubLiquiditynodeCount```
 
 Traders wishing to perform instant Layer 2 trades across a pair open buy or sell channels with the hub. A sell channel is a channel filled with the TKN of the Hub; a buy channel is filled with tokens. 
 
@@ -148,7 +149,7 @@ Users can be attacked by being censored or DDoSes on the network level to allow 
 Users have to stay online and available to ensure their security, which is not ideal from a UX perspective and will not work for attracting everyday end users that are not invested in the THORChain ecosystem
 Improvements in these two areas is an ongoing research endeavor. A few mechanisms to be explored including having mechanisms for partial settlement to be possible on-chain, allowing users to commit their state on-chain periodically without needing to close channels as well as networks of watchers/bounty hunters that can be incentivized to provide settlement services to end users in a secure way. Some of this research has been partially explored by other projects, for example Celer [12].
 
-## DEX Protocol
+## Exchange Protocol
 
 ### Overview
 
