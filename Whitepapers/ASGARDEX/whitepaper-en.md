@@ -438,7 +438,7 @@ Thus we can process market orders by simply trading across the CLP. Arbitragers 
 
 Exchanges normally include a visual representation of the “book”, which is the current aggregation of all outstanding trades. The “y axis” is the price (scale varies) and the x-axis is the cumulative total of orders moving away from the current price (in both directions).
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-11.png" width="500px" height="250px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-12.png" width="500px" height="250px" />
 
 A trader has an idea of how many tokens they would receive if they performed a market order, since they can see the outstanding orders that their trade would “collect” if they performed the market trade. 
 
@@ -450,7 +450,7 @@ We know that market orders are simply CLP orders, and that CLP trade price is de
 
 We can see that the input is the “slip” and the output should be the cumulative tokens emitted, such that if a trader were to make a trade at any trade size, they would know how many tokens they would receive on a market order. The larger the trade, (the more the slip), but the more tokens they receive.
 
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-12.png" width="500px" height="250px" />
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-11.png" width="500px" height="250px" />
 
 Thus we strive to derive a formula that takes an input of slip `S` and outputs the tokens emitted `t`. 
 
@@ -462,22 +462,25 @@ Where:
 ```P0 = T0/R0
 P1 = T1/R1
 T1 = T0 - t
-R1 = R0 + r```
+R1 = R0 + r
+```
 
 Combining:
 ```S = P0 - T1/R1
 S = P0 - (T0 - t)/(R0 + r)
 S = P0 - (T0 - ((r * T0) / (R0 + r)))/(R0 + r)
 S - P0 + (T0 - ((r * T0) / (R0 + r)))/(R0 + r) = 0
-(S - P0)(R0 + r)^2 + T0 * (R0 + r) - r * T0 = 0```
+(S - P0)(R0 + r)^2 + T0 * (R0 + r) - r * T0 = 0
+```
 
 Recognising the quadratic formula:
 ```ax^2 + bx + c = 0
-x = (-b +/- sqrt(b^2 - 4ac)) / (2a)```
+x = (-b +/- sqrt(b^2 - 4ac)) / (2a)
 
-```a = (S - T0/R0)
+a = (S - T0/R0)
 b = -1 * (2 * T0(S - T0/R0) - R0 + T0)
-c = (T0^2 * (S - T0/R0) + R0*T0)```
+c = (T0^2 * (S - T0/R0) + R0*T0)
+```
 
 
 Thus:
@@ -494,7 +497,8 @@ This now elegantly solves the solution, by taking an input of the CLP depth and 
 
 ```R0, CLP Rune Depth
 T0, CLP Token Depth
-S, Slip to compute at```
+S, Slip to compute at
+```
 
 This equation has the following visual output, which is a smooth increasing book. At each price point, it is clear how many tokens will be collected by the trader by performing a market order:
 
