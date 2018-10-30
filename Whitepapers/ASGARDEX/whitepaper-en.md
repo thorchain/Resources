@@ -425,10 +425,12 @@ CLP TokenEmission is given by:
 `t = (r * T0) / (R0 + r)`
 
 Where; 
-`t = tokensEmitted
+```
+t = tokensEmitted
 r = Runes Inputted
 R0 = Rune Depth
-T0 = Token Depth`
+T0 = Token Depth
+```
 
 Thus we can process market orders by simply trading across the CLP. Arbitragers will immediately correct any outstanding limit orders.
 
