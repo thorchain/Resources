@@ -461,14 +461,16 @@ Slip itself is a function of the final price and the starting price, defined as:
 `S = P0 - P1`
 
 Where:
-```P0 = T0/R0
+```
+P0 = T0/R0
 P1 = T1/R1
 T1 = T0 - t
 R1 = R0 + r
 ```
 
 Combining:
-```S = P0 - T1/R1
+```
+S = P0 - T1/R1
 S = P0 - (T0 - t)/(R0 + r)
 S = P0 - (T0 - ((r * T0) / (R0 + r)))/(R0 + r)
 S - P0 + (T0 - ((r * T0) / (R0 + r)))/(R0 + r) = 0
@@ -476,7 +478,8 @@ S - P0 + (T0 - ((r * T0) / (R0 + r)))/(R0 + r) = 0
 ```
 
 Recognising the quadratic formula:
-```ax^2 + bx + c = 0
+```
+ax^2 + bx + c = 0
 x = (-b +/- sqrt(b^2 - 4ac)) / (2a)
 
 a = (S - T0/R0)
@@ -497,7 +500,8 @@ Where:
 
 This now elegantly solves the solution, by taking an input of the CLP depth and the slip to compute at, and returning the tokens that are expected to be emitted. The only inputs are:
 
-```R0, CLP Rune Depth
+```
+R0, CLP Rune Depth
 T0, CLP Token Depth
 S, Slip to compute at
 ```
