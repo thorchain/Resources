@@ -459,25 +459,25 @@ Slip itself is a function of the final price and the starting price, defined as:
 `S = P0 - P1`
 
 Where:
-`P0 = T0/R0
+```P0 = T0/R0
 P1 = T1/R1
 T1 = T0 - t
-R1 = R0 + r`
+R1 = R0 + r```
 
 Combining:
-`S = P0 - T1/R1
+```S = P0 - T1/R1
 S = P0 - (T0 - t)/(R0 + r)
 S = P0 - (T0 - ((r * T0) / (R0 + r)))/(R0 + r)
 S - P0 + (T0 - ((r * T0) / (R0 + r)))/(R0 + r) = 0
-(S - P0)(R0 + r)^2 + T0 * (R0 + r) - r * T0 = 0`
+(S - P0)(R0 + r)^2 + T0 * (R0 + r) - r * T0 = 0```
 
 Recognising the quadratic formula:
-`ax^2 + bx + c = 0
-x = (-b +/- sqrt(b^2 - 4ac)) / (2a)`
+```ax^2 + bx + c = 0
+x = (-b +/- sqrt(b^2 - 4ac)) / (2a)```
 
-`a = (S - T0/R0)
+```a = (S - T0/R0)
 b = -1 * (2 * T0(S - T0/R0) - R0 + T0)
-c = (T0^2 * (S - T0/R0) + R0*T0)`
+c = (T0^2 * (S - T0/R0) + R0*T0)```
 
 
 Thus:
@@ -492,9 +492,9 @@ Where:
 
 This now elegantly solves the solution, by taking an input of the CLP depth and the slip to compute at, and returning the tokens that are expected to be emitted. The only inputs are:
 
-`R0, CLP Rune Depth
+```R0, CLP Rune Depth
 T0, CLP Token Depth
-S, Slip to compute at`
+S, Slip to compute at```
 
 This equation has the following visual output, which is a smooth increasing book. At each price point, it is clear how many tokens will be collected by the trader by performing a market order:
 
