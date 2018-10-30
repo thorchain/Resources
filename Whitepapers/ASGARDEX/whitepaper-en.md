@@ -491,7 +491,7 @@ Thus:
 
 Where:
 
-[](https://www5a.wolframalpha.com/Calculate/MSP/MSP3101d4e9d6704cdfa0700004a6i06567553ahig?MSPStoreType=image/gif&s=25)
+![](https://www5a.wolframalpha.com/Calculate/MSP/MSP3101d4e9d6704cdfa0700004a6i06567553ahig?MSPStoreType=image/gif&s=25)
 
 *Note: the subtraction is the correct output in this case.*
 
