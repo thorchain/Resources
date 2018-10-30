@@ -50,6 +50,7 @@ A self-amending forkless consensus algorithm for THORChain.
 [Advanced Features](#advanced-features)
 - Asset Swaps
 - Cross-token Pairs
+- Market Orders
 - Index and Baskets
 - Lending
 - Leveraged Margin Trading
@@ -413,6 +414,95 @@ In such a scenario, a user may hold a certain token, TokenA, but a merchant only
 
 Linking CLPs in this manner also allows an exchange to support any number of trading pairs. For example, Rune is traded with TokenA on the RUNE:TKNA pair. If the user wishes instead to trade on the TKNB:TKNA pair, but does not hold TokenB, their trade makes use of the RUNE:TKNB CLP to trade into and out of TokenA without ever holding TokenB. In this case the user would incur a small liquidity fee in addition to any maker/taker fees added by the exchange.
 
+### Market Orders
+
+Market orders are facilitated by the CLP. On a traditional exchange a market order simply collects a number of limit orders into a single order. Typically, market orders create market slip as they remove orders from the book, and unless they are arbitraged back, the last closed market order now becomes the new price for the asset. 
+
+With the CLPs available to use, THORChain has the unique opportunity to faciliate deterministic market orders - where the price of a trade can be calculated ahead of time thanks to the continuous liquidity present in the pools. 
+
+CLP TokenEmission is given by:
+
+`t = (r * T0) / (R0 + r)`
+
+Where; 
+`t = tokensEmitted
+r = Runes Inputted
+R0 = Rune Depth
+T0 = Token Depth`
+
+Thus we can process market orders by simply trading across the CLP. Arbitragers will immediately correct any outstanding limit orders.
+
+*For this version we omit the Liquidity Fee for simplicity.* 
+
+#### The Book
+
+Exchanges normally include a visual representation of the “book”, which is the current aggregation of all outstanding trades. The “y axis” is the price (scale varies) and the x-axis is the cumulative total of orders moving away from the current price (in both directions).
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-11.png" width="500px" height="250px" />
+
+A trader has an idea of how many tokens they would receive if they performed a market order, since they can see the outstanding orders that their trade would “collect” if they performed the market trade. 
+
+Since CLPs are always available to buy and sell, we would like to visually represent the CLP depth on the book. 
+
+#### Projecting the CLP
+
+We know that market orders are simply CLP orders, and that CLP trade price is deterministic, we attempt to derive a formula to project the CLP on the book, such that it shows a visual representation of orders.
+
+We can see that the input is the “slip” and the output should be the cumulative tokens emitted, such that if a trader were to make a trade at any trade size, they would know how many tokens they would receive on a market order. The larger the trade, (the more the slip), but the more tokens they receive.
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-12.png" width="500px" height="250px" />
+
+Thus we strive to derive a formula that takes an input of slip `S` and outputs the tokens emitted `t`. 
+
+Slip itself is a function of the final price and the starting price, defined as:
+
+`S = P0 - P1`
+
+Where:
+`P0 = T0/R0
+P1 = T1/R1
+T1 = T0 - t
+R1 = R0 + r`
+
+Combining:
+`S = P0 - T1/R1
+S = P0 - (T0 - t)/(R0 + r)
+S = P0 - (T0 - ((r * T0) / (R0 + r)))/(R0 + r)
+S - P0 + (T0 - ((r * T0) / (R0 + r)))/(R0 + r) = 0
+(S - P0)(R0 + r)^2 + T0 * (R0 + r) - r * T0 = 0`
+
+Recognising the quadratic formula:
+`ax^2 + bx + c = 0
+x = (-b +/- sqrt(b^2 - 4ac)) / (2a)`
+
+`a = (S - T0/R0)
+b = -1 * (2 * T0(S - T0/R0) - R0 + T0)
+c = (T0^2 * (S - T0/R0) + R0*T0)`
+
+
+Thus:
+
+`t = (r * T0) / (R0 + r)`
+
+Where:
+
+[](https://www5a.wolframalpha.com/Calculate/MSP/MSP3101d4e9d6704cdfa0700004a6i06567553ahig?MSPStoreType=image/gif&s=25)
+
+*Note: the subtraction is the correct output in this case.*
+
+This now elegantly solves the solution, by taking an input of the CLP depth and the slip to compute at, and returning the tokens that are expected to be emitted. The only inputs are:
+
+`R0, CLP Rune Depth
+T0, CLP Token Depth
+S, Slip to compute at`
+
+This equation has the following visual output, which is a smooth increasing book. At each price point, it is clear how many tokens will be collected by the trader by performing a market order:
+
+<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-13.png" width="500px" height="250px" />
+
+#### Adding Limit Orders
+
+The book should also have limit orders placed on it. They simply add to the cumulative total of tokens emitted. 
 
 ### Indexes and Baskets
 
