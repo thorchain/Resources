@@ -494,7 +494,7 @@ Thus:
 
 Where:
 
-![](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-10.png)
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/images/asgardex-14.png)
 
 *Note: the subtraction is the correct output in this case.*
 
