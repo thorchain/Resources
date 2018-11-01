@@ -86,7 +86,7 @@ Each exchange competes for users, liquidity and mind-share, going to extra-ordin
 
 #### Volatility
 Most assets are held in wallets that do not add to market liquidity. Token holders become speculators as the primary reason for holding these assets simply becomes to hold for a future return. As a result markets are very thinly traded, where large orders cause large movements in the markets and assets are volatile. There is a tendency for most crypto users to accuse large traders of "manipulating" the market, although these large traders are simply executing trades in a thinly traded market. The volatility of the market is thus a symptom of the fragmented infrastructure supporting exchanges.
-Over 80% of Bitcoin UTXOs are older than 3 months, and 50% older than a year [link](https://coinsavage.com/content/2018/08/bitcoin-data-science-pt-2-the-geology-of-lost-coins/). Thus it can be safe to assume that less than 10% of Bitcoin assets contribute to the billions of daily volume in Bitcoin trading alone. 
+Over 80% of Bitcoin UTXOs are older than 3 months, and [50% older than a year](https://coinsavage.com/content/2018/08/bitcoin-data-science-pt-2-the-geology-of-lost-coins/). Thus it can be safe to assume that less than 10% of Bitcoin assets contribute to the billions of daily volume in Bitcoin trading alone. 
 
 #### Liquidity
 Most digital assets never touch exchanges, and even for assets deposited on exchanges, they are rarely used to contribute to market liquidity. Users simply want to swap assets, and are conditioned to remove their assets from exchanges promptly. Traders attempt to arbitrage markets with the minimum amount of assets needed with the minimum amount of spread necessary. As a result the "book" is normally built by the exchange itself. 
