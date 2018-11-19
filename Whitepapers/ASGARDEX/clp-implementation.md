@@ -56,12 +56,15 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 
 ![tradeSlip = \frac{xY/X - tokensEmitted}{xY/X}  = \frac{x (2 X + x)}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7BxY/X%20-%20tokensEmitted%7D%7BxY/X%7D%20%3D%20%5Cfrac%7Bx%20%282%20X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
-| **Unit**          | **Definition**                                               | **Unit**   | **Definition**                               |
-|-------------------|--------------------------------------------------------------|------------|----------------------------------------------|
-| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. | `outputSlip` | The slip of price between input and output   |
-| `tokensEmitted `    | Tokens emitted from the pool after the fee is applied.       | `tradeSlip`  | The slip of price between input and emission |
-|                   |                                                              | `poolSlip`   | The slip of price in the pool after the swap |
+| **Unit**          | **Definition**                                               |
+|-------------------|--------------------------------------------------------------|
+| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. |
+| `tokensEmitted `    | Tokens emitted from the pool after the fee is applied.       | 
+| `outputSlip` | The slip of price between input and output   |
+|`tradeSlip`  | The slip of price between input and emission |
+| `poolSlip`   | The slip of price in the pool after the swap |
 
+Thus the final price that the user receives, as well as the final price of the pool, are:
 
 ![Price_{user} = Price_{0} * (1 - tradeSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Buser%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20tradeSlip%29)
 
@@ -106,7 +109,6 @@ Then:
 
 ![tokensEmitted_2 =  \frac{y Z R}{(y + R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20%5Cfrac%7By%20Z%20R%7D%7B%28y%20&plus;%20R%29%5E2%7D)
 
-
 Using just the pool depths, and the input, we can calculate the final output and slip:
 
 ![tokensEmitted_2 = z =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20z%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
@@ -119,7 +121,18 @@ Using just the pool depths, and the input, we can calculate the final output and
 
 Stakers stake assets to earn a share of the pool. Stake average is the average of their two stakes (of CAN and TKN) at the time they staked.
 
-![]()
+| **Unit**   | **Definition**                      | **Unit**    | **Definition**                      |
+|------------|-------------------------------------|-------------|-------------------------------------|
+| `R`          | Balance of RUNE in the pool         | `T `          | Balance of TKN in the pool          |
+| `stakeR`     | Stake of RUNE                       | `stakeT`      | Stake of TKN                        |
+| `poolFeesR`  | Total accumulated fees in RUNE      | `poolFeesTKN` | Total accumulated fees in TKN       |
+| `stakeAveXi` | Averaged stake for staker X         | `stakeAveX`   | Sum of averaged stakes for staker X |
+| `poolStakeX` | Sum of all stakes for staker X      | `poolTotal`   | Sum of pool stakes for all stakers  |
+| `poolShareX` | Share of the pool for staker X      |             |                                     |
+| `RUNEFeesX`  | Share of the RUNE fees for staker X | `TKNFeesX`    | Share of the TKN fees for staker X  |
+| `RUNEStakeX` | Share of the RUNE fees for staker X | `TKNStakeX`   | Share of the TKN fees for staker X  |
+
+![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
 
 ![]()
 
