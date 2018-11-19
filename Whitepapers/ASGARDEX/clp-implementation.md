@@ -63,8 +63,6 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 |                   |                                                              | `poolSlip`   | The slip of price in the pool after the swap |
 
 
-
-
 ![Price_{user} = Price_{0} * (1 - tradeSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Buser%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20tradeSlip%29)
 
 ![Price_{pool} = Price_{0} * (1 - poolSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Bpool%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20poolSlip%29)
@@ -72,12 +70,12 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 
 ### Atomic trade of a single pool
 
-We have a single pool, TKN1, paired to Rune.  We wish to swap TKN1 to Rune. 
+We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1. 
 
 | **Unit** | **Definition**                                | **Unit** | **Definition** |
 |----------|-----------------------------------------------|----------|----------------|
-| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of Token1          |
-| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune        |
+| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of  Rune         |
+| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Token1        |
 
 ![tokensOutputted = \frac{xY}{x + X}, outputSlip = \frac{x}{x+X}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensOutputted%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%2C%20outputSlip%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D)
 
@@ -98,19 +96,28 @@ We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to 
 | `R`        | Balance of TKN1 in the input side of the pool  |         |           |
 | `Z`        | Balance of Rune in the output side of the pool | `z`        | Output of Token2       |
 
-![tokensEmitted = \frac{x Y X}{(x + X)^2}, liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
+![tradeSlip_1 = \frac{x (2X + x)}{(x + X)^2}, liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip_1%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
 ![int_{emission} = y = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20int_%7Bemission%7D%20%3D%20y%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 Then:
 
-![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}, liqFee_2 = \frac{y^2Z}{(y+R)^2}]()
+![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}, liqFee_2 = \frac{y^2Z}{(y+R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip_2%20%3D%20%5Cfrac%7By%20%282R%20&plus;%20y%29%7D%7B%28y%20&plus;%20R%29%5E2%7D%2C%20liqFee_2%20%3D%20%5Cfrac%7By%5E2Z%7D%7B%28y&plus;R%29%5E2%7D)
 
-![]()
+![tokensEmitted_2 =  \frac{y Z R}{(y + R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20%5Cfrac%7By%20Z%20R%7D%7B%28y%20&plus;%20R%29%5E2%7D)
 
-![]()
 
-![]()
+Using just the pool depths, and the input, we can calculate the final output and slip:
+
+![tokensEmitted_2 = z =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20z%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
+
+![P_{X0} = \frac{X}{Y}, P_{Z0} = \frac{R}{Z} \rightarrow P_0 = P_{X0} * P_{Z0}= \frac{XR}{YZ}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_%7BX0%7D%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_%7BZ0%7D%20%3D%20%5Cfrac%7BR%7D%7BZ%7D%20%5Crightarrow%20P_0%20%3D%20P_%7BX0%7D%20*%20P_%7BZ0%7D%3D%20%5Cfrac%7BXR%7D%7BYZ%7D)
+
+![finalSlip = \frac{x/P_0 - z}{x/P_0}  = \frac{\frac{xYZ}{XR}-z}{\frac{xYZ}{XR}} = 1 - \frac{R^2 X^2(x + X)^2}{(R (x + X)^2 + x X Y)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20finalSlip%20%3D%20%5Cfrac%7Bx/P_0%20-%20z%7D%7Bx/P_0%7D%20%3D%20%5Cfrac%7B%5Cfrac%7BxYZ%7D%7BXR%7D-z%7D%7B%5Cfrac%7BxYZ%7D%7BXR%7D%7D%20%3D%201%20-%20%5Cfrac%7BR%5E2%20X%5E2%28x%20&plus;%20X%29%5E2%7D%7B%28R%20%28x%20&plus;%20X%29%5E2%20&plus;%20x%20X%20Y%29%5E2%7D)
+
+### Pool Staking
+
+Stakers stake assets to earn a share of the pool. Stake average is the average of their two stakes (of CAN and TKN) at the time they staked.
 
 ![]()
 
