@@ -70,7 +70,7 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 ![Price_{pool} = Price_{0} * (1 - poolSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Bpool%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20poolSlip%29)
 
 
-### Atomic Swap Calculations
+### Atomic trade of a single pool
 
 We have a single pool, TKN1, paired to Rune.  We wish to swap TKN1 to Rune. 
 
@@ -87,24 +87,34 @@ We have a single pool, TKN1, paired to Rune.  We wish to swap TKN1 to Rune.
 
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
+### Atomic trades over two pools 
 
+We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to TKN2.  
 
+| **Unit** | **Definition**                                | **Unit** | **Definition** |
+|----------|-----------------------------------------------|----------|----------------|
+| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of Token1          |
+| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune        |
+| `R`        | Balance of TKN1 in the input side of the pool  |         |           |
+| `Z`        | Balance of Rune in the output side of the pool | `z`        | Output of Token2       |
 
+![tokensEmitted = \frac{x Y X}{(x + X)^2}, liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
+![int_{emission} = y = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20int_%7Bemission%7D%20%3D%20y%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
+Then:
 
+![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}, liqFee_2 = \frac{y^2Z}{(y+R)^2}]()
 
+![]()
 
+![]()
 
+![]()
 
+![]()
 
-
-
-
-
-
-
-
+![]()
 
 ![]()
 
