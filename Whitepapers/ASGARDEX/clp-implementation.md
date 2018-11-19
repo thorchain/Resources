@@ -134,7 +134,7 @@ Using just the pool depths, and the input, we can calculate the final output and
 
 ## Pool Staking
 
-Stakers stake assets to earn a share of the pool. Stake average is the average of their two stakes (of CAN and TKN) at the time they staked.
+Stakers stake assets to earn a share of the pool. Stake average is the average of their two stakes (of RUNE and TKN) at the time they staked.
 
 | **Unit**   | **Definition**                      | **Unit**    | **Definition**                      |
 |------------|-------------------------------------|-------------|-------------------------------------|
