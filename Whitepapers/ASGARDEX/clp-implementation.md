@@ -213,7 +213,13 @@ Arbitrage is important to restore pool prices to the fair market price. To solve
 The real root of `x` is:
 
 ```
-x = -(-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3 + sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4 + 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3 + 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4) - 24 P X^2 Y + 3 P X Y^2 - 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)/(3 2^(1/3)) + (2^(1/3) (-3 (P X Y - X^2 - 2 X Y) - (P Y - 2 X - Y)^2))/(3 (-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3 + sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4 + 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3 + 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4) - 24 P X^2 Y + 3 P X Y^2 - 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)) + 1/3 (P Y - 2 X - Y);
+x = -(-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3 + sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4
++ 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3 + 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4)
+- 24 P X^2 Y + 3 P X Y^2 - 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)/(3 2^(1/3))
++ (2^(1/3) (-3 (P X Y - X^2 - 2 X Y) - (P Y - 2 X - Y)^2))/(3 (-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3
++ sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4 + 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3
++ 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4) - 24 P X^2 Y + 3 P X Y^2
+- 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)) + 1/3 (P Y - 2 X - Y);
 ```
 
 This is a significantly complex solution, which means arbitrage will only be an approximate science in practise.
