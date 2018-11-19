@@ -134,8 +134,28 @@ Stakers stake assets to earn a share of the pool. Stake average is the average o
 
 ![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
 
-![]()
+![poolStake_{Xi} = stakeAve_{Xi} * (T+stake_T)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BXi%7D%20%3D%20stakeAve_%7BXi%7D%20*%20%28T&plus;stake_T%29)
 
-![]()
+Users can only withdraw their stake partially or fully, or add more. This is tracked as the same all all stakes for that user:
+
+![poolStake_{X} = [poolStake_{X0} + poolStake_{X1} + ... n]](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BX%7D%20%3D%20%5BpoolStake_%7BX0%7D%20&plus;%20poolStake_%7BX1%7D%20&plus;%20...%20n%5D)
+
+A further number tracks the sum of every averaged stake from every user that has been made into the pool, including the first:
+
+![poolTotal = \sum\limits_{i=0}^n  poolStake_{i} ](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolTotal%20%3D%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20poolStake_%7Bi%7D)
+
+![poolShare_{X} = \frac{poolStake_{X}}{pool_{total}}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolShare_%7BX%7D%20%3D%20%5Cfrac%7BpoolStake_%7BX%7D%7D%7Bpool_%7Btotal%7D%7D)
+
+Thus when a user X withdraws either the fees or their share of the pool, the following are the equations:
+
+![TKNFees_{X} = poolShare_{X} * poolFees_{TKN}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKNFees_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20poolFees_%7BTKN%7D)
+
+![RUNEFees_{X} = poolShare_{X} * poolFees_{RUNE}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNEFees_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20poolFees_%7BRUNE%7D)
+
+![TKNStake_{X} = poolShare_{X} * bal_{TKN}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKNStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20bal_%7BTKN%7D)
+
+![RUNEStake_{X} = poolShare_{X} * bal_{RUNE}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNEStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20bal_%7BRUNE%7D)
+
+*For simplicity, stakes and fees can be set to be fully distributed when a staker withdraws. *
 
 ![]()
