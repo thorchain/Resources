@@ -20,7 +20,7 @@ Tokens on one side of the pool are bound to the tokens on the other. We can now 
 | `K `       | Constant                                      |          |                |
 
 
-
+**Equations:**
 
 ![X * Y = K](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20X%20*%20Y%20%3D%20K)
 
@@ -36,7 +36,7 @@ We can now determine the expected slip trade and the pool, based only on the inp
 | `P0`       | Starting Price | `outputSlip` | Slip of the output compared to input         |
 | `P1`       | Final Price    | `poolSlip`   | Slip of the pool after the output is removed |
 
-
+**Equations:**
 
 ![P_0 = \frac{X}{Y}, P_1 = \frac{X+x}{Y-y}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_0%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_1%20%3D%20%5Cfrac%7BX&plus;x%7D%7BY-y%7D)
 
@@ -58,7 +58,7 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 |`tradeSlip`  | The slip of price between input and emission |
 | `poolSlip`   | The slip of price in the pool after the swap |
 
-
+**Equations:**
 
 ![liqFee = tradeSlip*tokensOutputted](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20tradeSlip*tokensOutputted)
 
@@ -87,6 +87,9 @@ We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1.
 | `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of  Rune         |
 | `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Token1        |
 
+**Equations:**
+
+
 ![tokensOutputted = \frac{xY}{x + X}, outputSlip = \frac{x}{x+X}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensOutputted%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%2C%20outputSlip%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D)
 
 ![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
@@ -106,6 +109,9 @@ We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to 
 | `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune        |
 | `R`        | Balance of TKN1 in the input side of the pool  |         |           |
 | `Z`        | Balance of Rune in the output side of the pool | `z`        | Output of Token2       |
+
+**Equations:**
+
 
 ![tradeSlip_1 = \frac{x (2X + x)}{(x + X)^2}, liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip_1%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
@@ -141,7 +147,7 @@ Stakers stake assets to earn a share of the pool. Stake average is the average o
 | `RUNEFeesX`  | Share of the RUNE fees for staker X | `TKNFeesX`    | Share of the TKN fees for staker X  |
 | `RUNEStakeX` | Share of the RUNE fees for staker X | `TKNStakeX`   | Share of the TKN fees for staker X  |
 
-
+**Equations:**
 
 ![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
 
@@ -169,4 +175,30 @@ Thus when a user X withdraws either the fees or their share of the pool, the fol
 
 *For simplicity, stakes and fees can be set to be fully distributed when a staker withdraws. *
 
-![]()
+
+## Tracking Pool Metrics
+
+The balance of every pool is the sum of all stakes and inputs, minus all emissions, on both sides. Fees are intrinsic to the pool until they are withdrawn by the stakers. 
+
+![RUNE_{pool1} = \sum\limits_{i=0}^n  stake_{i} + \sum\limits_{i=0}^n  inputs_{i} - \sum\limits_{i=0}^n  emissions_{i} - \sum\limits_{i=0}^n  feeWithdrawals_{i} - \sum\limits_{i=0}^n  stakeWithdrawals_{i}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNE_%7Bpool1%7D%20%3D%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20stake_%7Bi%7D%20&plus;%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20inputs_%7Bi%7D%20-%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20emissions_%7Bi%7D%20-%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20feeWithdrawals_%7Bi%7D%20-%20%5Csum%5Climits_%7Bi%3D0%7D%5En%20stakeWithdrawals_%7Bi%7D)
+
+Thus when a trade across a pool occurs (RUNE -> TKN1), RUNE and TKN1 balances are changed atomically:
+
+![RUNE_{pool1_{1}} = RUNE_{pool1_{0}} + x](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNE_%7Bpool1_%7B1%7D%7D%20%3D%20RUNE_%7Bpool1_%7B0%7D%7D%20&plus;%20x)
+
+![TKN_{pool1_{1}} = TKN_{pool1_{0}} - y](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool1_%7B1%7D%7D%20%3D%20TKN_%7Bpool1_%7B0%7D%7D%20-%20y)
+
+Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
+
+
+![TKN_{pool1_{1}} = TKN_{pool1_{0}} + x](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool1_%7B1%7D%7D%20%3D%20TKN_%7Bpool1_%7B0%7D%7D%20&plus;%20x)
+
+![RUNE_{pool1_{1}} = RUNE_{pool1_{0}} - y](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNE_%7Bpool1_%7B1%7D%7D%20%3D%20RUNE_%7Bpool1_%7B0%7D%7D%20-%20y)
+
+![RUNE_{pool2_{1}} = RUNE_{pool2_{0}} + y](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNE_%7Bpool2_%7B1%7D%7D%20%3D%20RUNE_%7Bpool2_%7B0%7D%7D%20&plus;%20y)
+
+![TKN_{pool2_{1}} = TKN_{pool2_{0}} - z](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool2_%7B1%7D%7D%20%3D%20TKN_%7Bpool2_%7B0%7D%7D%20-%20z)
+
+
+
+
