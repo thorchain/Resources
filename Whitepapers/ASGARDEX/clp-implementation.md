@@ -200,7 +200,7 @@ Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
 
 ## Arbitrage
 
-Arbitrage is important to restore pool prices to the fair market price. To solve for the arbitrage amount, the fair market price must equal the final pool price after the trade:
+Arbitrage is important to restore pool prices to the fair market price. To solve for the arbitrage amount, the fair market price `P_M` must equal the final pool price `P_1` after the trade:
 
 ![P_M = P_1 = \frac{X_1}{Y_1}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_M%20%3D%20P_1%20%3D%20%5Cfrac%7BX_1%7D%7BY_1%7D)
 
