@@ -42,11 +42,15 @@ We can now determine the expected slip trade and the pool, based only on the inp
 
 ### Liquidity Fee
 
-Stakers stake symmetrically and earn liquidity fees, which is proportional to slip. Slip is proportional to trade size and liquidity depth. Thus staking is incentivised in pools with out-sized trades. 
+Stakers stake symmetrically and earn liquidity fees, which is proportional to slip. Slip is proportional to trade size and liquidity depth. Thus staking is incentivised in pools with out-sized trades. Instead of immediately emitting the bonded tokens, we calculate an appropriate fee, then emit tokens after the fee is removed. 
+
+`liqFee = tradeSlip*tokensOutputted`
 
 ![liqFee = \frac{x}{x+X}*\frac{xY}{x + X} = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B120%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D*%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
-![]()
+`tokensEmitted = tokensOutputted - liqFee`
+
+![tokensEmitted = \frac{x Y}{x + X}  - \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%7D%7Bx%20&plus;%20X%7D%20-%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
 ![]()
 
