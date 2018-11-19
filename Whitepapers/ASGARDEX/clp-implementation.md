@@ -228,8 +228,6 @@ A significantly easier solution is to attempt to slip the price in the opposite 
 
 This solution results in a final price within 1% of the desired price, with premiums less than 20%. 
 
-Arbitraging in this exact amount will remove the premium.
-
 ## Summary of Equations
 
 ### Onchain Equations:
@@ -256,6 +254,7 @@ Calculation of the final tokens to received in a double pool trade:
 #### Staking
 
 The stake from the staker is averaged and saved on-chain:
+
 ![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
 
 ![poolStake_{Xi} = stakeAve_{Xi} * (T+stake_T)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BXi%7D%20%3D%20stakeAve_%7BXi%7D%20*%20%28T&plus;stake_T%29)
@@ -263,15 +262,18 @@ The stake from the staker is averaged and saved on-chain:
 #### Withdrawing Fees and Stake
 
 The proportion of fees and stake entitled to the staker is given by:
+
 ![poolShare_{X} = \frac{poolStake_{X}}{pool_{total}}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolShare_%7BX%7D%20%3D%20%5Cfrac%7BpoolStake_%7BX%7D%7D%7Bpool_%7Btotal%7D%7D)
 
 ### Offchain Equations:
 The following equations can be calculated off-chain (client-side) to allow the user to comprehend the pools and information whilst trading.
 
 Trade slip for a single pool trade:
+
 ![tradeSlip = \frac{x (2X + x)}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 Trade slip for a double pool trade:
+
 ![tradeSlip = 1 - \frac{R^2 X^2(x + X)^2}{(R (x + X)^2 + x X Y)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%201%20-%20%5Cfrac%7BR%5E2%20X%5E2%28x%20&plus;%20X%29%5E2%7D%7B%28R%20%28x%20&plus;%20X%29%5E2%20&plus;%20x%20X%20Y%29%5E2%7D)
 
 ## Conclusion
