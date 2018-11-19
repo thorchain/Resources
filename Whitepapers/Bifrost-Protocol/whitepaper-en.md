@@ -306,6 +306,10 @@ An alternative method to linking a UTXO-based blockchain transaction to a THORCh
 4) Any incoming transactions to the multi-signature will created minted coins on the user's address. This link can never be broken and is not suitable to be used as a public bridge.
 
 Useful links:
+
+[Cosmic Bridge](https://github.com/CosmicBridge/server/blob/master/README.md)
+[Cosmic Ray](https://docs.google.com/presentation/d/1-8MP2yRhTy7D1YDUiauJoJ1g_ppXQbRpk0YTQ0ZFEzw/edit#slide=id.g365dfefbd4_0_124)
+
 [Bitcoin Multi-sigs](https://en.bitcoin.it/wiki/Multisignature)
 
 [Bitcoin RPC](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC))
