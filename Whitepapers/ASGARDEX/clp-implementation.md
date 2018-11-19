@@ -242,9 +242,11 @@ The following equations are on-chain (they are processed at the protocol level).
 #### Single Pool Trade
 
 Caculation of the liquidity fee incurred in a trade:
+
 ![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
 Calculation of the final tokens to received in a single pool trade:
+
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 #### Double Pool Trade
@@ -252,9 +254,11 @@ Calculation of the final tokens to received in a single pool trade:
 As above for single pool trade, and:
 
 Calculation of the intermediate liquidity fee incurred in a trade:
+
 ![liqFee_2 = \frac{y^2Z}{(y+R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee_2%20%3D%20%5Cfrac%7By%5E2Z%7D%7B%28y&plus;R%29%5E2%7D)
 
 Calculation of the final tokens to received in a double pool trade:
+
 ![tokensEmitted =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
 
 #### Staking
