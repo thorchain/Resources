@@ -13,10 +13,6 @@ V0.1 September 2018
 
 Tokens on one side of the pool are bound to the tokens on the other. We can now determine the output given an input and pool depth.
 
-![X * Y = K](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20X%20*%20Y%20%3D%20K)
-
-![\frac{y}{Y} = \frac{x}{x + X} \rightarrow y = \frac{xY}{x + X}  ](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20%5Cfrac%7By%7D%7BY%7D%20%3D%20%5Cfrac%7Bx%7D%7Bx%20&plus;%20X%7D%20%5Crightarrow%20y%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D)
-
 | **Unit** | **Definition**                                | **Unit** | **Definition** |
 |----------|-----------------------------------------------|----------|----------------|
 | `X`        | Balance of TKN in the input side of the pool  | `x`        | Input          |
@@ -24,8 +20,23 @@ Tokens on one side of the pool are bound to the tokens on the other. We can now 
 | `K `       | Constant                                      |          |                |
 
 
+
+
+![X * Y = K](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20X%20*%20Y%20%3D%20K)
+
+![\frac{y}{Y} = \frac{x}{x + X} \rightarrow y = \frac{xY}{x + X}  ](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20%5Cfrac%7By%7D%7BY%7D%20%3D%20%5Cfrac%7Bx%7D%7Bx%20&plus;%20X%7D%20%5Crightarrow%20y%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D)
+
+
+
 ## Prices and Slip
 We can now determine the expected slip trade and the pool, based only on the input and the depth of the input side of the pool.
+
+| **Unit** | **Definition** | **Unit**   | **Definition**                               |
+|----------|----------------|------------|----------------------------------------------|
+| `P0`       | Starting Price | `outputSlip` | Slip of the output compared to input         |
+| `P1`       | Final Price    | `poolSlip`   | Slip of the pool after the output is removed |
+
+
 
 ![P_0 = \frac{X}{Y}, P_1 = \frac{X+x}{Y-y}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_0%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_1%20%3D%20%5Cfrac%7BX&plus;x%7D%7BY-y%7D)
 
@@ -34,15 +45,20 @@ We can now determine the expected slip trade and the pool, based only on the inp
 ![poolSlip = \frac{P_1 - P_0}{P_0} = \frac{xY + Xy}{XY - Xy} = \frac{x (2X + x)}{X^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolSlip%20%3D%20%5Cfrac%7BP_1%20-%20P_0%7D%7BP_0%7D%20%3D%20%5Cfrac%7BxY%20&plus;%20Xy%7D%7BXY%20-%20Xy%7D%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7BX%5E2%7D)
 
 
-| **Unit** | **Definition** | **Unit**   | **Definition**                               |
-|----------|----------------|------------|----------------------------------------------|
-| `P0`       | Starting Price | `outputSlip` | Slip of the output compared to input         |
-| `P1`       | Final Price    | `poolSlip`   | Slip of the pool after the output is removed |
-
 
 ## Liquidity Fee
 
 Stakers stake symmetrically and earn liquidity fees, which is proportional to slip. Slip is proportional to trade size and liquidity depth. Thus staking is incentivised in pools with out-sized trades. Instead of immediately emitting the bonded tokens, we calculate an appropriate fee, then emit tokens after the fee is removed. 
+
+| **Unit**          | **Definition**                                               |
+|-------------------|--------------------------------------------------------------|
+| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. |
+| `tokensEmitted `    | Tokens emitted from the pool after the fee is applied.       | 
+| `outputSlip` | The slip of price between input and output   |
+|`tradeSlip`  | The slip of price between input and emission |
+| `poolSlip`   | The slip of price in the pool after the swap |
+
+
 
 ![liqFee = tradeSlip*tokensOutputted](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20tradeSlip*tokensOutputted)
 
@@ -55,14 +71,6 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 ![tradeSlip = \frac{xY/X - tokensEmitted}{xY/X}  = \frac{x (2 X + x)}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7BxY/X%20-%20tokensEmitted%7D%7BxY/X%7D%20%3D%20%5Cfrac%7Bx%20%282%20X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
-
-| **Unit**          | **Definition**                                               |
-|-------------------|--------------------------------------------------------------|
-| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. |
-| `tokensEmitted `    | Tokens emitted from the pool after the fee is applied.       | 
-| `outputSlip` | The slip of price between input and output   |
-|`tradeSlip`  | The slip of price between input and emission |
-| `poolSlip`   | The slip of price in the pool after the swap |
 
 Thus the final price that the user receives, as well as the final price of the pool, are:
 
@@ -133,6 +141,8 @@ Stakers stake assets to earn a share of the pool. Stake average is the average o
 | `poolShareX` | Share of the pool for staker X      |             |                                     |
 | `RUNEFeesX`  | Share of the RUNE fees for staker X | `TKNFeesX`    | Share of the TKN fees for staker X  |
 | `RUNEStakeX` | Share of the RUNE fees for staker X | `TKNStakeX`   | Share of the TKN fees for staker X  |
+
+
 
 ![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
 
