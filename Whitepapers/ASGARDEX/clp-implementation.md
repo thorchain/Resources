@@ -62,7 +62,7 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 
 ![liqFee = tradeSlip*tokensOutputted](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20tradeSlip*tokensOutputted)
 
-![liqFee = \frac{x}{x+X}*\frac{xY}{x + X} = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B120%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D*%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
+![liqFee = \frac{x}{x+X}*\frac{xY}{x + X} = \frac{x^2Y}{(x+X)^2} ](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D*%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
 ![tokensEmitted = tokensOutputted - liqFee](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20tokensOutputted%20-%20liqFee)
 
@@ -153,7 +153,7 @@ Stakers stake assets to earn a share of the pool. Stake average is the average o
 
 ![poolStake_{Xi} = stakeAve_{Xi} * (T+stake_T)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BXi%7D%20%3D%20stakeAve_%7BXi%7D%20*%20%28T&plus;stake_T%29)
 
-Users can only withdraw their stake partially or fully, or add more. This is tracked as the same all all stakes for that user:
+Users can only withdraw their stake partially or fully, or add more. This is tracked as the same as all stakes for that user:
 
 ![poolStake_{X} = [poolStake_{X0} + poolStake_{X1} + ... n]](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BX%7D%20%3D%20%5BpoolStake_%7BX0%7D%20&plus;%20poolStake_%7BX1%7D%20&plus;%20...%20n%5D)
 
@@ -169,9 +169,9 @@ Thus when a user X withdraws either the fees or their share of the pool, the fol
 
 ![RUNEFees_{X} = poolShare_{X} * poolFees_{RUNE}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNEFees_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20poolFees_%7BRUNE%7D)
 
-![TKNStake_{X} = poolShare_{X} * bal_{TKN}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKNStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20bal_%7BTKN%7D)
+![TKNStake_{X} = poolShare_{X} * T](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKNStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20T)
 
-![RUNEStake_{X} = poolShare_{X} * bal_{RUNE}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNEStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20bal_%7BRUNE%7D)
+![RUNEStake_{X} = poolShare_{X} * R](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNEStake_%7BX%7D%20%3D%20poolShare_%7BX%7D%20*%20R)
 
 *For simplicity, stakes and fees can be set to be fully distributed when a staker withdraws. *
 
@@ -204,5 +204,16 @@ Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
 
 The following equations are on-chain (they are processed at the protocol level).
 
+### Single Pool Trade
 
+![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
+![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+### Double Pool Trade
+
+As above 
+
+![tokensEmitted =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
+
+![]()
