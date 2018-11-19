@@ -52,6 +52,28 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 
 ![tokensEmitted = \frac{x Y}{x + X}  - \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%7D%7Bx%20&plus;%20X%7D%20-%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
+![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+![tradeSlip = \frac{xY/X - tokensEmitted}{xY/X}  = \frac{x (2 X + x)}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7BxY/X%20-%20tokensEmitted%7D%7BxY/X%7D%20%3D%20%5Cfrac%7Bx%20%282%20X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+| **Unit**          | **Definition**                                               | **Unit**   | **Definition**                               |
+|-------------------|--------------------------------------------------------------|------------|----------------------------------------------|
+| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. | outputSlip | The slip of price between input and output   |
+| tokensEmitted     | Tokens emitted from the pool after the fee is applied.       | tradeSlip  | The slip of price between input and emission |
+|                   |                                                              | poolSlip   | The slip of price in the pool after the swap |
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
 ![]()
 
 ![]()
