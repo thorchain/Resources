@@ -19,9 +19,9 @@ Tokens on one side of the pool are bound to the tokens on the other. We can now 
 
 | **Unit** | **Definition**                                | **Unit** | **Definition** |
 |----------|-----------------------------------------------|----------|----------------|
-| X        | Balance of TKN in the input side of the pool  | x        | Input          |
-| Y        | Balance of TKN in the output side of the pool | y        | Output         |
-| K        | Constant                                      |          |                |
+| `X`        | Balance of TKN in the input side of the pool  | `x`        | Input          |
+| `Y`        | Balance of TKN in the output side of the pool | `y`        | Output         |
+| `K `       | Constant                                      |          |                |
 
 
 ### Prices and Slip
@@ -36,8 +36,8 @@ We can now determine the expected slip trade and the pool, based only on the inp
 
 | **Unit** | **Definition** | **Unit**   | **Definition**                               |
 |----------|----------------|------------|----------------------------------------------|
-| P0       | Starting Price | outputSlip | Slip of the output compared to input         |
-| P1       | Final Price    | poolSlip   | Slip of the pool after the output is removed |
+| `P0`       | Starting Price | `outputSlip` | Slip of the output compared to input         |
+| `P1`       | Final Price    | `poolSlip`   | Slip of the pool after the output is removed |
 
 
 ### Liquidity Fee
