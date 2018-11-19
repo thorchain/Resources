@@ -58,21 +58,53 @@ Stakers stake symmetrically and earn liquidity fees, which is proportional to sl
 
 | **Unit**          | **Definition**                                               | **Unit**   | **Definition**                               |
 |-------------------|--------------------------------------------------------------|------------|----------------------------------------------|
-| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. | outputSlip | The slip of price between input and output   |
-| tokensEmitted     | Tokens emitted from the pool after the fee is applied.       | tradeSlip  | The slip of price between input and emission |
-|                   |                                                              | poolSlip   | The slip of price in the pool after the swap |
+| `tokensOutputted` | Tokens outputted from the formula before the fee is applied. | `outputSlip` | The slip of price between input and output   |
+| `tokensEmitted `    | Tokens emitted from the pool after the fee is applied.       | `tradeSlip`  | The slip of price between input and emission |
+|                   |                                                              | `poolSlip`   | The slip of price in the pool after the swap |
 
-![]()
 
-![]()
 
-![]()
 
-![]()
+![Price_{user} = Price_{0} * (1 - tradeSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Buser%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20tradeSlip%29)
 
-![]()
+![Price_{pool} = Price_{0} * (1 - poolSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Bpool%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20poolSlip%29)
 
-![]()
+
+### Atomic Swap Calculations
+
+We have a single pool, TKN1, paired to Rune.  We wish to swap TKN1 to Rune. 
+
+| **Unit** | **Definition**                                | **Unit** | **Definition** |
+|----------|-----------------------------------------------|----------|----------------|
+| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of Token1          |
+| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune        |
+
+![tokensOutputted = \frac{xY}{x + X}, outputSlip = \frac{x}{x+X}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensOutputted%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%2C%20outputSlip%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D)
+
+![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
+
+![tradeSlip = \frac{x (2X + x)}{(x + X)^2}, poolSlip = \frac{x (2X + x)}{X^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20poolSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7BX%5E2%7D)
+
+![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ![]()
 
