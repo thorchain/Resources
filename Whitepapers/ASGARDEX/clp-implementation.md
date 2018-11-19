@@ -9,7 +9,7 @@ V0.1 September 2018
 >THORChain uses continuous liquidity pools to allow on-chain conversions of tokens into and out of Rune and a mathematical price. The continuous liquidity pools are permissionless; anyone can add or remove liquidity and anyone can use the pools to convert between assets. The pools rely on permissionless arbitrage to ensure correct market pricing of assets at any time. 
 
 
-### Theory
+## Bonding Theory
 
 Tokens on one side of the pool are bound to the tokens on the other. We can now determine the output given an input and pool depth.
 
@@ -24,7 +24,7 @@ Tokens on one side of the pool are bound to the tokens on the other. We can now 
 | `K `       | Constant                                      |          |                |
 
 
-### Prices and Slip
+## Prices and Slip
 We can now determine the expected slip trade and the pool, based only on the input and the depth of the input side of the pool.
 
 ![P_0 = \frac{X}{Y}, P_1 = \frac{X+x}{Y-y}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_0%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_1%20%3D%20%5Cfrac%7BX&plus;x%7D%7BY-y%7D)
@@ -40,7 +40,7 @@ We can now determine the expected slip trade and the pool, based only on the inp
 | `P1`       | Final Price    | `poolSlip`   | Slip of the pool after the output is removed |
 
 
-### Liquidity Fee
+## Liquidity Fee
 
 Stakers stake symmetrically and earn liquidity fees, which is proportional to slip. Slip is proportional to trade size and liquidity depth. Thus staking is incentivised in pools with out-sized trades. Instead of immediately emitting the bonded tokens, we calculate an appropriate fee, then emit tokens after the fee is removed. 
 
@@ -71,7 +71,7 @@ Thus the final price that the user receives, as well as the final price of the p
 ![Price_{pool} = Price_{0} * (1 - poolSlip)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20Price_%7Bpool%7D%20%3D%20Price_%7B0%7D%20*%20%281%20-%20poolSlip%29)
 
 
-### Atomic trade of a single pool
+## Atomic trade of a single pool
 
 We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1. 
 
@@ -88,7 +88,8 @@ We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1.
 
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
-### Atomic trades over two pools 
+
+## Atomic trades over two pools 
 
 We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to TKN2.  
 
@@ -117,7 +118,8 @@ Using just the pool depths, and the input, we can calculate the final output and
 
 ![finalSlip = \frac{x/P_0 - z}{x/P_0}  = \frac{\frac{xYZ}{XR}-z}{\frac{xYZ}{XR}} = 1 - \frac{R^2 X^2(x + X)^2}{(R (x + X)^2 + x X Y)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20finalSlip%20%3D%20%5Cfrac%7Bx/P_0%20-%20z%7D%7Bx/P_0%7D%20%3D%20%5Cfrac%7B%5Cfrac%7BxYZ%7D%7BXR%7D-z%7D%7B%5Cfrac%7BxYZ%7D%7BXR%7D%7D%20%3D%201%20-%20%5Cfrac%7BR%5E2%20X%5E2%28x%20&plus;%20X%29%5E2%7D%7B%28R%20%28x%20&plus;%20X%29%5E2%20&plus;%20x%20X%20Y%29%5E2%7D)
 
-### Pool Staking
+
+## Pool Staking
 
 Stakers stake assets to earn a share of the pool. Stake average is the average of their two stakes (of CAN and TKN) at the time they staked.
 
