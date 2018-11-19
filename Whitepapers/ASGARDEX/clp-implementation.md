@@ -190,7 +190,6 @@ Thus when a trade across a pool occurs (RUNE -> TKN1), RUNE and TKN1 balances ar
 
 Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
 
-
 ![TKN_{pool1_{1}} = TKN_{pool1_{0}} + x](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool1_%7B1%7D%7D%20%3D%20TKN_%7Bpool1_%7B0%7D%7D%20&plus;%20x)
 
 ![RUNE_{pool1_{1}} = RUNE_{pool1_{0}} - y](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20RUNE_%7Bpool1_%7B1%7D%7D%20%3D%20RUNE_%7Bpool1_%7B0%7D%7D%20-%20y)
@@ -199,21 +198,82 @@ Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
 
 ![TKN_{pool2_{1}} = TKN_{pool2_{0}} - z](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool2_%7B1%7D%7D%20%3D%20TKN_%7Bpool2_%7B0%7D%7D%20-%20z)
 
+## Arbitrage
 
-## Summary
+Arbitrage is important to restore pool prices to the fair market price. To solve for the arbitrage amount, the fair market price must equal the final pool price after the trade:
 
+![P_M = P_1 = \frac{X_1}{Y_1}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_M%20%3D%20P_1%20%3D%20%5Cfrac%7BX_1%7D%7BY_1%7D)
+
+![X_1 = X_0 + x, Y_1 = Y_0 - y](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20X_1%20%3D%20X_0%20&plus;%20x%2C%20Y_1%20%3D%20Y_0%20-%20y)
+
+![P_M = \frac{X_0+x}{Y_0-y}, y = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_M%20%3D%20%5Cfrac%7BX_0&plus;x%7D%7BY_0-y%7D%2C%20y%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+![1 - \frac{X+x}{P_M*Y-\frac{x Y X*P_M}{(x + X)^2}} = 0](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%201%20-%20%5Cfrac%7BX&plus;x%7D%7BP_M*Y-%5Cfrac%7Bx%20Y%20X*P_M%7D%7B%28x%20&plus;%20X%29%5E2%7D%7D%20%3D%200)
+
+The real root of `x` is:
+
+```
+x = -(-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3 + sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4 + 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3 + 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4) - 24 P X^2 Y + 3 P X Y^2 - 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)/(3 2^(1/3)) + (2^(1/3) (-3 (P X Y - X^2 - 2 X Y) - (P Y - 2 X - Y)^2))/(3 (-2 P^3 Y^3 + 3 P^2 X Y^2 + 6 P^2 Y^3 + sqrt(81 P^4 X^2 Y^4 - 108 P^3 X^3 Y^3 - 270 P^3 X^2 Y^4 + 540 P^2 X^4 Y^2 - 108 P^2 X^3 Y^3 + 297 P^2 X^2 Y^4 + 108 P X^5 Y - 324 P X^4 Y^2 + 324 P X^3 Y^3 - 108 P X^2 Y^4) - 24 P X^2 Y + 3 P X Y^2 - 6 P Y^3 - 2 X^3 + 6 X^2 Y - 6 X Y^2 + 2 Y^3)^(1/3)) + 1/3 (P Y - 2 X - Y);
+```
+
+This is a significantly complex solution, which means arbitrage will only be an approximate science in practise.
+
+A significantly easier solution is to attempt to slip the price in the opposite direction but same amount as the premium, using the trade slip, instead of the pool slip. 
+
+![P_M = \frac{X_0+x}{Y_0-y}, y = \frac{xY_0}{x + X_0} ](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_M%20%3D%20%5Cfrac%7BX_0&plus;x%7D%7BY_0-y%7D%2C%20y%20%3D%20%5Cfrac%7BxY_0%7D%7Bx%20&plus;%20X_0%7D)
+
+![\frac{X_0+x}{Y_0*P_M-\frac{xY_0*P_M}{x + X_0} }](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20%5Cfrac%7BX_0&plus;x%7D%7BY_0*P_M-%5Cfrac%7BxY_0*P_M%7D%7Bx%20&plus;%20X_0%7D%20%7D)
+
+![x = \sqrt{X} (\sqrt{P} \sqrt{Y} + \sqrt{X})](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20x%20%3D%20%5Csqrt%7BX%7D%20%28%5Csqrt%7BP%7D%20%5Csqrt%7BY%7D%20&plus;%20%5Csqrt%7BX%7D%29)
+
+This solution results in a final price within 1% of the desired price, with premiums less than 20%. 
+
+Arbitraging in this exact amount will remove the premium.
+
+## Summary of Equations
+
+### Onchain Equations:
 The following equations are on-chain (they are processed at the protocol level).
 
-### Single Pool Trade
+#### Single Pool Trade
 
+Caculation of the liquidity fee incurred in a trade:
 ![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
+Calculation of the final tokens to received in a single pool trade:
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
-### Double Pool Trade
+#### Double Pool Trade
 
-As above 
+As above for single pool trade, and:
 
+Calculation of the intermediate liquidity fee incurred in a trade:
+![liqFee_2 = \frac{y^2Z}{(y+R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee_2%20%3D%20%5Cfrac%7By%5E2Z%7D%7B%28y&plus;R%29%5E2%7D)
+
+Calculation of the final tokens to received in a double pool trade:
 ![tokensEmitted =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
 
-![]()
+#### Staking
+
+The stake from the staker is averaged and saved on-chain:
+![stakeAve_{Xi} = (\frac{stake_{R}}{R + stake_R} + \frac{stake_{T}}{T+stake_T} ) * \frac{1}{2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20stakeAve_%7BXi%7D%20%3D%20%28%5Cfrac%7Bstake_%7BR%7D%7D%7BR%20&plus;%20stake_R%7D%20&plus;%20%5Cfrac%7Bstake_%7BT%7D%7D%7BT&plus;stake_T%7D%20%29%20*%20%5Cfrac%7B1%7D%7B2%7D)
+
+![poolStake_{Xi} = stakeAve_{Xi} * (T+stake_T)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolStake_%7BXi%7D%20%3D%20stakeAve_%7BXi%7D%20*%20%28T&plus;stake_T%29)
+
+#### Withdrawing Fees and Stake
+
+The proportion of fees and stake entitled to the staker is given by:
+![poolShare_{X} = \frac{poolStake_{X}}{pool_{total}}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolShare_%7BX%7D%20%3D%20%5Cfrac%7BpoolStake_%7BX%7D%7D%7Bpool_%7Btotal%7D%7D)
+
+### Offchain Equations:
+The following equations can be calculated off-chain (client-side) to allow the user to comprehend the pools and information whilst trading.
+
+Trade slip for a single pool trade:
+![tradeSlip = \frac{x (2X + x)}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+Trade slip for a double pool trade:
+![tradeSlip = 1 - \frac{R^2 X^2(x + X)^2}{(R (x + X)^2 + x X Y)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%201%20-%20%5Cfrac%7BR%5E2%20X%5E2%28x%20&plus;%20X%29%5E2%7D%7B%28R%20%28x%20&plus;%20X%29%5E2%20&plus;%20x%20X%20Y%29%5E2%7D)
+
+## Conclusion
+
+The implementation specification for THORChain's CLPs is described. 
