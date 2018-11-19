@@ -200,5 +200,9 @@ Across two pools, (TKN1 -> TKN2 via RUNE), all balances are changed atomically:
 ![TKN_{pool2_{1}} = TKN_{pool2_{0}} - z](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20TKN_%7Bpool2_%7B1%7D%7D%20%3D%20TKN_%7Bpool2_%7B0%7D%7D%20-%20z)
 
 
+## Summary
+
+The following equations are on-chain (they are processed at the protocol level).
+
 
 
