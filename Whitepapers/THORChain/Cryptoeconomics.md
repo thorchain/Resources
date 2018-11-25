@@ -16,15 +16,6 @@ A lightning fast decentralised exchange protocol.
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol)
 Secure and fast cross-chain bridges for THORChain.
 
-
-
-[Overview](#overview)
-[Rune Staking](#Rune Staking)
-[Real-world analysis](#real-world analysis)
-[Rune Analysis](#Rune Analysis)
-[Rune Token](#Rune Token)
-[Summary](#summary)	
-
 ## Overview
 
 The function of the Rune token and its staking mechanisms are first described. Using real-world data from other staking coins, meaningful assumptions are then made about how the Rune token will be used in the network. Various scenarios are then explored in order to discover the potential equilibrium states that the network may converge to.
