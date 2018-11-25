@@ -56,7 +56,7 @@ In THORChain there will be four ultimate use-cases for the Rune token.
 3. Rune is staked in liquidity pools to earn on liquidity fees.
 4. Rune is not circulating at all.  
 
-![]()
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure1.png)
 
 The incentives to bond tokens with Validators are to earn block rewards that will be emitted as part of the token’s inflation schedule, as well as any transaction fees collected (including trading and exit fees). The incentives to stake Rune in liquidity pools are to earn on liquidity fees, which are proportional to volume across pools, transaction sizes and existing liquidity depth. 
 
@@ -68,13 +68,15 @@ Since the value of the Rune in the liquidity pools must equal the value of the a
 
 We look at the typical staked portion of assets from 15 known large-cap PoS coins, sorted by proportion locked. 
 
-![]()
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure2.png)
 
 The average proportion of staked assets is in the 30-60% regime, with average being 46% staked with an inflation of 30% and an ROI for nodes at 32% annual. It is noted that these coins are not true proof-of-stake networks since most have components of the block reward being issued to proof-of-work mining or governance/founder allocations. If 100% of the block reward was issued to validators then the ROI would be roughly double (or the annual inflation would have to halve). 
 
 Interestingly, only ZCoin and GinCoin achieved optimal Byzantine security of greater than 67%. It is known that ZCoin has high founder participation in node staking, whilst GinCoin has the highest inflation of all sampled coins at 126%. 
   
 The five coins with low inflation schedules (less than 10%) did not in particular seem to be representative of low on-chain participation. 
+
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure3.png)
 
 Charting the proportion locked with both inflation and node ROI we notice that there seems to be little correlation between the proportion of assets locked and inflation schedules below 20%. Above 20% there may be a small amount of correlation between increasing inflation schedules and increasing proportion of assets locked.
 
@@ -88,22 +90,15 @@ It would be reasonable to assume that by adding permissionless and clear incenti
 
 Of all distributions involving permissionless assets there is a portion that does not participate in any form of the economy. For Bitcoin this is estimated to be close to 25% of the circulating supply of which at least 6% (1.1m) are coins attributed to Satoshi’s wallets and may never move. Thus we can assume that 5-10% of coins of any distribution are removed from supply from loss or simple stagnating possession. 
 
-
-
-
 ## Rune Analysis
 
 Thus we can now make assumptions about how Rune will be positioned in the THORChain network using the analysis above. 
 
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure4.png)
 
 If it is considered that the proportion staked achieves roughly the average of 50%, then the remaining 50% will be in pools, freely circulating, or not circulating at all. Taking the number of validators to be 100, we can peg that the average bond size will be 5m Rune. 
 
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure5.png)
 
 If liquidity staking unlocks latent liquidity that would not normally be utilised, and follows the same pattern of behaviour of validator staking then half of the remaining liquidity would be in the pools. If 10% of the supply is removed from circulation then this would leave 15% to be freely circulating. 
 
@@ -119,16 +114,13 @@ Since the protocol is aware of the prices of all bridged assets as a virtue of i
 
 We take three pools (Bitcoin, Ethereum, Monero) of roughly 500m in Rune value across them. We assume the signature requirements of all bridges are 10 / N, with more than N validators available in each bridge chain’s quorum. 
 
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure6.png)
 
 We can determine each bridge’s safety factor by dividing the total value of stake held by bridge nodes with the value of assets on the bridge. Anything higher than 1 is safe, with 2 being the ideal target. 
 
 If we assume that 50% of these assets are staked into liquidity pools, then we can describe the coupling between total bridge assets, the value of all Rune bonded to validators and then finally the maximum permissible value of individual bridges based on signature requirements and the safety factor.
 
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure7.png)
 
 This model does not take into account any speculative or intangible value attributed to the Rune token. Instead it only attempts to base the Rune value with the value of assets staked in its pools. Assigning any speculative Rune value would only serve to increase favourably the metrics above. 
 
@@ -138,22 +130,17 @@ Since the incentives for staking arise from economic activity, we attempt to for
 
 From real world analysis of liquidity networks and decentralised exchanges we determine the following numbers:
 
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure8.png)
 
+Thus we arrive at the conclusion that 10% of Rune’s total supply will be circulating as daily trade volume, with total transaction numbers comparable to an exchange with network value around $10m.  We can deduce the daily earnings from the liquidity fee formula.
 
-
-
-Thus we arrive at the conclusion that 10% of Rune’s total supply will be circulating as daily trade volume, with total transaction numbers comparable to an exchange with network value around $10m.  We can deduce the daily earnings from the liquidity fee formula:
-
-
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure9.png)
 
 Thus to target a range of 20-25% of all supply held in liquidity pools, the Rune’s inflation schedule should give a ROI to bonders of more than 3%. If ROI is higher in the pools then there will be movement from bonding to the pools, and vice versa. 
 
 ## Network Attack Vectors
 
-For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply (50% * 1.5 / 3 ) - 250m Rune.
+For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply `50% * 1.5 / 3 ) - 250m` Rune.
 
 They have two options: buy discretely from the freely circulating supply, or buy publicly off the pools. 
 
@@ -167,11 +154,7 @@ Thus the attacker would need to accumulate another 200m Rune from the pools.
 
 Since the pools are located on the THORChain network, the attacker would first need to move over an equivalent value in assets to purchase 200m Rune from the pools. The activity in the pools is mathematically governed, so we can estimate ahead of time the outcome of purchasing 200m Rune off the pools using the output equation.
 
-
-
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure10.png)
 
 To remove 200m Rune from the pools, the attacker would need to place in 4 times the amount of paired assets. Since the pools are coupled mathematically, the price action on the asset would cause the value of Rune to increase by 25 times.
 
@@ -191,27 +174,21 @@ Since bridge assets are cycled regularly, a network fee is charged to bridge ass
 
 Thus exit fees are twice the sum of:
 
-External mining fee (used to pay external network fees)
-Bridge deficit (used to restore 100% fungibility of bridge assets)
+1. External mining fee (used to pay external network fees)
+2. Bridge deficit (used to restore 100% fungibility of bridge assets)
 
 Half of the exit fee remains in the bridge asset pool to cover the mining fee and bridge deficit, whilst the other half is paid to all the validators that are part of the bridge quorum at the time of exit. Thus if a bridge has high economic activity, then exit fees will attract a growing number of opt-in validators who run full-nodes and join bridge quorum. 
 
 Thus there are two ways to attack a bridge:
 
-Manipulate the on-chain value of the bridge asset down and steal low-valued assets
-Steal assets from a bridge with low signature requirements
+1. Manipulate the on-chain value of the bridge asset down and steal low-valued assets
+2. Steal assets from a bridge with low signature requirements
 
 ### Manipulating On-chain Asset Value
 
 In the first case, a group of complicit validators manipulate the price of an asset down by continually selling it across its pool. If the value of the asset in two separate bridges approaches a safety factor of 4 (based on its on-chain value) then two bridges are consolidated into one. This means that the *actual* value of the asset now equals the value of the stake used to secure it. If the complicit validators once again manipulate the asset down by another factor of 2, then bridges are once again consolidated. At this point the *actual* value of the asset is twice as valuable as the value of the stake used to secure it, and the complicit validators can now steal it. They will lose their stake, but they will exit with a net gain. 
 
-
-
-
-
-
-
-
+![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure11.png)
 
 However there are two balancing effects that will prevent this occurring. The first is that the complicit validators will expose themselves to counter-arbitrage as the market tries to restore the price of the on-chain asset. Since the pools are permissionless, anyone can arbitrage the market in their own self-interest. Secondly, as the arbitrage occurs, market actors find themselves in possession of cheap on-chain assets which they now want to sell on external markets to realise their gain. If this occurs they are incentivised to move assets off the THORChain network, reducing the amount of the assets in the bridges. 
 
@@ -236,5 +213,3 @@ We found that as a minimum the total value of Rune will be leveraged 2:1 with th
 We explored attack vectors on network security and found that the byzantine threshold is thus 25% of the entire supply, but an actor attempting to acquire that amount will cause a price action of 25X, which is likely to increase bonding participation. This will in turn reduce the supply the attacker can accumulate, and increase the byzantine threshold out of reach of the attacker. 
 
 We also looked into attack vectors on bridges and found that as long as the protocol performs as designed to continually move assets to bridges with security factors between greater than 2, then there is no plausible mechanism to steal assets with value.
-
-
