@@ -32,11 +32,11 @@ Matching the Cosmos architecture, it is expected to have 100 validators on launc
 
 Since the consensus is a BFT algorithm, it is fault tolerant to a maximum of (N/3 -1) byzantine validators. Since the validators require stake, and assuming that 100% of the circulating supply can be staked, the network is optimally secure if more than 67% of the supply is locked, since a byzantine actor would not be able to purchase enough tokens to take over (N/3 -1) of the validator slots. Since the only way to incentivise the locking up of tokens (take them out of circulating supply) in typical BFT networks is via validator bonding, typical BFT networks make efforts to incentivise the locking of at least 67% of the tokens. 
 
-Cosmos’ proposed design is to target a 67% threshold in order to achieve optimal security by coupling emission with the proportion staked. If below 67% then inflation is driven to 20%, if above 67%, then it is driven to 2%. We look to compare this with THORChain’s proposed design of a flat 5% emission to validators. 
+[Cosmos’ proposed design](https://blog.cosmos.network/economics-of-proof-of-stake-bridging-the-economic-system-of-old-into-the-new-age-of-blockchains-3f17824e91db) is to target a 67% threshold in order to achieve optimal security by coupling emission with the proportion staked. If below 67% then inflation is driven to 20%, if above 67%, then it is driven to 7%. We look to compare this with THORChain’s proposed design of a flat 2-5% emission to validators. 
 
 ### Staking and Asset Security
 
-THORChain must not only achieve optimal network security (protection from byzantine actors) but it must also achieve ideal asset security to protect its cross-chain bridges that will be holding external assets. By design, THORChain’s bridges are permissionless and opt-in to validators in order to protect the network from censorship and oppression. Additionally, it is not possible to involve full network security on the bridges due to limitations on external bridges (Bitcoin multi-signatures, as an example, is currently hard-limited to a maximum of 16 participants, far lower than the number of validators securing THORChain). 
+THORChain must not only achieve optimal network security (protection from byzantine actors) but it must also achieve ideal asset security to protect its cross-chain bridges that will be holding external assets. By design, THORChain’s bridges are permissionless and opt-in to validators in order to protect the network from censorship and oppression. Additionally, it is not possible to involve full network security on the bridges due to limitations on external bridges (as an example, [Bitcoin multi-signatures have limitations around 15](https://bitcoin.stackexchange.com/questions/23893/what-are-the-limits-of-m-and-n-in-m-of-n-multisig-addresses/28092), far lower than the number of validators securing THORChain). 
 
 Thus instead of hard security guarantees, the bridging protocol uses economic incentives to ensure that the assets held on bridges are always safe. Safety in this case is determined by enforcing a net economic loss on an attacking actor, and the safety threshold is the degree between potential gain and potential loss. Achieving ideal asset security is defined as ensuring that the value of stake bonded by the set of validators guarding a bridge is always twice as high than the value of the assets held on the bridge. 
 
@@ -67,7 +67,7 @@ We look at the typical staked portion of assets from 15 known large-cap PoS coin
 
 The average proportion of staked assets is in the 30-60% regime, with average being 46% staked with an inflation of 30% and an ROI for nodes at 32% annual. It is noted that these coins are not true proof-of-stake networks since most have components of the block reward being issued to proof-of-work mining or governance/founder allocations. If 100% of the block reward was issued to validators then the ROI would be roughly double (or the annual inflation would have to halve). 
 
-Interestingly, only ZCoin and GinCoin achieved optimal Byzantine security of greater than 67%. It is known that ZCoin has high founder participation in node staking, whilst GinCoin has the highest inflation of all sampled coins at 126%. 
+Interestingly, only ZCoin and GinCoin achieved optimal Byzantine security of greater than 67%. It is known that ZCoin has high [founder participation](https://zcoin.io) in node staking, whilst GinCoin has the highest inflation of all sampled coins at 126%. 
   
 The five coins with low inflation schedules (less than 10%) did not in particular seem to be representative of low on-chain participation. 
 
@@ -77,7 +77,7 @@ Charting the proportion locked with both inflation and node ROI we notice that t
 
 ### Liquidity Pools
 
-Currently the only token that uses liquidity pools is the Bancor Network Token. BNT currently has 25% of its supply locked in its liquidity pools, but it is worthy to highlight that BNT has no incentives for external staking. Projects that list on Bancor’s liquidity network supply the liquidity themselves. 
+Currently the only token that uses liquidity pools is the Bancor Network Token. [BNT currently has 25%](https://bancor.network) of its supply locked in its liquidity pools, but it is worthy to highlight that BNT has no incentives for external staking. Projects that list on Bancor’s liquidity network supply the liquidity themselves. 
 
 It would be reasonable to assume that by adding permissionless and clear incentives to staking in liquidity pools, then participation would improve to the same proportion that proof-of-stake bonding typically is, since it has the same economic incentives. 
 
@@ -97,7 +97,7 @@ If it is considered that the proportion staked achieves roughly the average of 5
 
 If liquidity staking unlocks latent liquidity that would not normally be utilised, and follows the same pattern of behaviour of validator staking then half of the remaining liquidity would be in the pools. If 10% of the supply is removed from circulation then this would leave 15% to be freely circulating. 
 
-For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply (50% * 1.5 / 3 ) - 250m Rune. We will discuss the attack vector shortly. 
+For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply `(50% * 1.5 / 3 ) = 250m` Rune. We will discuss the attack vector shortly. 
 
 We can also form a position on the total value of the Rune network with the assumptions above. In this case 25% of the supply will be bonded to 50% of the on-chain assets, which means that as a minimum, the total value of the fully-diluted supply of the network will be double the value of assets. If $10m of assets are held on bridges, then as a minimum the network will be $20m. 
 
@@ -107,7 +107,7 @@ Since THORChain is a cross-chain protocol with bridges that hold assets, we are 
 
 Since the protocol is aware of the prices of all bridged assets as a virtue of its liquidity pools, we price the bridge assets in Rune at all times. We also assume the protocol is able to detect when a a bridge approaches its security threshold and split the assets up across two bridges. 
 
-We take three pools (Bitcoin, Ethereum, Monero) of roughly 500m in Rune value across them. We assume the signature requirements of all bridges are 10 / N, with more than N validators available in each bridge chain’s quorum. 
+We take three pools (Bitcoin, Ethereum, Monero) of roughly 500m in Rune value across them. We assume the signature requirements of all bridges are `10 / N`, with more than N validators available in each bridge chain’s quorum. 
 
 ![](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images-c/figure6.png)
 
@@ -135,7 +135,7 @@ Thus to target a range of 20-25% of all supply held in liquidity pools, the Rune
 
 ## Network Attack Vectors
 
-For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply `50% * 1.5 / 3 ) - 250m` Rune.
+For a byzantine attacker to attack the network, they would need to accumulate 25% of the supply `50% * 1.5 / 3 ) = 250m` Rune.
 
 They have two options: buy discretely from the freely circulating supply, or buy publicly off the pools. 
 
