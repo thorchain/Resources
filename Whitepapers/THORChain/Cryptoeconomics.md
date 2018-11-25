@@ -18,7 +18,11 @@ Secure and fast cross-chain bridges for THORChain.
 
 
 
-[Rune Token](#Rune Token)	
+[Overview](#overview)
+[Rune Staking](#Rune Staking)
+[Real-world analysis](#real-world analysis)
+[Rune Analysis](#Rune Analysis)
+[Rune Token](#Rune Token)
 [Summary](#summary)	
 
 ## Overview
