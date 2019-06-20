@@ -18,10 +18,10 @@ The following whitepapers should be read in conjunction:
 
 
 - [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
-A lightning fast decentralised exchange protocol.
+A lightning fast decentralised liquidity protocol.
 
 - [ASGARDEX](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/whitepaper-en.md)
-A lightning fast decentralised exchange built on THORChain.
+A lightning fast decentralised liquidity interface built on THORChain.
 
 - [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network/whitepaper-en.md)
 A layer 2 Network for instant asset exchange on THORChain.
