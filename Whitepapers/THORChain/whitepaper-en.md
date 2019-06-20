@@ -1,24 +1,24 @@
 # THORChain
 
-## A lightning fast decentralised exchange protocol
+## A lightning fast decentralised liquidity protocol
 devs@thorchain.org
 
 V0.1 July 2018
 
 ### Abstract 
->THORChain is a highly optimised multi-chain using pBFT consensus to achieve sub-second block finality. Tokens are traded on single chains, known as tokenChains with discrete address spaces. Multi-set sharding is proposed to allow byzantine resistant scaling. The native protocol facilitates on-chain trading and order matching at the protocol level, supporting both limit and market orders. Continuous liquidity pools ensure liquidity is always available for any token pair, and double as the source of trustless on-chain price feeds, a cornerstone of the protocol. Fee incentives are designed to continually attract on-chain liquidity. On-chain token generation is built-in for both fixed and variable supply tokens, with the potential for auditable collateralized stablecoins. Two-way pegs with UTXO, account and contract-based cryptocurrencies allow most existing cryptocurrencies to seamlessly move on and off THORChain. Transparent developer incentivisation strategies allow wallet and exchange developers to be funded at the protocol level which will encourage a vibrant developer community. On-chain governance and smart updates with enforced voting and quadratic voting ensures THORChain is an adaptive and iterative platform that grows with its needs without contentious hard forks. THORChain is built to be compatible with the Flash Network; a layer 2 payment channel network. 
+>THORChain is a highly optimised multi-chain using pBFT consensus to achieve sub-second block finality. Tokens are traded on single chains, known as tokenChains with discrete address spaces. Multi-set sharding is proposed to allow byzantine resistant scaling. The native protocol facilitates on-chain atomic asset swaps at the protocol level. Continuous liquidity pools ensure liquidity is always available for any token pair, and double as the source of trustless on-chain price feeds, a cornerstone of the protocol. Fee incentives are designed to continually attract on-chain liquidity. On-chain token generation is built-in for both fixed and variable supply tokens, with the potential for auditable collateralized stablecoins. Two-way pegs with UTXO, account and contract-based cryptocurrencies allow most existing cryptocurrencies to seamlessly move on and off THORChain. Transparent developer incentivisation strategies allow wallet and developers to be funded at the protocol level which will encourage a vibrant developer community. On-chain governance and smart updates with enforced voting and quadratic voting ensures THORChain is an adaptive and iterative platform that grows with its needs without contentious hard forks. THORChain is built to be compatible with the Flash Network; a layer 2 payment channel network. 
 
 ### Document Set
 The following whitepapers should be read in conjunction:
 
 - [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
-A lightning fast decentralised exchange protocol.
+A lightning fast decentralised liquidity protocol.
 
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
 Secure and fast cross-chain bridges for THORChain.
 
 - [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network/whitepaper-en.md)
-A layer 2 Network for instant asset exchange on THORChain.
+A layer 2 Network for instant asset swaps on THORChain.
 
 - [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol/whitepaper-en.md)
 Dynamic multi-set sharding for THORChain.
@@ -27,10 +27,6 @@ Dynamic multi-set sharding for THORChain.
 A self-amending forkless consensus algorithm for THORChain. 
 
 ## Overview
-
-[Introduction](#introduction)	
-- Centralized and Decentralized Exchanges	
-- THORChain and ASGARDEX
 
 [THORChain Architecture](#thorchain-architecture)
 - Overview	
@@ -59,18 +55,14 @@ A self-amending forkless consensus algorithm for THORChain.
 - Liquidity Fees	
 - Trustless On-chain Price Feeds	
 
-[On-chain Trading](#on-chain-trading)	
+[On-chain Asset Swaps](#on-chain-asset-swaps)	
 - Account Types	
 - Transaction Types	
 - Limit and Market Orders
 
 [User Experience](#user-experience)	
 - Wallets	
-- Trading	
-- Exchanges	
-- Exchange and Wallet Funding	
-- Cross-token Trading	
-- On-chain Initial Exchange Offerings	
+- Cross-token Swaps	
 - Validator Staking	
 
 [Advanced Transaction Features](#advanced-transaction-features)
@@ -122,26 +114,6 @@ A self-amending forkless consensus algorithm for THORChain.
 |UTXO |Unspent Transaction Output
 |VRF|Verifiably Random Function|
 
-## Introduction
-
-### Centralized and Decentralized Exchanges
-
-**Exchanges**. One of the most important advents of the cryptocurrency economy is the crypto exchange.  While digital assets are useful on their own, exchanges are needed so that creators, consumers, investors, and traders can transfer these assets to one other openly and freely.  As digital assets reach market equilibrium prices, all market participants benefit from clearing markets that are otherwise either unavailable or not at true equilibrium due to interference from governments, regulators, or logistical barriers.
-Venture capitalists, service providers, employees, founders, and other company stakeholders benefit from freely available liquidity that is not locked up in arcane or encumbering pre-IPO restrictions.  This is true for tokens regardless of whether they are asset-backed, service-backed, or infrastructure-backed.  In the asset-backed case, cryptocurrency exchanges allow for easier transactions of securities that are currently more costly in terms of time and money due to reconciliation requirements that are natively on the blockchain and otherwise handled by back-office workers.  
-Cryptocurrency exchanges allow people increased flexibility in using the cryptocurrency of their choice for each individual transaction they undertake.  They can focus on a few key markets that capture their consumption needs.  For example, a user who considers data storage a primary consumption need can store much of their wealth in Filecoin or Sia while another who relies heavily on shipping goods can store wealth in Shipchain or VeChain.  
-As specialized cryptocurrencies gain traction, users can segment their wealth in specific token ecosystems.  They can reward these ecosystems with more of their wealth for positive governance and pro-social activity, forcing all token ecosystems to compete with each other to provide the best economy for users.  This competition is only feasible with the proliferation of exchanges that enable fast, secure, reliable transfers of wealth from one token to another.
-
-Finally, exchanges allow traders to profit from predicting the future behavior of markets.  As global wealth becomes increasingly concentrated in the hands of the few, so too go the resources needed to predict the future of markets and thereby gain additional wealth.  Because cryptocurrency markets are new and lightly regulated, large incumbents have less of an overwhelming advantage over lay-traders in forming accurate, profitable hypotheses.  Skilled traders can participate more directly in the rewards of insightful analysis without tethering themselves to major institutions, which can disperse market gains.  
-
-**Decentralized Exchanges**. Of course, the above is only true to the extent that other sources of power are also decentralized.  One clear target for decentralization is the exchange itself.  Centralized exchanges can hold undue power over users.  This allow them to engage in many of the regressive practices that cryptocurrency enthusiasts dislike in the fiat world.  
-Some hold users’ funds without explanation or recourse.  A decentralized alternative will allow users to maintain self-sovereign rights to their assets at all times.  Some centralized exchanges bar users, currencies, or transactions because of local law in their domicile.  A decentralized alternative has no central operator upon which a nation state can impose restrictions.  A decentralized alternative with public code can benefit from perpetual public security audits and publicly driven code changes.  All things being equal, decentralized exchanges (DEXes) more adequately capture the ethos of cryptocurrencies than centralized ones.
-All things are not yet equal, however.  Decentralized exchanges need feature and performance parity with centralized exchanges to successfully compete.  [Binance](https://www.binance.com), one of the most popular centralized exchanges, processes over 1 million transactions per second.  [Forkdelta](https://forkdelta.github.io), a popular decentralized exchange, routinely has transactions that take minutes.  [Bittrex](https://www.bittrex.com), a popular centralized exchange, has a well-designed UI honed by design specialists and a simple-to-use UX.  [Barterdex](https://komodoplatform.com/decentralized-exchange/), a DEX, has an obtuse UI and requires several cumbersome steps in its UX.  Centralized cryptocurrency exchanges pride themselves on listing a myriad of different token types.  Most modern DEXes operate within a single cryptocurrency’s ecosystem (for example, stellar for [Stellardex](https://stellarterm.com) and ether for [Etherdelta](https://etherdelta.com)) allowing users to trade only tokens in one protocol.  
-To avoid some of these constraints, some DEXes take partial steps to toward decentralization but centralize key aspects of the system (like order books and matching engines).  This is a nice attempt but these services do not provide censorship resistance and so do not fulfill the promise of decentralization.  The market needs a decentralized exchange that adheres to the core tenets of decentralization and still provides a world-class exchange experience that meets the feature and performance standards set by centralized exchanges.  
-
-### THORChain and ASGARDEX
-
-**THORChain**. Thorchain addresses these issues.  With an out-of-box performance of 10k TPS and a goal of 1m TPS, Thorchain can power the same traffic as a centralized exchange.  Thorchain decentralizes all aspects of a trade, including order matching and order book population, ensuring censorship resistance.  Most DEXes have less than $10M in daily trading volume but Thorchain will be seeded with several times that amount in liquidity directly from the Odin Foundation.  Moreover, Thorchain’s continuous liquidity pool mechanism (borrowed from Bancor) provides fees to users who provide further liquidity, incentivizing even more capacity.  Thorchain’s use of cryptocurrency bridges enable it to natively support transactions across cryptocurrency ecosystems.  Users can exchange Bitcoin for Ether or an ERC-20 token for an NEP-5 token directly on a Thorchain DEX.  Bridges are addressed in more detail separately.
-ASGARDEX (the first DEX that will be built on top of THORChain) will have deep liquidity, a publicly available order book, omni-token support for cryptocurrencies compatible with bridges, a world-class UI, and refined UX.  ASGARDEX solves the major problems with decentralized exchanges, allowing users to experience the full promise of a secure, transparent, censorship-resistant and fault-tolerant cryptocurrency exchange.
  
 ## THORChain Architecture
 
@@ -637,11 +609,11 @@ The following is the user experience of interacting with THORChain-based wallets
 
 **Maintaining Assets**. All of a user’s assets can be viewed inside a single wallet interface. Asset details `(name, ticker)` can be trustlessly queried from the `GenAcc` whilst prices for assets can be queried from CLPs. Bridge accounts can also be queried from GenAccounts for tokenised assets (tokenised Bitcoin), so users can easily send external assets across the ecosystem. 
 
-### Trading
+### Asset Swaps
 
-**Trading a CLP**. Users can swap assets from inside their wallets by simply sending to CLPs for each assets. Pricing is shown ahead of time, as well as any expected liquidity fees. The advantage of trading a CLP instead of a public order book is that the swap can be performed immediately, with transparent fees and trustless pricing. 
+**Using CLP**. Users can swap assets from inside their wallets by simply sending to CLPs for each assets. Pricing is shown ahead of time, as well as any expected liquidity fees. The advantage of trading a CLP instead of a public order book is that the swap can be performed immediately, with transparent fees and trustless pricing. 
 
-**Executing a Trade**. Users can import their key pairs or entropy to a decentralised exchange built on THORChain. They have immediate access to all of their assets for public trading. 
+**Executing a Swap**. Users can import their key pairs or entropy to a decentralised exchange built on THORChain. They have immediate access to all of their assets for public trading. 
 
 **Creating & Updating an Order**. Users can seamlessly move Rune or any other token into a trade account and create a public Buy or Sell order (depending on the side). The Order can be updated at any time. If performed in a Wallet or on an Exchange front-end, the developer may insert an optional fee for development revenue. This fee is public and encourages price competition.
 
@@ -653,7 +625,6 @@ Traders will have access to exchange interfaces that are familiar in experience 
 
 **Viewing Trades**. Once orders are served, a block explorer can index trading accounts and display on a public order book. Trade sides are always paired to `RUNE`; but `TKN:TKN` markets are also available if specified. In this case the pair is ordered respective of the underlying TokenIndex. The following would be displayed on a client-side exchange, and can be displayed on any client side interface:
 - Liquidity Depth.
-- Candlestick and Volume charts. 
 - Previous Closed Trades.
 - CLP Accounts
 - Token Information
@@ -675,7 +646,7 @@ _Figure: Exchange inserting their maker fee._
 
 This will support the development of excellent user-experiences in exchanges and wallets that use the THORChain protocol. The pricing mechanism only gathers fees from trades originating from each Wallet and Exchange, so it will naturally support apps that are great experiences. The fee mechanism is also price competitive and public, ensuring that users get the best fees. 
 
-### Cross-token Trading
+### Cross-token Asset Swap
 **For Users**. The Rune is the settlement currency of THORChain and is paired to all tokens in their CLPs, (no token can exist on THORChain without a CLP being created). Users who wish to trade from one token to another such as `T1` to `T2` do not have a CLP available that matches `T1:T2`. Instead they can perform two transactions that settle with Rune; `T1:Rune:T2`. Which uses the `T1:Rune` and `T2:Rune CLP`. In this case the emitted Rune is immediately re-routed to the next CLP. The user can be assured that both prices are trustless and represent fair market price. Fees can also be transparent and known ahead of time, and the entire trade will take `2` blocks to complete. 
 
 <img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure29.png" width="350px" height="254px" />
@@ -688,17 +659,6 @@ _Figure: Routing via two CLPs._
 
 *Figure: A T1:T2 sell order that is not paired to Rune `T0`*.
 
-### On-chain Initial Exchange Offerings
-
-THORChain has all the mechanisms to support native on-chain IEOs. The benefits to this instead of a contract-based token is that the token standard is immutable, auditable and no back doors can be built. Additionally, the token would gain instant liquidity with an immediate market. Lastly, users can participate directly from their wallets which minimise interception attacks. The following would be the process for any team to create their own crypto-asset:
-
-- The TokenChain is minted with token details. 
-- The project team then emit their token to their own account: liquidity is created and pricing is set. 
-- The project then create a number of large public Sell Orders (may be with different price points “bonuses”. 
-- Contributors then send Rune to each Sell Order. Projects may also choose to pair to non-Rune tokens (like `tBTC` or `tETH`). 
-- Contributors receive the new token in their wallet immediately. 
-
-This will herald a new generation of liquid, auditable and trustless cryptoassets. 
 
 ### Validator Staking
 
