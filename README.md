@@ -4,16 +4,16 @@
 Whitepapers for the project:
 
 - [THORChain](https://github.com/thorchain/Resources/tree/master/Whitepapers/THORChain)
-A lightning fast decentralised exchange protocol.
+A lightning fast decentralised liquidity protocol.
 
 - [ASGARDEX](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/whitepaper-en.md)
-A lightning fast decentralised exchange built on THORChain.
+A lightning fast decentralised liquidity built on THORChain.
 
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol)
 Secure and fast cross-chain bridges for THORChain.
 
 - [Flash Network](https://github.com/thorchain/Resources/tree/master/Whitepapers/Flash-Network)
-A layer 2 Network for instant asset exchange on THORChain.
+A layer 2 Network for instant asset swaps on THORChain.
 
 - [Yggdrasil Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Yggdrasil-Protocol)
 Dynamic multi-set sharding for THORChain.
