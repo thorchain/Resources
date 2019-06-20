@@ -4,10 +4,10 @@
 The following whitepapers should be read in conjunction:
 
 - [THORChain](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/whitepaper-en.md)
-A lightning fast decentralised exchange protocol.
+A lightning fast decentralised liquidity protocol.
 
-- [ASGARDEX](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/whitepaper-en.md)
-A lightning fast decentralised exchange built on THORChain.
+- [CLPs](https://github.com/thorchain/Resources/blob/master/Whitepapers/ASGARDEX/clp-implementation.md)
+Continuous Liquidity Pools on THORChain.
 
 - [Bifröst Protocol](https://github.com/thorchain/Resources/tree/master/Whitepapers/Bifrost-Protocol/whitepaper-en.md)
 Secure and fast cross-chain bridges for THORChain.
