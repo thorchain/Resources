@@ -95,14 +95,12 @@ A self-amending forkless consensus algorithm for THORChain.
 
 |Item | Definition | 
 |:---:|:------------|
-|ASGARDEX | A Decentralised Exchange built on THORChain 
 |Bifröst Protocol|Bridges built to other networks (two-way-pegs).
 |CLP|Continuous Liquidity Pool
-|DEX|Decentralised Exchange
 |ECDSA|Elliptical Curve Digital Signature Algorithm
 |ERC-20, NEP-5, QRC-20|Ethereum, NEO, QTUM tokens
 |Flash Network|Layer 2 Payment Channel Network
-|FIX4.4 Protocol |Foreign Information Exchange 4.4 Protocol for Trading Desks
+|FIX4.4 Protocol |Foreign Information 4.4 Protocol for Trading Desks
 |HFT|High Frequency Trading
 |Mjölnir|Liquidity Nodes. 
 |RNG|Random Number Generation
@@ -603,7 +601,7 @@ _Figure: Bob issues a market order._
 ## User Experience
 ### Wallets
 
-The following is the user experience of interacting with THORChain-based wallets and exchanges.
+The following is the user experience of interacting with THORChain-based wallets and interfaces.
 
 **Instantiating Wallets**. Users create a new wallet by generating some form of off-line entropy that is used to create the private/public key pairs. These key pairs can be represented and secured by seed-words (BIP39), key-stores or even memorable brain wallets. An innovation proposed by FairLayer is to use [email + password] as the source of entropy as it is both unique, memorable and portable. A single private key controls all of a user’s token addresses (one for each tokenChain). Wallets can support Hierarchical Deterministic key generation which allow users to generate n number of private/public key pairs from the same entropy. 
 
@@ -618,21 +616,6 @@ The following is the user experience of interacting with THORChain-based wallets
 **Creating & Updating an Order**. Users can seamlessly move Rune or any other token into a trade account and create a public Buy or Sell order (depending on the side). The Order can be updated at any time. If performed in a Wallet or on an Exchange front-end, the developer may insert an optional fee for development revenue. This fee is public and encourages price competition.
 
 **Large Orders**. Traders and developers have two options for completing large orders. Traders can split up their assets manually and pick off individual orders, sending  a small amount of asset to each discrete order to complete trades. Developers can also build client-side software to split up orders for traders and send these trades to multiple orders but this is not preferred. 
-
-### Exchanges
-
-Traders will have access to exchange interfaces that are familiar in experience and features to current exchanges. All exchanges are accessing the same order book and assets, so they all share liquidity. The ASGARDEX exchange is one such exchange to be launched for mainnet but will be open-source and able to be forked easily. This will drive developers to continually innovate instead of building closed-source moats. 
-
-**Viewing Trades**. Once orders are served, a block explorer can index trading accounts and display on a public order book. Trade sides are always paired to `RUNE`; but `TKN:TKN` markets are also available if specified. In this case the pair is ordered respective of the underlying TokenIndex. The following would be displayed on a client-side exchange, and can be displayed on any client side interface:
-- Liquidity Depth.
-- Previous Closed Trades.
-- CLP Accounts
-- Token Information
-- Bridge Accounts
-
-<img align="center" src="https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain/Images/figure27.png" width="350px" height="299px" />
-
-_Figure: Reading and displaying the trades._
 
 **Trading**. Traders can access all features of the protocol to perform trades on their assets and leave at any time. Private keys are held on client side and signatures may be queried from hardware wallets. 
 
@@ -998,8 +981,8 @@ A new tokenChain `TKNIndex` can be created that represents `TKN1`, `TKN2`, and `
 
 
 ## Conclusion
-THORChain is a lightning fast decentralised exchange with protocol-level trading features to achieve feature parity with the best centralised exchanges of the day; all with full self-sovereign asset management. THORChain solves the fundamental problems of existing decentralised exchanges with a fast on-chain trading experience, on-chain continuous liquidity and correct incentivisation economics for exchange and wallet developers.
-THORChain is built for a new class of decentralised exchanges and transactional networks and will rapidly increase the useability of transacting with crypto-currency assets. 
+THORChain is a lightning fast decentralised liquidity network with protocol-level asset swap features; all with full self-sovereign asset management. THORChain solves the fundamental problems of asset swaps with on-chain continuous liquidity and correct incentivisation economics for security.
+THORChain is built for a new class of liqiudity networks and transactional networks and will rapidly increase the useability of transacting with crypto-currency assets. 
 
 ## References
 
