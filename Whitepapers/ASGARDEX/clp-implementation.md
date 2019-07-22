@@ -107,8 +107,8 @@ We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to 
 |----------|-----------------------------------------------|----------|----------------|
 | `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of Token1          |
 | `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune        |
-| `R`        | Balance of TKN1 in the input side of the pool  |         |           |
-| `Z`        | Balance of Rune in the output side of the pool | `z`        | Output of Token2       |
+| `R`        | Balance of Rune in the input side of the pool  |         |           |
+| `Z`        | Balance of TKN2 in the output side of the pool | `z`        | Output of Token2       |
 
 **Equations:**
 
