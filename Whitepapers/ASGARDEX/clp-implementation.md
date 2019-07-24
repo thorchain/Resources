@@ -132,7 +132,7 @@ tokensEmitted = ((x X Y R Z) * (x + X)^2 ) / ((x X Y + R x^2 + 2 R x X + R X^2)^
 ![tokensEmitted_2 = z =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20z%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
 
 ```
-tradeSlip = ((x X Y R Z) * (x + Y )^2 ) / ((x X Y + R x^2 + 2 R x Y + R Y^2)^2 )
+tradeSlip = ((x*X*Y) * (2*R*(x + Y)^2 + x*X*Y) / ((x*X*Y + R*x^2 + 2*R*x*Y + R*Y^2)^2 )
 ```
 
 ![P_{X0} = \frac{X}{Y}, P_{Z0} = \frac{R}{Z} \rightarrow P_0 = P_{X0} * P_{Z0}= \frac{XR}{YZ}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_%7BX0%7D%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_%7BZ0%7D%20%3D%20%5Cfrac%7BR%7D%7BZ%7D%20%5Crightarrow%20P_0%20%3D%20P_%7BX0%7D%20*%20P_%7BZ0%7D%3D%20%5Cfrac%7BXR%7D%7BYZ%7D)
