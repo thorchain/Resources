@@ -84,8 +84,8 @@ We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1.
 
 | **Unit** | **Definition**                                | **Unit** | **Definition** |
 |----------|-----------------------------------------------|----------|----------------|
-| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of  Rune         |
-| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Token1        |
+| `X`        | Balance of TKN1 in the input side of the pool  | `x`        | Input of Token1         |
+| `Y`        | Balance of Rune in the output side of the pool | `y`        | Output of Rune       |
 
 **Equations:**
 
@@ -123,11 +123,23 @@ Then:
 
 ![tokensEmitted_2 =  \frac{y Z R}{(y + R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20%5Cfrac%7By%20Z%20R%7D%7B%28y%20&plus;%20R%29%5E2%7D)
 
-Using just the pool depths, and the input, we can calculate the final output and slip:
+Using just the pool depths, and the input, we can calculate the final output and slips:
+
+```
+tokensEmitted = ((x X Y R Z) * (x + X)^2 ) / ((x X Y + R x^2 + 2 R x X + R X^2)^2 )
+```
 
 ![tokensEmitted_2 = z =  \frac{x X Y R Z (x + X)^2}{(x X Y + R x^2 + 2 R x X + R X^2)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20z%20%3D%20%5Cfrac%7Bx%20X%20Y%20R%20Z%20%28x%20&plus;%20X%29%5E2%7D%7B%28x%20X%20Y%20&plus;%20R%20x%5E2%20&plus;%202%20R%20x%20X%20&plus;%20R%20X%5E2%29%5E2%7D)
 
+```
+tradeSlip = ((x X Y R Z) * (x + Y )^2 ) / ((x X Y + R x^2 + 2 R x Y + R Y^2)^2 )
+```
+
 ![P_{X0} = \frac{X}{Y}, P_{Z0} = \frac{R}{Z} \rightarrow P_0 = P_{X0} * P_{Z0}= \frac{XR}{YZ}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20P_%7BX0%7D%20%3D%20%5Cfrac%7BX%7D%7BY%7D%2C%20P_%7BZ0%7D%20%3D%20%5Cfrac%7BR%7D%7BZ%7D%20%5Crightarrow%20P_0%20%3D%20P_%7BX0%7D%20*%20P_%7BZ0%7D%3D%20%5Cfrac%7BXR%7D%7BYZ%7D)
+
+```
+finalPoolSlip = 1 - ( R^2 X^2(x + X)^2 ) / ((R (x + X)^2 + x X Y)^2) )
+```
 
 ![finalSlip = \frac{x/P_0 - z}{x/P_0}  = \frac{\frac{xYZ}{XR}-z}{\frac{xYZ}{XR}} = 1 - \frac{R^2 X^2(x + X)^2}{(R (x + X)^2 + x X Y)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20finalSlip%20%3D%20%5Cfrac%7Bx/P_0%20-%20z%7D%7Bx/P_0%7D%20%3D%20%5Cfrac%7B%5Cfrac%7BxYZ%7D%7BXR%7D-z%7D%7B%5Cfrac%7BxYZ%7D%7BXR%7D%7D%20%3D%201%20-%20%5Cfrac%7BR%5E2%20X%5E2%28x%20&plus;%20X%29%5E2%7D%7B%28R%20%28x%20&plus;%20X%29%5E2%20&plus;%20x%20X%20Y%29%5E2%7D)
 
