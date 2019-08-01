@@ -152,7 +152,7 @@ tradeSlip_1 = x * (2X + x) / (x + X)^2
 ![tradeSlip_1 = \frac{x (2X + x)}{(x + X)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20tradeSlip_1%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 ```
-liqFee_1 = x^2Y / (x+X)^2
+liqFee_1 = x^2 * Y / (x+X)^2
 ```
 
 ![liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
@@ -172,7 +172,7 @@ tradeSlip_2 = y * (2R + y) / (y + R)^2
 ![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20tradeSlip_2%20%3D%20%5Cfrac%7By%20%282R%20&plus;%20y%29%7D%7B%28y%20&plus;%20R%29%5E2%7D)
 
 ```
-liqFee_2 = y^2R / (y+R)^2
+liqFee_2 = y^2 * R / (y+R)^2
 ```
 
 ![liqFee_2 = \frac{y^2R}{(y+R)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20liqFee_2%20%3D%20%5Cfrac%7By%5E2R%7D%7B%28y&plus;R%29%5E2%7D)
