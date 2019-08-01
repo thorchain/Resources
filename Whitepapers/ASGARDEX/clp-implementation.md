@@ -89,12 +89,43 @@ We have a single pool, TKN1, paired to Rune.  We wish to swap Rune to TKN1.
 
 **Equations:**
 
+### Intermediate Equations
 
-![tokensOutputted = \frac{xY}{x + X}, outputSlip = \frac{x}{x+X}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensOutputted%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D%2C%20outputSlip%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D)
+```
+tokensOutputted = (x * Y) / (x + X)
+```
+
+![tokensOutputted = \frac{xY}{x + X}](https://latex.codecogs.com/gif.latex?%5Clarge%20tokensOutputted%20%3D%20%5Cfrac%7BxY%7D%7Bx%20&plus;%20X%7D)
+
+```
+outputSlip = x / x+X
+```
+
+![outputSlip = \frac{x}{x+X}](https://latex.codecogs.com/gif.latex?%5Clarge%20outputSlip%20%3D%20%5Cfrac%7Bx%7D%7Bx&plus;X%7D)
+
+```
+liqFee = x^2Y / (x+X)^2
+```
 
 ![liqFee = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20liqFee%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
 
-![tradeSlip = \frac{x (2X + x)}{(x + X)^2}, poolSlip = \frac{x (2X + x)}{X^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20poolSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7BX%5E2%7D)
+```
+poolSlip = x * (2X + x) / X^2 
+```
+
+![poolSlip = \frac{x (2X + x)}{X^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20poolSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7BX%5E2%7D)
+
+### Final Equations
+
+```
+tradeSlip = x * (2X + x) / (x + X)^2
+```
+
+![tradeSlip = \frac{x (2X + x)}{(x + X)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20tradeSlip%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+```
+tokensEmitted = (x * Y * X) / (x + X)^2
+```
 
 ![tokensEmitted = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
@@ -112,16 +143,47 @@ We have a two pools, TKN1 & TKN2, both paired to Rune.  We wish to swap TKN1 to 
 
 **Equations:**
 
+### Intermediate Equations
 
-![tradeSlip_1 = \frac{x (2X + x)}{(x + X)^2}, liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip_1%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D%2C%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
+```
+tradeSlip_1 = x * (2X + x) / (x + X)^2
+```
+
+![tradeSlip_1 = \frac{x (2X + x)}{(x + X)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20tradeSlip_1%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7B%28x%20&plus;%20X%29%5E2%7D)
+
+```
+liqFee_1 = x^2Y / (x+X)^2
+```
+
+![liqFee_1 = \frac{x^2Y}{(x+X)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20liqFee_1%20%3D%20%5Cfrac%7Bx%5E2Y%7D%7B%28x&plus;X%29%5E2%7D)
+
+```
+y = (x * Y * X ) / (x + X)^2
+```
 
 ![int_{emission} = y = \frac{x Y X}{(x + X)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20int_%7Bemission%7D%20%3D%20y%20%3D%20%5Cfrac%7Bx%20Y%20X%7D%7B%28x%20&plus;%20X%29%5E2%7D)
 
 Then:
 
-![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}, liqFee_2 = \frac{y^2Z}{(y+R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tradeSlip_2%20%3D%20%5Cfrac%7By%20%282R%20&plus;%20y%29%7D%7B%28y%20&plus;%20R%29%5E2%7D%2C%20liqFee_2%20%3D%20%5Cfrac%7By%5E2Z%7D%7B%28y&plus;R%29%5E2%7D)
+```
+tradeSlip_2 = y * (2R + y) / (y + R)^2
+```
 
-![tokensEmitted_2 =  \frac{y Z R}{(y + R)^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20tokensEmitted_2%20%3D%20%5Cfrac%7By%20Z%20R%7D%7B%28y%20&plus;%20R%29%5E2%7D)
+![tradeSlip_2 = \frac{y (2R + y)}{(y + R)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20tradeSlip_2%20%3D%20%5Cfrac%7By%20%282R%20&plus;%20y%29%7D%7B%28y%20&plus;%20R%29%5E2%7D)
+
+```
+liqFee_2 = y^2R / (y+R)^2
+```
+
+![liqFee_2 = \frac{y^2R}{(y+R)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20liqFee_2%20%3D%20%5Cfrac%7By%5E2R%7D%7B%28y&plus;R%29%5E2%7D)
+
+```
+z = (y * Z * R ) / (y + R)^2
+```
+
+![int_{emission} = z = \frac{y Z R}{(y + R)^2}](https://latex.codecogs.com/gif.latex?%5Clarge%20int_%7Bemission%7D%20%3D%20y%20%3D%20%5Cfrac%7By%20Z%20R%7D%7B%28y%20&plus;%20R%29%5E2%7D)
+
+### Final Equations
 
 Using just the pool depths, and the input, we can calculate the final output and slips:
 
