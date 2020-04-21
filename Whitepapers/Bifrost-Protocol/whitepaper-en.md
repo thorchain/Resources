@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # Bifröst Protocol: cross-chain bridges
 
 ## Enabling performant cross-chain bridges with full protocol security on THORChain.
