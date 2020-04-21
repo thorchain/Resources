@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # Æsir Protocol; on-chain governance
 
 ## Enabling a forkless self-amending ledger for THORChain. 
