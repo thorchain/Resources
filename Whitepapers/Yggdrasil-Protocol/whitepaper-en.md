@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # Yggdrasil Protocol; Trust-minimized Sharding
 
 ## A trust-minimized vertically-sharded protocol for THORChain. 
