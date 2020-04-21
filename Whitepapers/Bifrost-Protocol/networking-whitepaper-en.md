@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # Bifröst Protocol Networking
 
 ## Securing the Bifröst Protocol without hard security guarantees
