@@ -26,11 +26,17 @@ Secondary: [Open Sans](/fonts/opensans)
 
 
 ### Colours
+- ![#101921](https://placehold.it/15/101921/000000?text=+) `#101921` Night Black
+- ![#2B3947](https://placehold.it/15/2B3947/000000?text=+) `#2B3947` Dark Grey
+- ![#90A1B0](https://placehold.it/15/90A1B0/000000?text=+) `#90A1B0` Grey
+- ![#ECEEEF](https://placehold.it/15/ECEEEF/000000?text=+) `#ECEEEF` Light Grey
+- ![#000000](https://placehold.it/15/000000/000000?text=+) `#000000` White
 
 - ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) `#00CCFF` Lightning Blue
 - ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) `#33FF99` Yggdrasil Green
-- ![#101921](https://placehold.it/15/101921/000000?text=+) `#101921` Night Black
 - ![#23DCC8](https://placehold.it/15/23DCC8/000000?text=+) `#23DCC8` Midgard Turquoise
+- ![#F0B90B](https://placehold.it/15/F0B90B/000000?text=+) `#F0B90B` Flash Orange
+- ![#EE5366](https://placehold.it/15/EE5366/000000?text=+) `#EE5366` Surtr Red
 
 
 ## Imagery
