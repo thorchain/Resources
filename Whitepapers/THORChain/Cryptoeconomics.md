@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # THORChain Crypto-economics
 
 ## An analysis of the economics around the proposed Rune token.
