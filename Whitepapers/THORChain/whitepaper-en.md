@@ -1,3 +1,11 @@
+---
+****************************************************
+
+THIS DOCUMENT IS ARCHIVED AND NO LONGER APPLICABLE
+
+****************************************************
+---
+
 # THORChain
 
 ## A lightning fast decentralised liquidity protocol
