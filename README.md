@@ -24,14 +24,14 @@ Icon | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Tho
 
 ### Colours
 
-|Palette|Hex|NAME|Palette|Hex|NAME|
-|---|---|---|---|---|---| 
- ![#101921](https://placehold.it/15/101921/000000?text=+) | `#101921` | Night Black | ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) |  `#00CCFF` |  Bifrost Blue
- ![#2B3947](https://placehold.it/15/2B3947/000000?text=+) | `#2B3947` |  Dark Grey | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) |  `#33FF99` |  Yggdrasil Green
- ![#90A1B0](https://placehold.it/15/90A1B0/000000?text=+) | `#90A1B0` | Grey |![#23DCC8](https://placehold.it/15/23DCC8/000000?text=+) |  `#23DCC8` |  Midgard Turquoise
- ![#ECEEEF](https://placehold.it/15/ECEEEF/000000?text=+) | `#ECEEEF` | Light Grey | ![#F3BA2F](https://placehold.it/15/F3BA2F/000000?text=+) |  `#F3BA2F` |  Flash Orange
- ![#fafafa](https://placehold.it/15/fafafa/000000?text=+) | `#fafafa` | Off-White | ![#FF4954](https://placehold.it/15/FF4954/000000?text=+) |  `#FF4954` |  Surtr Red
-  ![#fff](https://placehold.it/15/fff/000000?text=+) | `#fff` | White | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) -> ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) |  `#33FF99` -> `#00CCFF` |  Asgard Gradient (Green->Blue)
+| Palette | Hex     | NAME        | Palette            | Hex                | NAME                   |
+|---------|---------|-------------|--------------------|--------------------|------------------------|
+| ![#282c34](https://placehold.it/15/282c34/000000?text=+) | #282c34 | Night Black (900) | ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+)            | #00CCFF            | Bifrost Blue         |
+| ![#4b5261](https://placehold.it/15/4b5261/000000?text=+) | #4b5261 | Dark Grey (700)   | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+)           | #33FF99            | Yggdrasil Green        |
+| ![#697488](https://placehold.it/15/697488/000000?text=+) | #697488 | Grey (500)       | ![#23DCC8](https://placehold.it/15/23DCC8/000000?text=+)            | #23DCC8            | Midgard Turquoise      |
+| ![#969dab](https://placehold.it/15/969dab/000000?text=+) | #969dab | Medium Grey (300) | ![#F3BA2F](https://placehold.it/15/F3BA2F/000000?text=+)            | #F3BA2F            | Flash Orange           |
+| ![#d1d5da](https://placehold.it/15/d1d5da/000000?text=+) | #d1d5da | Light Grey (100)   | ![#FF4954](https://placehold.it/15/FF4954/000000?text=+)           | #FF4954            | Surtr Red              |
+| ![#F3F4F4](https://placehold.it/15/F3F4F4/000000?text=+)   | #F3F4F4    | Off-White       | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) -> ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) | #33FF99 -> #00CCFF | Asgard Gradient (Green->Blue) |
 
 
 ## Imagery
