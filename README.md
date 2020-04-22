@@ -29,7 +29,7 @@ Icon | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Tho
  ![#101921](https://placehold.it/15/101921/000000?text=+) | `#101921` | Night Black | ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) |  `#00CCFF` |  Lightning Blue
  ![#2B3947](https://placehold.it/15/2B3947/000000?text=+) | `#2B3947` |  Dark Grey | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) |  `#33FF99` |  Yggdrasil Green
  ![#90A1B0](https://placehold.it/15/90A1B0/000000?text=+) | `#90A1B0` | Grey |![#23DCC8](https://placehold.it/15/23DCC8/000000?text=+) |  `#23DCC8` |  Midgard Turquoise
- ![#ECEEEF](https://placehold.it/15/ECEEEF/000000?text=+) | `#ECEEEF` | Light Grey | ![#F0B90B](https://placehold.it/15/F0B90B/000000?text=+) |  `#F0B90B` |  Flash Orange
+ ![#ECEEEF](https://placehold.it/15/ECEEEF/000000?text=+) | `#ECEEEF` | Light Grey | ![#F3BA2F](https://placehold.it/15/F3BA2F/000000?text=+) |  `#F3BA2F` |  Flash Orange
  ![#fff](https://placehold.it/15/fff/000000?text=+) | `#fff` | White | ![#EE5366](https://placehold.it/15/EE5366/000000?text=+) |  `#EE5366` |  Surtr Red
 
 
