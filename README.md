@@ -31,6 +31,7 @@ Icon | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Tho
  ![#90A1B0](https://placehold.it/15/90A1B0/000000?text=+) | `#90A1B0` | Grey |![#23DCC8](https://placehold.it/15/23DCC8/000000?text=+) |  `#23DCC8` |  Midgard Turquoise
  ![#ECEEEF](https://placehold.it/15/ECEEEF/000000?text=+) | `#ECEEEF` | Light Grey | ![#F3BA2F](https://placehold.it/15/F3BA2F/000000?text=+) |  `#F3BA2F` |  Flash Orange
  ![#fafafa](https://placehold.it/15/fafafa/000000?text=+) | `#fafafa` | Off-White | ![#FF4954](https://placehold.it/15/FF4954/000000?text=+) |  `#FF4954` |  Surtr Red
+  ![#fff](https://placehold.it/15/fff/000000?text=+) | `#fff` | White | ![#33FF99](https://placehold.it/15/33FF99/000000?text=+) -> ![#00CCFF](https://placehold.it/15/00CCFF/000000?text=+) |  `#33FF99` -> `#00CCFF` |  Gradient (Green->Blue)
 
 
 ## Imagery
