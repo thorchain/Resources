@@ -45,7 +45,6 @@ We can now determine the expected slip trade and the pool, based only on the inp
 ![poolSlip = \frac{P_1 - P_0}{P_0} = \frac{xY + Xy}{XY - Xy} = \frac{x (2X + x)}{X^2}](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Clarge%20poolSlip%20%3D%20%5Cfrac%7BP_1%20-%20P_0%7D%7BP_0%7D%20%3D%20%5Cfrac%7BxY%20&plus;%20Xy%7D%7BXY%20-%20Xy%7D%20%3D%20%5Cfrac%7Bx%20%282X%20&plus;%20x%29%7D%7BX%5E2%7D)
 
 
-
 ## Liquidity Fee
 
 Stakers stake symmetrically and earn liquidity fees, which is proportional to slip. Slip is proportional to trade size and liquidity depth. Thus staking is incentivised in pools with out-sized trades. Instead of immediately emitting the bonded tokens, we calculate an appropriate fee, then emit tokens after the fee is removed. 
