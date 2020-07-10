@@ -3,15 +3,15 @@
 ## Documents
 Whitepapers for the project. 
 
-* Whitepaper
-* Economics Paper
-* TSS Paper
-* THORChain TSS Benchmarks
+* [THORChain Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Whitepaper-May2020.pdf)
+* [Economics Paper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Cryptoeconomic-Paper-May2020.pdf)
+* [THORChain TSS Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-TSS-Paper-June2020.pdf)
+* [THORChain TSS Benchmark-GGG18](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-TSS-Benchmark-July2020.pdf)
 
 Audits for the project. 
-* Certik Code Review
-* Kudelski TSS Audit
-* Gauntlet Economic Security Review
+* [Certik Code Review](https://github.com/thorchain/Resources/blob/master/Audits/THORChain-Certik-CodeReview-Mar2020.pdf)
+* [Kudelski TSS Audit](https://github.com/thorchain/Resources/blob/master/Audits/THORChain-Kudelski-TSS-Audit-June2020.pdf)
+* [Gauntlet Economic Security Review](https://github.com/thorchain/Resources/blob/master/Audits/THORChain-Gauntlet-EconomicSecurityReview-May2020.pdf)
 
 ## Branding
 THORChain Branding is to be used across THORChain assets. 
