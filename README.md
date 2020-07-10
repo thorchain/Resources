@@ -4,7 +4,7 @@
 Whitepapers for the project. 
 
 * [THORChain Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Whitepaper-May2020.pdf)
-* [Economics Paper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Cryptoeconomic-Paper-May2020.pdf)
+* [THORChain Cryptoeconomics Paper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Cryptoeconomic-Paper-May2020.pdf)
 * [THORChain TSS Whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-TSS-Paper-June2020.pdf)
 * [THORChain TSS Benchmark-GGG18](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-TSS-Benchmark-July2020.pdf)
 
