@@ -3,23 +3,33 @@
 ## Documents
 Whitepapers for the project. 
 
+* Whitepaper
+* Economics Paper
+* TSS Paper
+* THORChain TSS Benchmarks
+
+Audits for the project. 
+* Certik Code Review
+* Kudelski TSS Audit
+* Gauntlet Economic Security Review
+
 ## Branding
 THORChain Branding is to be used across THORChain assets. 
 
-Refer to the [THORChain Style Guide](https://github.com/thorchain/Branding/blob/master/THORCHAIN%20STYLEGUIDE%20june%202018.pdf)
+Refer to the [THORChain Style Guide](https://github.com/thorchain/Branding/blob/master/THORCHAIN-STYLEGUIDE-June2018.pdf)
 
-### [Fonts](https://github.com/thorchain/Resources/tree/master/fonts)
+### [Fonts](https://github.com/thorchain/Resources/tree/master/Fonts)
 Primary: [EXO2](/fonts/exo)
 
 Secondary: [Open Sans](/fonts/opensans)
 
 
-### [Logos](https://github.com/thorchain/Resources/tree/master/logos)
+### [Logos](https://github.com/thorchain/Resources/tree/master/Logos)
 
 |Logo|White|Black|
 |---|---|---|
-Long | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Thorchain_main_logo.png" width="196" height="50" /> | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Thorchain_logo_white.png" width="196" height="50" />
-Icon | <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Thorchain_icon.png" width="50" height="50" />| <img src="https://github.com/thorchain/Branding/blob/master/logos/png/Thorchain_icon_rounded.png" width="50" height="50" />
+Long | <img src="https://github.com/thorchain/Branding/blob/master/Logos/png/Thorchain_main_logo.png" width="196" height="50" /> | <img src="https://github.com/thorchain/Branding/blob/master/Logos/png/Thorchain_logo_white.png" width="196" height="50" />
+Icon | <img src="https://github.com/thorchain/Branding/blob/master/Logos/png/Thorchain_icon.png" width="50" height="50" />| <img src="https://github.com/thorchain/Branding/blob/master/Logos/png/Thorchain_icon_rounded.png" width="50" height="50" />
 
 
 ### Colours
