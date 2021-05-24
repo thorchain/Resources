@@ -47,7 +47,7 @@ shasum -a 256 * // get them all
 2) Paste into the following message:
 
 ```
-The following binaries have been signed by THORChain/ASGARDEX admins listed at <link>.
+The following binaries have been signed by THORChain/ASGARDEX admins listed at https://github.com/thorchain/Resources/blob/master/admin-GPG-keys.md.
 
 <hash> file
 <hash> file
