@@ -23,7 +23,6 @@ uid           [ultimate] thorchain-admin <accounts@thorchain.org>
 pub   rsa4096 2020-04-21 [SC]
       0F1342110E1A10DCAFA7194DABB32D7C24F80F1D
 uid           [ultimate] Veado <veado@protonmail.com>
-sub   rsa4096 2020-04-21 [E]
 ```
 
 1) Download the files, then check the sha256 hash
