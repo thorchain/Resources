@@ -25,6 +25,13 @@ pub   rsa4096 2020-04-21 [SC]
 uid           [ultimate] Veado <veado@protonmail.com>
 ```
 
+Locate public keys:
+```
+gpg --keyserver keys.openpgp.org --recv-keys 9A6461A8CAAAA0AEB8EFDDA8C5334FE4FD04D709
+gpg --keyserver keys.openpgp.org --recv-keys 0F1342110E1A10DCAFA7194DABB32D7C24F80F1D
+```
+
+
 1) Download the files, then check the sha256 hash
 
 ```
