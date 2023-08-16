@@ -12,23 +12,24 @@ gpg -d msg // decrypt the file to inspect who signed it
 ```
 ## Trusted Keys
 
-Ensure the message is decrypted with the following trusted keys:
+Ensure the message is decrypted with the following trusted (users should always double check) keys:
+
+```
+pub   rsa4096 2022-04-06 [SC]
+      F98400561D4636B4A92F07CE5BA40B710C7240C4
+uid           [ultimate] thorianite <thorianite@protonmail.com>
+```
 
 ```
 pub   rsa2048 2020-04-16 [SC] [expires: 2030-04-14]
       9A6461A8CAAAA0AEB8EFDDA8C5334FE4FD04D709
 uid           [ultimate] thorchain-admin <accounts@thorchain.org>
 ```
-```
-pub   rsa4096 2020-04-21 [SC]
-      0F1342110E1A10DCAFA7194DABB32D7C24F80F1D
-uid           [ultimate] Veado <veado@protonmail.com>
-```
 
 Locate public keys:
 ```
+gpg --keyserver keys.openpgp.org --recv-keys F98400561D4636B4A92F07CE5BA40B710C7240C4
 gpg --keyserver keys.openpgp.org --recv-keys 9A6461A8CAAAA0AEB8EFDDA8C5334FE4FD04D709
-gpg --keyserver keys.openpgp.org --recv-keys 0F1342110E1A10DCAFA7194DABB32D7C24F80F1D
 ```
 
 
