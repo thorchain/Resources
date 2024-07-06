@@ -1,4 +1,4 @@
-Coverted into md format from the [original whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Whitepaper-May2020.pdf)
+Coverted into md format from the [original whitepaper](https://github.com/thorchain/Resources/blob/master/Whitepapers/THORChain-Whitepaper-May2020.pdf).
 
 ## THORChain: A Decentralised Liquidity Network
 
@@ -32,6 +32,7 @@ never had the ability to exchange these assets using similar principles of trust
 decentralisation. Current digital asset exchanges carry the same design as traditional financial
 exchanges, being custodial, competitive and centralised. This results in numerous problems to do
 with security and liquidity.
+
 What is missing is the ability to exchange digital assets in a manner that is non-custodial,
 connected and distributed. Such a network should have incentives for anyone to contribute to
 either security or liquidity, which should be tightly coupled so that the network is never unsafe.
@@ -40,6 +41,7 @@ able to scale sufficiently to handle connections to as many external networks as
 network should be permissionless; anyone should be able to transact on it or contribute to it. This
 network should be resilient, being able to evade oppression and continually stay live despite
 adversity. This network should regularly churn its consensus set to prevent stagnation and capture.
+
 This paper describes a network that has these desired characteristics and is able to solve the
 problems of security, liquidity and more. The technology to build such a network has only recently
 been made available, yet they are based on well-known fundamentals. The network is secured with
@@ -54,6 +56,7 @@ following:
 1) A service that monitors incoming user deposits on different chains, crediting their accounts.
 2) A trade engine that allows users to trade assets for each other typically using order books.
 3) A service that allows users to withdraw assets on different chains.
+
 While the system works well enough, it still suffers from the inherent weaknesses of
 centralisation, trust and inefficiency. Exchanges must be trusted not to debase user-deposits, else
 insolvency can easily occur. Operators must be trusted to handle hot and cold wallets carefully else
@@ -61,6 +64,7 @@ irreversible theft of assets can happen. Since order books are an outdated liqui
 numerous compromises, (such as having fixed sizes, requiring counter-orders to match with and
 having poor incentives for market-makers to place them), there is poor incentivisation for liquidity
 and order books are usually thin and easily manipulated.
+
 A solution to the problem is to use a replicated state machine [2] [3] serviced by a significant
 number of nodes to observe user deposits on connected chains. The nodes come to consensus on
 the observations of these inbound transactions and then can process asset exchange logic using the
@@ -82,11 +86,13 @@ stay anonymous, never trying to coordinate, communicate or socially-signal. Node
 for not making witness transactions, committing blocks or interrupting key signing ceremonies.
 Assuming expected behaviour, nodes earn continuous incentives that become available to them
 when they leave the network.
+
 Anyone can bond the required capital and apply to become a node by sending the capital into
 the system’s primary vault. At this point they become whitelisted and are able to make transactions
 on the network. On a regular cycle, no more than a few days, multiple nodes are removed from the
 network and new ones that are bonding the highest amount of capital are added. This ensures the
 network stays live, is regularly recycled and prevents capture.
+
 All nodes are eventually churned out, however any node can leave at any time by request
 which will be processed within a small number of hours. When a node leaves, or is naturally
 churned out, their bond and earned incentives will be paid back to them. At this point they can
@@ -101,6 +107,7 @@ being pegged, only transactional state is synced to the network. Transactional s
 asset payload, associated data (such as memo or payment ID), transaction ID and from/to
 addresses. Block-scanning logic is maintained that is unique to each connected chain. Only
 transactional state concerning the network’s vaults is synced.
+
 When a node observes a transaction concerning a vault they are monitoring, they compose a
 witness transaction and broadcast this into the network using their whitelisted address. This
 witness transaction contains the transactional state and is the same for every connected chain, no
@@ -109,6 +116,7 @@ active nodes and counts them as votes against unique transaction IDs. Once super
 consensus is achieved, logic is applied against the transactional state. Nodes that don’t make
 witness transactions, or fail to make correct transactions (as defined as the super-majority
 consensus), are penalised.
+
 Nodes deal with network variability by maintaining a local cache of relevant transactions for
 each external chain. Nodes are able to identify activity such as double-spending and chain
 re-organisations and update the network if any part of a transaction changes. In this way the
@@ -126,7 +134,7 @@ the purchasing power of the asset is measured simply by the ratio of the depths 
 ensures that all assets can be linked via the single native asset and allows the network to become
 aware of the prices of each asset at any time. Assets can be exchanged for each other by placing an
 asset into its pool and specifying the desired asset to exchange to, even if it is located in another
-pool.
+pool. \
 The pools are virtual and a pool’s assets don’t reside on a single address, since the assets in a
 pool can be located in multiple vaults, across multiple chains. The network maintains awareness of
 the balances in each pool and where the assets are located. Since the network is aware of the
@@ -134,7 +142,7 @@ instantaneous purchasing power of all supported assets, it is able to collect fe
 such as subsidising gas to process outgoing transactions. Additionally, since the network’s native
 asset is pooled against all supported assets, it is able to tightly couple liquidity with security. As
 the value of pooled assets grow, the value of the network’s asset grows linearly, assuming prompt
-market arbitrage [4].
+market arbitrage [4]. \
 Liquidity providers add liquidity into pools by making special transactions into the network’s
 vaults. The network observes the quantity of assets sent, and tracks pool ownership in its state.
 Pool ownership at the time of the transaction is given by the following equation:
@@ -151,6 +159,7 @@ $$
 Liquidity can be reclaimed by the liquidity provider making a special withdraw transaction
 into the network. The share of assets owed to them are remitted back immediately, including any
 liquidity fees or incentives earned during the period of time the provider had a share in the pool.
+
 Users can exchange one asset for any other, by making a transaction into the network’s vaults.
 They specify their desired asset, destination address and any price they wish to achieve. The
 network processes the request by calculating the final quantity of assets and sending to their
@@ -221,14 +230,14 @@ accordance with the network’s rule-set, can only be authorised by a valid tran
 originator of the funds, and no node ever holds a key that can spend funds in isolation. Each vault
 is managed by a threshold signature scheme that requires a super-majority to participate in. It is not
 possible to track which nodes participated in any of the outgoing transactions from the point of
-view of an external observer.
+view of an external observer. \
 Every time node membership changes vaults are re-generated and assets moved. For every chain
 there is a primary vault to receive incoming assets, and multiple secondary vaults that are used to
 remit outgoing assets. Each node is party to the primary vault and one of the secondary vaults.
 Network participants query a node for the latest primary vault address, as well as its expiry time.
 Network participants should query multiple nodes to ensure they are not being eclipse attacked.
 For the case where there is multiple primary vaults, the system will return after query the vault
-with the latest expiry time.
+with the latest expiry time. \
 If an outgoing transaction is to be processed, the network delegates one of the secondary
 vaults to process it. The secondary vault has a much smaller committee size and can process the
 transaction much faster. All nodes witness the finalised outgoing transaction in order for the
@@ -238,7 +247,7 @@ transaction value and the primary vault finalises the transaction instead.
 The network monitors the balances of all secondary vaults and delegates outgoing transactions to
 vaults with sufficient balances. The network tops up secondary vaults regularly by sending assets
 from the primary vaults to the secondary vaults. At any stage half of all pool capital is kept in
-secondary vaults with the rest in the primary vault.
+secondary vaults with the rest in the primary vault. \
 The primary vault is cycled when the network changes its active node membership, which is once
 every few days, or earlier to facilitate a voluntarily leaving node. Secondary vaults are only cycled
 when a node that is a participant to a secondary vault leaves. Cycling vaults regularly ensures the
@@ -252,6 +261,7 @@ key-generation and key-signing. The key-generation ceremony allows the nominated
 construct the parameters for a new vault and the output is a public key from which the vault
 addresses for each chain is derived. Both secp256k1 and ed25519 chains are supported, and the
 vault address derivation is dependent on the chain.
+
 When the network delegates an outgoing transaction to be signed from a certain vault public key,
 relevant signers recognise their participation, prepare a copy of the message to be signed from their
 local key-value storage, and enter a signing session. The key-signing ceremony begins when the
@@ -260,6 +270,7 @@ generated. Once a valid signature is generated, all signers attempt to broadcast
 external network and one will be accepted. Since external networks handle sequence numbers,
 nonces or UTXOs differently, a chain-specific module is used to translate generic outgoing transactions from the network into compatible transaction messages for each chain. Batch-signing
 is supported for networks that can handle it in order to increase signing efficiency.
+
 The key-generation ceremony involves a communication round where each participant checks the
 validity of all other expected members, as prescribed by the system. Additionally to prevent
 spoofing, a commit-reveal scheme is used to ensure secret shares for each participant cannot be
@@ -277,12 +288,13 @@ super-majority’s perspective. The second is arriving at consensus of the const
 which comprises of the state changes created from witness transactions. The final is arriving at
 consensus around the generation of valid threshold signatures for outgoing transactions. In all three
 cases a super-majority (67%) is required, but the network has no opinion on who should
-participate, as long as participants are bonded nodes.
+participate, as long as participants are bonded nodes. \
 By ensuring each node bonds a large quantity of the native asset, the system can prevent
 sybil-attacks. Since the native network asset can be acquired off public markets and has a
 fixed-supply, acquiring a majority of the asset becomes impossible due to run-away costs. The
 only attack vector thus becomes collusion between a super-majority of the nodes. If such a
 situation occurs, the entire network can be overcome, no matter the economic penalties.
+
 Since the network holds security of assets external to it and allows nodes to leave voluntarily,
 there could be a case where the network node count drops below that required to maintain
 consensus. At this point the network invokes a global shutdown, where all assets are returned to
@@ -305,6 +317,7 @@ and should reduce node count until back below an equilibrium. The network target
 block-production speeds of around five seconds. With a minimum bond limit, as well as a
 fixed-supply asset, there is an absolute maximum of the number of nodes that can participate,
 known as the economic limit.
+
 The network can scale to handle a significant number of connected chains, and a practically
 unlimited number of assets. Connected chains have a resource burden on the network, but this can be alleviated since light nodes that have been fast-synced are more than sufficient to function as
 chain connections. There is an asset listing cycle of a few days which ensures that only in-demand
@@ -317,7 +330,7 @@ The system must safely secure external assets, which all have free-floating mark
 network’s asset is used as security, there must be a mechanism to couple the value of the native
 network asset with that of the assets it is securing to ensure the network is always safe. If there
 ever is a case that the capital required to bond is less than what can be gained by a
-majority-collusion theft from the network, then the network is insecure.
+majority-collusion theft from the network, then the network is insecure. \
 Since staked capital is held in pools where the purchasing power of the native network asset is
 always paired to that of the pooled asset, a leveraged coupling in value can be achieved. As long as
 bonded capital exceeds double that of staked capital, then all staked capital can be underwritten.
@@ -350,20 +363,21 @@ nodes abort a key-generation or key-signing ceremony, they are also penalised si
 loses availability. If a secondary vault fails to process an outgoing transaction then the system
 could suffer an unintentional duplicate spend, so the at-fault nodes are fined the full amount of the
 transaction from their bond instead.
+
 Liquidity providers are paid incentives for providing pool capital. Incentives are derived from
 either the value of the slip-based fee (if a block contains trades) or the depth of assets in each pool
 if no trades are processed in a block. Liquidity incentives are always 1/3rd of System Income,
 which is the value of all collected fees in a block, in addition to the block emission. If the
 slip-based fees exceed the 1/3rd threshold already, the excess is deducted from the pools in the
 native asset, and awarded to nodes as a bond reward. This allows the system to transition to a
-fee-only incentive structure when emission is negligible.
+fee-only incentive structure when emission is negligible. \
 Since the network fee is always collected against every outgoing transaction and placed back
 into the protocol reserve, the system can build up long-term revenue during periods of high economic activity. The emission curve of the native asset seeks to begin with 25% annual emission
 and reduce to target 2% after  10  years. The native asset is secured by the protocol in a reserve held
 in the primary vault. The network emissions may never run out if there is economic activity on the
 network.
 
-# 10. Governance
+# 11. Governance
 
 The network follows a governance-minimal approach to prevent social-signalling amongst nodes
 and encourages psuedo-anonymity where possible. There is no supported ability for node operators
@@ -371,14 +385,14 @@ to coordinate or communicate with each other. Users signal via capital allocatio
 and developers respond to network needs by observing capital allocation and delivering. Nodes
 select and run backwards-compatible software, but cannot run software that is lower in version
 than what the nodes in the network are already running. Due to high churn rates, software versions
-will continue to ratchet up.
+will continue to ratchet up. \
 Users signal to list new assets via making staking transactions with the asset in the transaction
 memo. If the asset is on a supported chain but the symbol is not recognised, the network places it
 in a bootstrap mode with swapping disabled. Every few days the network activates the deepest
 bootstrapping pool for swaps and receiving liquidity incentives. In this way the staked capital
 drives which asset is listed and in which order. Any asset can be delisted by all liquidity providers
 withdrawing their assets from the pool. If it is delisted, it must follow the listing process again to
-be added.
+be added. \
 Developers can respond to the needs of the community by submitting new software for testing and
 validation against the primary binary. Due to the modular structure of the binary, building
 connections against new chains should be trivial. Node operators will update to the latest software
@@ -388,20 +402,20 @@ In the same way, chains are delisted by nodes ceasing to witness an existing cha
 super-majority are no longer witnessing a chain, a chain-specific shutdown process is initiated with
 all assets associated with the chain being returned to members.
 
-# 11. Protocol Upgrades
+# 12. Protocol Upgrades
 
 Node operators can upgrade the application logic, schema or even the network itself via the
 protocol’s upgrade system. Both the application logic and its schema is versioned and each node
 declares the specific version they operate on when they enter the system. Due to high churn rates,
 the network continually upgrades by selecting for the lowest common denominator of the
 super-majority. If a schema or logic rollover is detected upon a churn event, the very next block is
-produced against new logic and data is saved against the new schema.
+produced against new logic and data is saved against the new schema. \
 When the network needs to be upgraded, a block height on the old chain is earmarked to result in a
 chain-halt, followed by a genesis import and chain-start of a new chain with upgraded network.
 The design goal of all protocol upgrades is to complete it with minimal coordination, but with
 fall-back safety and backwards compatibility.
 
-# 12. Conclusion
+# 13. Conclusion
 
 A network that facilitates cross-chain liquidity is presented. The network is chain-agnostic and can
 be connected with most other chains. The network uses economic incentives to ensure safety and
