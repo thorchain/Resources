@@ -21,7 +21,7 @@ Refer to the [THORChain Style Guide](https://github.com/thorchain/Branding/blob/
 ### [Fonts](https://github.com/thorchain/Resources/tree/master/Fonts)
 Primary: [EXO2](/fonts/exo)
 
-Secondary: [Open Sans](/fonts/opensans)
+Secondary: [Open Sans](/fonts/OpenSans)
 
 
 ### [Logos](https://github.com/thorchain/Resources/tree/master/Logos)
